@@ -10,6 +10,7 @@ import Home from "./components/pages/Home";
 import Signup from "./components/pages/Signup";
 import NoMatch from "./components/pages/NoMatch";
 import Login from "./components/pages/Login";
+import Sidebar from "./components/common/Sidebar"
 
 class App extends Component {
   render() {
@@ -17,13 +18,13 @@ class App extends Component {
       <div>
         <Header />
         <Router>
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/signup" exact component={Signup} />
-            <Route path="/login" exact component={Login} />
-            <Route component={NoMatch} />
-          </Switch>
-        </Router>
+              <Switch>
+                <Route path="/" exact component={Home} />
+                <Route path="/signup" exact component={Signup} />
+                <Route path="/login" exact component={Login} />
+                <Route component={NoMatch} />
+              </Switch>
+            </Router>
         <Footer />
       </div>
     );

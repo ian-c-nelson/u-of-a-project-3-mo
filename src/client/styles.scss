@@ -18,6 +18,7 @@ $body-background-color: $beige-lighter;
 $control-border-width: 2px;
 $input-border-color: transparent;
 $input-shadow: none;
+$aside-border-color: $brown;
 
 // footer
 $footer-height: 2.5rem;
@@ -49,6 +50,17 @@ nav {
     }
   }
 }
+
+
+.page{
+&.home{
+  aside  {
+    border: solid $control-border-width $aside-border-color;
+  }
+}
+
+}
+
 
 footer.footer {
   width: 100%;

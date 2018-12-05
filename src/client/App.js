@@ -1,23 +1,33 @@
-import React, { Component } from 'react';
-import './app.css';
-import ReactImage from './react.png';
+/* eslint-disable react/prefer-stateless-function */
+/* eslint-disable no-underscore-dangle */
+import React, { Component } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-export default class App extends Component {
-  state = { username: null };
+import Header from "./components/common/Header";
+import Footer from "./components/common/Footer";
 
-  componentDidMount() {
-    fetch('/api/getUsername')
-      .then(res => res.json())
-      .then(user => this.setState({ username: user.username }));
-  }
+import Home from "./components/pages/Home";
+import Signup from "./components/pages/Signup";
+import NoMatch from "./components/pages/NoMatch";
+import Login from "./components/pages/Login";
 
+class App extends Component {
   render() {
-    const { username } = this.state;
     return (
       <div>
-        {username ? <h1>{`Hello ${username}`}</h1> : <h1>Loading.. please wait!</h1>}
-        <img src={ReactImage} alt="react" />
+        <Header />
+        <Router>
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/signup" exact component={Signup} />
+            <Route path="/login" exact component={Login} />
+            <Route component={NoMatch} />
+          </Switch>
+        </Router>
+        <Footer />
       </div>
     );
   }
 }
+
+export default App;

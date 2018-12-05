@@ -1,0 +1,60 @@
+@charset "utf-8";
+@import url("https://fonts.googleapis.com/css?family=Audiowide|Monoton");
+
+$purple: #8a4d76;
+$pink: #fa7c91;
+$brown: #757763;
+$beige-light: #d0d1cd;
+$beige-lighter: #eff0eb;
+
+$grey-dark: $brown;
+$grey-light: $beige-light;
+$primary: $purple;
+$link: $pink;
+$widescreen-enabled: false;
+$fullhd-enabled: false;
+
+$body-background-color: $beige-lighter;
+$control-border-width: 2px;
+$input-border-color: transparent;
+$input-shadow: none;
+
+// footer
+$footer-height: 2.5rem;
+$footer-padding: 0.5rem;
+$footer-background-color: $purple;
+
+@import "../../node_modules/bulma/bulma.sass";
+
+body.has-navbar-fixed-top {
+  font-family: "Audiowide", cursive;
+  margin-bottom: $footer-height;
+}
+
+nav {
+  .navbar-item {
+    color: $beige-lighter;
+
+    .title {
+      font-family: "Monoton", cursive;
+      color: $beige-lighter;
+    }
+
+    .subtitle {
+      color: $beige-lighter;
+    }
+
+    strong {
+      color: $beige-light;
+    }
+  }
+}
+
+footer.footer {
+  width: 100%;
+  height: $footer-height;
+  padding: $footer-padding;
+  color: $beige-light;
+  position: fixed;
+  bottom: 0;
+}

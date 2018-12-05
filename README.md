@@ -6,7 +6,7 @@
 A full stack application to schedule and track maintenance and costs of ownership related to vehicles.
 
 ### Goals
- - NEED MORE HERE
+ - Create a user friendly application to store vehicle information and provide utility for the user about the vehicle's cost of ownership including maintenance records, vehicle values, and links for performing basic maintenance.
 
 ### Technologies
 #### Back End

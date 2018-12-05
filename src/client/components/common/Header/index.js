@@ -5,9 +5,9 @@ function Header(props) {
   // TODO: add clicky stuff
 
   return (
-    <nav className="navbar" role="navigation" aria-label="main navigation">
+    <nav className="navbar is-primary" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
-        <a className="navbar-item" href="https://bulma.io">
+        <a className="navbar-item" href="/">
           <img
             src="https://bulma.io/images/bulma-logo.png"
             width="112"
@@ -31,7 +31,7 @@ function Header(props) {
 
       <div id="navbarBasicExample" className="navbar-menu">
         <div className="navbar-start">
-          <a className="navbar-item">Home</a>
+          <a className="navbar-item" href="/">Home</a>
 
           <a className="navbar-item">Documentation</a>
 

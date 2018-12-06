@@ -1,6 +1,5 @@
 import React from "react";
 import Sidebar from "../../common/Sidebar"
-import Dashboard from "../../Layouts/Dashboard"
 
 
 class Home extends React.Component {
@@ -18,7 +17,6 @@ class Home extends React.Component {
       <div className="tile is-tall-tile">
         <section className="section content">
           <div className="container">
-          <Dashboard />
           </div>
         </section>
       </div>

@@ -24,6 +24,7 @@
     "react/no-unused-prop-types": "error",
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "error",
+    "react/jsx-one-expression-per-line": "off",
     "quotes": [
       "error",
       "double",
@@ -36,6 +37,8 @@
     "consistent-return": "off",
     "max-len": "off",
     "no-trailing-spaces": "warn",
-    "object-curly-newline":"off"
+    "object-curly-newline":"off",
+    "linebreak-style":"off", 
+    "arrow-parens": "off"
   }
 }

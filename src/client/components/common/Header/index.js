@@ -1,22 +1,25 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
+import { Link, NavLink } from "react-router-dom";
 
 function Header(props) {
-  // TODO: add clicky stuff
-
   return (
-    <nav className="navbar is-primary" role="navigation" aria-label="main navigation">
+    <nav
+      className="navbar is-primary"
+      role="navigation"
+      aria-label="main navigation"
+    >
       <div className="navbar-brand">
-        <a className="navbar-item" href="/">
+        <Link to="/" className="navbar-item">
           <img
             src="https://bulma.io/images/bulma-logo.png"
             width="112"
             height="28"
             alt="bulma-logo"
           />
-        </a>
-
+        </Link>
         <a
+          href="#"
           role="button"
           className="navbar-burger burger"
           aria-label="menu"
@@ -31,18 +34,20 @@ function Header(props) {
 
       <div id="navbarBasicExample" className="navbar-menu">
         <div className="navbar-start">
-          <a className="navbar-item" href="/">Dashboard</a>
-
-          
+          <NavLink to="/" className="navbar-item">
+            Dashboard
+          </NavLink>
         </div>
 
         <div className="navbar-end">
           <div className="navbar-item">
             <div className="buttons">
-              <a className="button is-primary">
+              <Link className="button is-primary" to="/signup">
                 <strong>Sign up</strong>
-              </a>
-              <a className="button is-light">Log in</a>
+              </Link>
+              <Link className="button is-light" to="/login">
+                Log in
+              </Link>
             </div>
           </div>
         </div>

@@ -29,5 +29,8 @@ function Card (props) {
                     <a href="#" class="card-footer-item">Delete</a>
                 </footer>
             </div>
+            </div>
             );
   }
+
+  export default Card;

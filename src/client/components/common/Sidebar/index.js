@@ -37,6 +37,7 @@ return (
   </ul>
 </aside>
 );
+
 }
 
 export default Sidebar;

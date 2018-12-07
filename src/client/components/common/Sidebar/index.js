@@ -2,7 +2,7 @@ import React from "react";
 
 function Sidebar(props) {
 return (
-<aside classNameName="menu sidebar">
+<aside className="menu sidebar">
   <p className="menu-label">
     General
   </p>

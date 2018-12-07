@@ -1,18 +1,27 @@
 import React from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 import Input from "../../common/Input";
+import authActions from "../../../actions/authActions";
 
 class Login extends React.Component {
   constructor() {
     super();
-    this.state = {
-      email: "",
-      password: ""
-    };
+    this.state = { credentials: { email: "", password: "" } };
   }
 
   handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
+    const field = event.target.name;
+    const { credentials } = this.state;
+    credentials[field] = event.target.value;
+    return this.setState({ credentials });
+  };
+
+  onSave = event => {
+    const { actions } = this.props;
+    const { credentials } = this.state;
+    event.preventDefault();
+    actions.logInUser(credentials);
   };
 
   render = () => {
@@ -43,6 +52,7 @@ class Login extends React.Component {
                   type="button"
                   className="button is-primary"
                   text="Login"
+                  onClick={this.onSave}
                 />
               </div>
             </div>
@@ -53,4 +63,13 @@ class Login extends React.Component {
   };
 }
 
-export default Login;
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(authActions, dispatch)
+  };
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Login);

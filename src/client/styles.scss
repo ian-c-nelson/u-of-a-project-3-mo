@@ -56,6 +56,7 @@ nav {
 &.home{
   aside  {
     border: solid $control-border-width $aside-border-color;
+    margin: 25px;
   }
 }
 
@@ -70,3 +71,11 @@ footer.footer {
   position: fixed;
   bottom: 0;
 }
+
+.dashboard {
+  & > .tile{
+    background-color: aqua;
+    margin: .25rem;
+  }
+}
+

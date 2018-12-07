@@ -1,36 +1,46 @@
 import React from "react";
 
-function Card (props) {
-    // TODO: add clicky stuff
 
-    return (
-        <div class="card">
-            <header class="card-header">
-                <p class="card-header-title">
-                    Component
-    </p>
-                <a href="#" class="card-header-icon" aria-label="more options">
-                    <span class="icon">
-                        <i class="fas fa-angle-down" aria-hidden="true"></i>
-                    </span>
-                </a>
-            </header>
-            <div class="card-content">
-                <div class="content">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-      <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
-                    <br>
-                        <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+export const Card = (props) => {
+  return (
+    <div className="card">
+      {props.children}
     </div>
-                </div>
-                <footer class="card-footer">
-                    <a href="#" class="card-footer-item">Save</a>
-                    <a href="#" class="card-footer-item">Edit</a>
-                    <a href="#" class="card-footer-item">Delete</a>
-                </footer>
-            </div>
-            </div>
-            );
-  }
+  );
+};
 
-  export default Card;
+export const CardFooter = (props) =>{
+  return (
+    <footer className="card-footer">
+      {props.children}
+    </footer>
+  );
+};
+
+export const  CardHeader = (props) =>{
+  return (
+    <header className="card-header">
+      <h3 className="card-header-title">
+        {props.title}
+      </h3>
+      <a href="#" className="card-header-icon" aria-label="more options">
+        <span className="icon">
+          <i className="fas fa-angle-down" aria-hidden="true"></i>
+        </span>
+      </a>
+    </header>
+  );
+};
+
+export const  CardContent = (props) =>{
+  return (
+    <div className="card-content">
+      <div className="content">
+        {props.children}
+
+      </div>
+    </div>
+  );
+};
+
+

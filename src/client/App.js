@@ -17,21 +17,23 @@ import Home from "./components/pages/Home";
 import Signup from "./components/pages/Signup";
 import NoMatch from "./components/pages/NoMatch";
 import Login from "./components/pages/Login";
+import Sidebar from "./components/common/Sidebar";
+
 
 // Configure redux with redux-thunk and dev tools
-const middleware = [ReduxThunk];
-const enhancer = compose(
-  // Middleware you want to use in development:
-  applyMiddleware(...middleware),
-  // Required! Enable Redux DevTools with the monitors you chose
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
-const store = createStore(rootReducer, {}, enhancer);
+// const middleware = [ReduxThunk];
+// const enhancer = compose(
+//   // Middleware you want to use in development:
+//   applyMiddleware(...middleware),
+//   // Required! Enable Redux DevTools with the monitors you chose
+//   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+// );
+// const store = createStore(rootReducer, {}, enhancer);
 
 class App extends Component {
   render() {
     return (
-      <Provider store={store}>
+      // <Provider store={store}>
         <div>
           <Router>
             <div>
@@ -46,7 +48,7 @@ class App extends Component {
           </Router>
           <Footer />
         </div>
-      </Provider>
+      // </Provider>
     );
   }
 }

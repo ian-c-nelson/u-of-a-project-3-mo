@@ -1,39 +1,28 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Sidebar(props) {
 return (
 <aside className="menu sidebar">
-  <p className="menu-label">
+  {/* <p className="menu-label">
     General
-  </p>
+  </p> */}
   <ul className="menu-list">
-    <li><a>Dashboard</a></li>
-    <li><a>Customers</a></li>
+    <li><Link to="/">Dashboard</Link></li>
+    <li><Link to="/profile">Profile</Link></li>
   </ul>
   <p className="menu-label">
-    Administration
+    Vehicle Information
   </p>
   <ul className="menu-list">
-    <li><a>Team Settings</a></li>
+    
     <li>
-      <a className="is-active">Manage Your Team</a>
-      <ul>
-        <li><a>Members</a></li>
-        <li><a>Plugins</a></li>
-        <li><a>Add a member</a></li>
-      </ul>
+      <Link to="/vehicles/search" className="is-active">Search for Vehicles</Link>
+      
     </li>
-    <li><a>Invitations</a></li>
-    <li><a>Cloud Storage Environment Settings</a></li>
-    <li><a>Authentication</a></li>
-  </ul>
-  <p className="menu-label">
-    Transactions
-  </p>
-  <ul className="menu-list">
-    <li><a>Payments</a></li>
-    <li><a>Transfers</a></li>
-    <li><a>Balance</a></li>
+    <li><Link to="/vehicles/for-sale">Vehicles for Sale</Link></li>
+    <li><Link to="/vehicles/how-to">How To</Link></li>
+    <li><Link to="/vehicles/maintentance">Set Maintenance Reminders</Link></li>
   </ul>
 </aside>
 );

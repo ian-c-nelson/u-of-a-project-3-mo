@@ -10,7 +10,8 @@ import Home from "./components/pages/Home";
 import Signup from "./components/pages/Signup";
 import NoMatch from "./components/pages/NoMatch";
 import Login from "./components/pages/Login";
-import Sidebar from "./components/common/Sidebar"
+import Sidebar from "./components/common/Sidebar";
+
 
 class App extends Component {
   render() {

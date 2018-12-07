@@ -2,38 +2,26 @@ import React from "react";
 
 function Sidebar(props) {
 return (
-<aside classNameName="menu sidebar">
-  <p className="menu-label">
+<aside className="menu sidebar">
+  {/* <p className="menu-label">
     General
-  </p>
+  </p> */}
   <ul className="menu-list">
     <li><a>Dashboard</a></li>
-    <li><a>Customers</a></li>
+    <li><a>My Account</a></li>
   </ul>
   <p className="menu-label">
-    Administration
+    Vehicle Information
   </p>
   <ul className="menu-list">
-    <li><a>Team Settings</a></li>
+    
     <li>
-      <a className="is-active">Manage Your Team</a>
-      <ul>
-        <li><a>Members</a></li>
-        <li><a>Plugins</a></li>
-        <li><a>Add a member</a></li>
-      </ul>
+      <a className="is-active">Search for Vehicles</a>
+      
     </li>
-    <li><a>Invitations</a></li>
-    <li><a>Cloud Storage Environment Settings</a></li>
-    <li><a>Authentication</a></li>
-  </ul>
-  <p className="menu-label">
-    Transactions
-  </p>
-  <ul className="menu-list">
-    <li><a>Payments</a></li>
-    <li><a>Transfers</a></li>
-    <li><a>Balance</a></li>
+    <li><a>Vehicles for Sale</a></li>
+    <li><a>How To</a></li>
+    <li><a>Set Maintenance Reminders</a></li>
   </ul>
 </aside>
 );

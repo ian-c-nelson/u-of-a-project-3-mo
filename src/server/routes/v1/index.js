@@ -27,6 +27,8 @@ router.get("/", (req, res) => {
 });
 
 router.post("/signin", requireSignin, (req, res) => {
+  console.log(req.body);
+
   res.json({ token: tokenizer(req.user) });
 });
 
@@ -38,7 +40,7 @@ router.post("/signup", (req, res) => {
   }
 
   db.User.findOne({ email })
-    .then((dbuser) => {
+    .then(dbuser => {
       // if the user exists return an error
       if (dbuser) {
         return res.status(422).send({ error: "Email already in use" });
@@ -47,7 +49,7 @@ router.post("/signup", (req, res) => {
       // create new user object
       const user = new db.User({ email, password });
       // save the user
-      user.save().then((user) => {
+      user.save().then(user => {
         console.log(user);
         // respond with the success if the user existed
         res.json({ token: tokenizer(user) });
@@ -57,9 +59,17 @@ router.post("/signup", (req, res) => {
 });
 
 // secured routes ===============================================================
-
-router.get("/protected", requireAuth, (req, res) => {
-  res.send("You have been protected!");
+router.get("/user/:email", requireAuth, (req, res) => {
+  db.User.findOne({ email: req.params.email })
+    .then(dbuser => {
+      if (dbuser) {
+        return res.json(dbuser);
+      } 
+      
+      // if the user doesn't exist return an error
+      return res.status(404).send({ error: "User not fount." });
+    })
+    .catch(err => next(err));
 });
 
 module.exports = router;

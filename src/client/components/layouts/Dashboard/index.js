@@ -14,18 +14,25 @@ class Home extends React.Component {
                     model: 'Tacoma',
                     make: 'Toyota',
                     notes: 'Dependable, needs work.'
+                },
+                {
+                    name: 'FamilyCar',
+                    model: 'Tacoma',
+                    make: 'Tundra',
+                    notes: 'weekend warrior'
                 }
+
             ],
             charts: []
         };
     }
 
     render = () => (
-        <div className="tile is-ancestor">
+        <Tile className="is-ancestor dashboard">
             {this.state.vehicles.length ? (
 
                 this.state.vehicles.map(vehicle => (
-                    <Tile key={vehicle.name}>
+                    <Tile className ="is-child is-3" key={vehicle.name}>
                     <Vehicle vehicle={vehicle}  />
                         
                         
@@ -35,7 +42,7 @@ class Home extends React.Component {
             ) : (
                     <h3>No Results to Display</h3>
                 )}
-        </div>
+        </Tile>
 
 
     );

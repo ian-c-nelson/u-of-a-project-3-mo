@@ -72,7 +72,10 @@ footer.footer {
   bottom: 0;
 }
 
-.tile.is-child {
-margin-right: 25px;
+.dashboard {
+  & > .tile{
+    background-color: aqua;
+    margin: .25rem;
+  }
 }
 

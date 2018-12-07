@@ -1,7 +1,7 @@
 import React from "react";
 
 
-const Card = (props) => {
+export const Card = (props) => {
   return (
     <div className="card">
       {props.children}
@@ -9,7 +9,7 @@ const Card = (props) => {
   );
 };
 
-const CardFooter = (props) =>{
+export const CardFooter = (props) =>{
   return (
     <footer className="card-footer">
       {props.children}
@@ -17,12 +17,12 @@ const CardFooter = (props) =>{
   );
 };
 
-const CardHeader = (props) =>{
+export const  CardHeader = (props) =>{
   return (
     <header className="card-header">
-      <p class="card-header-title">
+      <h3 className="card-header-title">
         {props.title}
-      </p>
+      </h3>
       <a href="#" className="card-header-icon" aria-label="more options">
         <span className="icon">
           <i className="fas fa-angle-down" aria-hidden="true"></i>
@@ -32,7 +32,7 @@ const CardHeader = (props) =>{
   );
 };
 
-const CardContent = (props) =>{
+export const  CardContent = (props) =>{
   return (
     <div className="card-content">
       <div className="content">
@@ -43,8 +43,4 @@ const CardContent = (props) =>{
   );
 };
 
-export const Card;
-export const CardHeader;
-export const CardContent;
-export const CardFooter;
-export default Card;
+

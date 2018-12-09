@@ -2,7 +2,8 @@ import React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import Input from "../../common/Input";
-import authActions from "../../../actions/authActions";
+// import authActions from "../../../redux/actions/auth";
+import * as fromCounter from "../../../redux/actions/counter";
 
 class Login extends React.Component {
   constructor() {
@@ -21,11 +22,16 @@ class Login extends React.Component {
     const { actions } = this.props;
     const { credentials } = this.state;
     event.preventDefault();
-    actions.logInUser(credentials);
+    // actions.logInUser(credentials);
+
+    actions.decrementCounter();
   };
 
   render = () => {
-    const { email, password } = this.state;
+    const { credentials, counter } = this.state;
+
+    console.log(this.state);
+
     return (
       <div className="page login">
         <div className="container">
@@ -35,7 +41,7 @@ class Login extends React.Component {
                 <Input
                   name="email"
                   type="email"
-                  value={email}
+                  value={credentials.email}
                   onChange={this.handleInputChange}
                 />
               </div>
@@ -43,7 +49,7 @@ class Login extends React.Component {
                 <Input
                   name="password"
                   type="password"
-                  value={password}
+                  value={credentials.password}
                   onChange={this.handleInputChange}
                 />
               </div>
@@ -54,6 +60,8 @@ class Login extends React.Component {
                   text="Login"
                   onClick={this.onSave}
                 />
+
+                {/* <h1>{counter.toString()}</h1> */}
               </div>
             </div>
           </form>
@@ -65,11 +73,23 @@ class Login extends React.Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(authActions, dispatch)
+    actions: bindActionCreators(
+      {
+        decrementCounter: fromCounter.decrementCounter,
+        incrementCounter: fromCounter.incrementCounter
+      },
+      dispatch
+    )
+  };
+}
+
+function mapStateToProps(state) {
+  return {
+    counter: fromCounter.getCounter(state)
   };
 }
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Login);

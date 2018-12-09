@@ -1,59 +1,55 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { action as toggleMenu } from "redux-burger-menu";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
-function Header(props) {
-  return (
+import React from "react";
+import Icon from "../Icon";
+
+class Header extends React.Component {
+  onIconClick = event => {
+    event.preventDefault();
+    const { actions, burgerMenu } = this.props;
+    const isOpen = !burgerMenu.isOpen;
+    actions.toggleMenu(isOpen);
+  };
+
+  render = () => (
     <nav
-      className="navbar is-primary"
+      className="navbar is-primary is-fixed-top"
       role="navigation"
       aria-label="main navigation"
     >
       <div className="navbar-brand">
-        <Link to="/" className="navbar-item">
-          <img
-            src="https://bulma.io/images/bulma-logo.png"
-            width="112"
-            height="28"
-            alt="bulma-logo"
-          />
+        <Link to="" className="navbar-item" onClick={this.onIconClick}>
+          <Icon icon="car-mechanic" />
         </Link>
-        <a
-          href="#"
-          role="button"
-          className="navbar-burger burger"
-          aria-label="menu"
-          aria-expanded="false"
-          data-target="navbarBasicExample"
-        >
-          <span aria-hidden="true" />
-          <span aria-hidden="true" />
-          <span aria-hidden="true" />
-        </a>
-      </div>
-
-      <div id="navbarBasicExample" className="navbar-menu">
-        <div className="navbar-start">
-          <NavLink to="/" className="navbar-item">
-            Dashboard
-          </NavLink>
-        </div>
-
-        <div className="navbar-end">
-          <div className="navbar-item">
-            <div className="buttons">
-              <Link className="button is-primary" to="/signup">
-                <strong>Sign up</strong>
-              </Link>
-              <Link className="button is-light" to="/login">
-                Log in
-              </Link>
-            </div>
-          </div>
+        <div className="navbar-item">
+          <h4>Welcome to Mo!</h4>
         </div>
       </div>
     </nav>
   );
 }
 
-export default Header;
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(
+      {
+        toggleMenu
+      },
+      dispatch
+    )
+  };
+}
+
+function mapStateToProps(state) {
+  console.log(state);
+  return { ...state };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Header);

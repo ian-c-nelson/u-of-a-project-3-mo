@@ -50,6 +50,7 @@ class App extends Component {
             <div id="react-burger-container">
               <Header />
               <LeftSidebar pageWrapId="react-burger-page-wrap" />
+              <RightSidebar pageWrapId="react-burger-page-wrap" right />
               <div id="react-burger-page">
                 <Switch>
                   <Route path="/" exact component={RequireAuth(Home)} />
@@ -58,7 +59,6 @@ class App extends Component {
                   <Route component={NoMatch} />
                 </Switch>
               </div>
-              {/* <RightSidebar pageWrapId="react-burger-page-wrap" /> */}
               <Footer />
             </div>
           </div>

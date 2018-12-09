@@ -8,13 +8,15 @@ import React from "react";
 import Icon from "../Icon";
 
 class Header extends React.Component {
-  onIconClick = event => {
+  openMainMenu = event => {
     event.preventDefault();
     const { actions, burgerMenu } = this.props;
-    const isOpen = !burgerMenu.isOpen;
+    const isOpen = !burgerMenu.left.isOpen;
     actions.toggleMenu(isOpen, "left");
-    actions.toggleMenu(isOpen, "right");
+    // actions.toggleMenu(isOpen, "right");
   };
+
+  onKeyUp = event => {};
 
   render = () => (
     <nav
@@ -23,12 +25,23 @@ class Header extends React.Component {
       aria-label="main navigation"
     >
       <div className="navbar-brand">
-        <Link to="" className="navbar-item" onClick={this.onIconClick}>
+        <Link to="" className="navbar-item" onClick={this.openMainMenu}>
           <Icon icon={["fas", "car-mechanic"]} size="2x" />
         </Link>
         <div className="navbar-item">
           <h4>Welcome to Mo!</h4>
         </div>
+        <button
+          type="button"
+          className="button is-primary navbar-burger"
+          aria-label="menu"
+          aria-expanded="false"
+          onClick={this.openMainMenu}
+        >
+          <span aria-hidden="true" />
+          <span aria-hidden="true" />
+          <span aria-hidden="true" />
+        </button>
       </div>
     </nav>
   );

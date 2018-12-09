@@ -59,20 +59,10 @@ body {
   color: white;
 }
 
-/* The rest copied directly from react-burger-menu docs */
 
-/* Position and sizing of burger button */
+/* hide the bm burger icon and use bulma icon */
 .bm-burger-button {
-  position: fixed;
-  width: 28px;
-  height: 28px;
-  right: 10px;
-  top: 12px;
-}
-
-/* Color/shape of burger icon bars */
-.bm-burger-bars {
-  background: $beige-lighter;
+  display: none;
 }
 
 /* Position and sizing of clickable cross button */

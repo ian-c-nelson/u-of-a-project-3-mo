@@ -133,6 +133,19 @@ nav {
   }
 }
 
+.button {
+  &.icon {
+    height: 2em;
+    width: 2em;
+    font-size: 1.5em;
+
+    &.is-primary {
+      color: $grey-light;
+    }
+    
+  }
+}
+
 footer.footer {
   width: 100%;
   height: $footer-height;

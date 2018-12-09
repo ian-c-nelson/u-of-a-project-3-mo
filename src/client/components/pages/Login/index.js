@@ -60,8 +60,6 @@ class Login extends React.Component {
                   text="Login"
                   onClick={this.onSave}
                 />
-
-                {/* <h1>{counter.toString()}</h1> */}
               </div>
             </div>
           </form>

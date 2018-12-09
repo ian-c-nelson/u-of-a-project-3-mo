@@ -12,7 +12,8 @@ class Header extends React.Component {
     event.preventDefault();
     const { actions, burgerMenu } = this.props;
     const isOpen = !burgerMenu.isOpen;
-    actions.toggleMenu(isOpen);
+    actions.toggleMenu(isOpen, "left");
+    actions.toggleMenu(isOpen, "right");
   };
 
   render = () => (
@@ -23,7 +24,7 @@ class Header extends React.Component {
     >
       <div className="navbar-brand">
         <Link to="" className="navbar-item" onClick={this.onIconClick}>
-          <Icon icon="car-mechanic" />
+          <Icon icon={["fas", "car-mechanic"]} size="2x" />
         </Link>
         <div className="navbar-item">
           <h4>Welcome to Mo!</h4>

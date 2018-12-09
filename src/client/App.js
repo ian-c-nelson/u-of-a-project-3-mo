@@ -12,7 +12,7 @@ import rootReducer from "./redux/reducers";
 
 import Header from "./components/common/Header";
 import Footer from "./components/common/Footer";
-import Sidebar from "./components/common/Sidebar";
+import { LeftSidebar, RightSidebar } from "./components/layouts";
 
 import Home from "./components/pages/Home";
 import Signup from "./components/pages/Signup";
@@ -30,7 +30,12 @@ const enhancer = compose(
 
 const initialState = {
   burgerMenu: {
-    isOpen: false
+    left: {
+      isOpen: false
+    },
+    right: {
+      isOpen: false
+    }
   }
 };
 
@@ -44,7 +49,7 @@ class App extends Component {
           <div className="wrapper">
             <div id="react-burger-container">
               <Header />
-              <Sidebar pageWrapId="react-burger-page-wrap" />
+              <LeftSidebar pageWrapId="react-burger-page-wrap" />
               <div id="react-burger-page">
                 <Switch>
                   <Route path="/" exact component={RequireAuth(Home)} />
@@ -53,6 +58,7 @@ class App extends Component {
                   <Route component={NoMatch} />
                 </Switch>
               </div>
+              {/* <RightSidebar pageWrapId="react-burger-page-wrap" /> */}
               <Footer />
             </div>
           </div>

@@ -6,22 +6,36 @@ const UserVehicleSchema = new Schema({
     type: String,
     required: true
   },
+  
   make: {
     type: String,
     required: true
   },
+
   year: {
     type: Number,
     required: true
   },
+
   color: {
     type: String,
     required: false
   },
+
   mileage: {
     type: Number,
     required: true,
-  }
+  },
+
+  addMaintenance: {
+    type: Schema.Types.ObjectId,
+    ref: "AddMaintenance"
+  },
+
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  },
   
 });
 

@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 import React from "react";
-import Icon from "../Icon";
+import { Icon, ToolTip } from "..";
 
 class Header extends React.Component {
   openMainMenu = event => {
@@ -31,17 +31,18 @@ class Header extends React.Component {
         <div className="navbar-item">
           <h4>Welcome to Mo!</h4>
         </div>
-        <button
-          type="button"
-          className="button is-primary navbar-burger"
-          aria-label="menu"
-          aria-expanded="false"
-          onClick={this.openMainMenu}
-        >
-          <span aria-hidden="true" />
-          <span aria-hidden="true" />
-          <span aria-hidden="true" />
-        </button>
+        <div className="navbar-item">
+          <span className="subtitle">Maintenance Organized.</span>
+        </div>
+        <ToolTip message="Main Menu">
+          <button
+            type="button"
+            className="button is-primary icon menu"
+            onClick={this.openMainMenu}
+          >
+            <Icon icon={["fas", "bars"]} fixedWidth />
+          </button>
+        </ToolTip>
       </div>
     </nav>
   );

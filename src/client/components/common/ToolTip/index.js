@@ -1,6 +1,6 @@
 import React from "react";
 
-function Footer(props) {
+function ToolTip(props) {
   const { message, position, children } = props;
   const bubbleClassName = `tooltip-bubble ${position || "top"}`;
   return (
@@ -11,4 +11,4 @@ function Footer(props) {
   );
 }
 
-export default Footer;
+export default ToolTip;

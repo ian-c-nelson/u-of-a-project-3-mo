@@ -13,10 +13,7 @@ import Header from "./components/common/Header";
 import Footer from "./components/common/Footer";
 import { LeftSidebar, RightSidebar } from "./components/layouts";
 
-import Home from "./components/pages/Home";
-import Signup from "./components/pages/Signup";
-import NoMatch from "./components/pages/NoMatch";
-import Login from "./components/pages/Login";
+import * as pages from "./components/pages";
 
 // Configure redux with redux-thunk and dev tools
 const middleware = [ReduxThunk];
@@ -52,10 +49,10 @@ class App extends Component {
               <RightSidebar pageWrapId="react-burger-page-wrap" right />
               <div id="react-burger-page">
                 <Switch>
-                  <Route path="/" exact component={RequireAuth(Home)} />
-                  <Route path="/signup" exact component={Signup} />
-                  <Route path="/login" exact component={Login} />
-                  <Route component={NoMatch} />
+                  <Route path="/" exact component={RequireAuth(pages.Home)} />
+                  <Route path="/signup" exact component={pages.SignUp} />
+                  <Route path="/login" exact component={pages.Login} />
+                  <Route component={pages.NoMatch} />
                 </Switch>
               </div>
               <Footer />

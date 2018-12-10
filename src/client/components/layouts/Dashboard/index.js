@@ -7,15 +7,15 @@ class Home extends React.Component {
     this.state = {
       vehicles: [
         {
-          name: "MyCar",
+          name: "My Car",
           model: "Tacoma",
           make: "Toyota",
           notes: "Dependable, needs work."
         },
         {
-          name: "FamilyCar",
-          model: "Tacoma",
-          make: "Tundra",
+          name: "Family Car",
+          model: "Tundra",
+          make: "Toyota",
           notes: "weekend warrior"
         }
       ],

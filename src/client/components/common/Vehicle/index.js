@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardHeader, CardFooter, CardContent } from "../Card";
-import Tooltip from "../ToolTip";
+import ToolTip from "../ToolTip";
 import Icon from "../Icon";
 
 function Vehicle(props) {
@@ -8,41 +8,44 @@ function Vehicle(props) {
   const { vehicle } = props;
 
   return (
-    <Card>
-      <CardHeader title={vehicle.name} />
-      <CardContent>
-        <h4>{vehicle.make}</h4>
-        <h6>{vehicle.model}</h6>
-        <p>{vehicle.notes}</p>
-      </CardContent>
-      <CardFooter>
-        <p className="card-footer-item">
-          <Tooltip message="Maintenance">
-            <button
-              type="button"
-              className="button is-primary icon"
-              data-tooltip=""
-            >
-              <Icon icon={["fas", "wrench"]} fixedWidth />
-            </button>
-          </Tooltip>
-        </p>
-        <p className="card-footer-item">
-          <Tooltip message="Edit Vehicle">
-            <button type="button" className="button is-primary icon">
-              <Icon icon={["fas", "pencil-alt"]} fixedWidth />
-            </button>
-          </Tooltip>
-        </p>
-        <p className="card-footer-item">
-          <Tooltip message="Delete Vehicle">
-            <button type="button" className="button is-primary icon">
-              <Icon icon={["fas", "trash-alt"]} fixedWidth />
-            </button>
-          </Tooltip>
-        </p>
-      </CardFooter>
-    </Card>
+    <div className="vehicle">
+      <Card>
+        <CardHeader title={vehicle.name} />
+        <CardContent>
+          <span className="make">{vehicle.make}</span>
+          <span className="model">{vehicle.model}</span>
+          <hr />
+          <p className="notes">{vehicle.notes}</p>
+        </CardContent>
+        <CardFooter>
+          <p className="card-footer-item">
+            <ToolTip message="Manage Maintenance">
+              <button
+                type="button"
+                className="button is-primary icon"
+                data-tooltip=""
+              >
+                <Icon icon={["fas", "wrench"]} fixedWidth />
+              </button>
+            </ToolTip>
+          </p>
+          <p className="card-footer-item">
+            <ToolTip message="Edit Vehicle">
+              <button type="button" className="button is-primary icon">
+                <Icon icon={["fas", "pencil-alt"]} fixedWidth />
+              </button>
+            </ToolTip>
+          </p>
+          <p className="card-footer-item">
+            <ToolTip message="Delete Vehicle">
+              <button type="button" className="button is-primary icon">
+                <Icon icon={["fas", "trash-alt"]} fixedWidth />
+              </button>
+            </ToolTip>
+          </p>
+        </CardFooter>
+      </Card>
+    </div>
   );
 }
 

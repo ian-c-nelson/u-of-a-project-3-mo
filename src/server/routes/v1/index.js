@@ -26,6 +26,11 @@ router.get("/", (req, res) => {
   res.send("Welcome to the v1 routes!");
 });
 
+router.get("/redux-test", (req, res) => {
+  res.send("Redux request test.");
+});
+
+
 router.post("/signin", requireSignin, (req, res) => {
   console.log(req.body);
 

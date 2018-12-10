@@ -1,51 +1,49 @@
 import React from "react";
-
-
-import Tile from "../../common/Tile"
-import Vehicle from "../../common/Vehicle"
+import Vehicle from "../../common/Vehicle";
 
 class Home extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            vehicles: [
-                {
-                    name: 'MyCar',
-                    model: 'Tacoma',
-                    make: 'Toyota',
-                    notes: 'Dependable, needs work.'
-                },
-                {
-                    name: 'FamilyCar',
-                    model: 'Tacoma',
-                    make: 'Tundra',
-                    notes: 'weekend warrior'
-                }
+  constructor() {
+    super();
+    this.state = {
+      vehicles: [
+        {
+          name: "My Car",
+          model: "Tacoma",
+          make: "Toyota",
+          notes: "Dependable, needs work."
+        },
+        {
+          name: "Family Car",
+          model: "Tundra",
+          make: "Toyota",
+          notes: "weekend warrior"
+        }
+      ]
+      //   charts: []
+    };
+  }
 
-            ],
-            charts: []
-        };
-    }
-
-    render = () => (
-        <Tile className="is-ancestor dashboard">
-            {this.state.vehicles.length ? (
-
-                this.state.vehicles.map(vehicle => (
-                    <Tile className ="is-child is-3" key={vehicle.name}>
-                    <Vehicle vehicle={vehicle}  />
-                        
-                        
-                    </Tile>
-                ))
-
-            ) : (
-                    <h3>No Results to Display</h3>
-                )}
-        </Tile>
-
-
+  render = () => {
+    const { vehicles } = this.state;
+    return (
+      <div className="columns is-multiline is-centered">
+        {vehicles.length ? (
+          vehicles.map(vehicle => (
+            <div
+              className="column is-10-mobile is-5-tablet is-3-desktop"
+              key={vehicle.name}
+            >
+              <Vehicle vehicle={vehicle} />
+            </div>
+          ))
+        ) : (
+          <div className="column">
+            <h3>No Results to Display</h3>
+          </div>
+        )}
+      </div>
     );
+  };
 }
 
 export default Home;

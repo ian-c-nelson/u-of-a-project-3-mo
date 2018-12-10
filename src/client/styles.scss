@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/css?family=Audiowide|Monoton");
 
 $purple: #8a4d76;
+$purple-dark: #62066f;
 $pink: #fa7c91;
 $brown: #757763;
 $beige-light: #d0d1cd;
@@ -58,7 +59,6 @@ body {
 .bm-item:hover {
   color: white;
 }
-
 
 /* hide the bm burger icon and use bulma icon */
 .bm-burger-button {
@@ -123,6 +123,167 @@ nav {
   }
 }
 
+// tooltip ===============================================================
+$tooltip-color: $purple;
+$tooltip-border-color: $purple-dark;
+$tooltip-text-color: $beige-lighter;
+$tooltip-border-width: 2px;
+$tooltip-triangle-width: $tooltip-border-width * 4;
+
+.tooltip {
+  &-wrapper {
+    position: relative;
+    cursor: pointer;
+  
+    /* Show the tooltip on hover */
+    &:hover .tooltip-bubble {
+      display: block;
+    }
+  }
+  
+  &-bubble {
+    background: $tooltip-color;
+    border-radius: 3px;
+    color: $tooltip-text-color;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    padding: 0.75em;
+    text-align: center;
+    position: absolute;
+    min-width: 120px;
+    max-width: 300px;
+    padding: 10px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+    border: $tooltip-border-width solid $tooltip-border-color;
+    border-radius: 3px;
+    z-index: 10;
+  
+    /* Hide the tooltip by default */
+    display: none;
+  
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+    }
+  
+    /* The fill of the triangle */
+    &::after {
+      z-index: 1;
+    }
+  
+    // position transforms
+    &.top {
+      bottom: 100%;
+      margin-bottom: $tooltip-triangle-width + 2px;
+      transform: translateX(-50%);
+      left: 50%;
+  
+      &::before,
+      &::after {
+        border-left: $tooltip-triangle-width solid transparent;
+        border-right: $tooltip-triangle-width solid transparent;
+        top: 100%;
+        left: 50%;
+        margin-left: -$tooltip-triangle-width;
+      }
+  
+      &::before {
+        border-top: $tooltip-triangle-width solid $tooltip-border-color;
+        margin-top: 1.5px;
+      }
+  
+      &::after {
+        border-top: $tooltip-triangle-width solid $tooltip-color;
+        margin-top: -1px;
+      }
+    }
+  
+    &.bottom {
+      top: 100%;
+      margin-top: $tooltip-triangle-width + 2px;
+      transform: translateX(-50%);
+      left: 50%;
+  
+      &::before,
+      &::after {
+        border-left: $tooltip-triangle-width solid transparent;
+        border-right: $tooltip-triangle-width solid transparent;
+        bottom: 100%;
+        left: 50%;
+        margin-left: -$tooltip-triangle-width;
+      }
+  
+      &::before {
+        border-bottom: $tooltip-triangle-width solid $tooltip-border-color;
+        margin-bottom: 1.5px;
+      }
+  
+      &::after {
+        border-bottom: $tooltip-triangle-width solid $tooltip-color;
+        margin-bottom: -1px;
+      }
+    }
+  
+    &.left {
+      margin-right: $tooltip-triangle-width + 2px;
+      right: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+  
+      &::before,
+      &::after {
+        border-top: $tooltip-triangle-width solid transparent;
+        border-bottom: $tooltip-triangle-width solid transparent;
+        margin-left: -$tooltip-triangle-width;
+        left: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+  
+      &::before {
+        border-left: $tooltip-triangle-width solid $tooltip-border-color;
+        margin-left: 1.5px;
+      }
+  
+      &::after {
+        border-left: $tooltip-triangle-width solid $tooltip-color;
+        margin-left: -1px;
+      }
+    }
+  
+    &.right {
+      margin-left: $tooltip-triangle-width + 2px;
+      left: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+  
+      &::before,
+      &::after {
+        border-top: $tooltip-triangle-width solid transparent;
+        border-bottom: $tooltip-triangle-width solid transparent;
+        margin-right: -$tooltip-triangle-width;
+        right: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+  
+      &::before {
+        border-right: $tooltip-triangle-width solid $tooltip-border-color;
+        margin-right: 1.5px;
+      }
+  
+      &::after {
+        border-right: $tooltip-triangle-width solid $tooltip-color;
+        margin-right: -1px;
+      }
+    }
+  }
+}
+
+
+// End tooltip ===============================================================
+
 .button {
   &.icon {
     height: 2em;
@@ -132,7 +293,6 @@ nav {
     &.is-primary {
       color: $grey-light;
     }
-    
   }
 }
 
@@ -141,7 +301,7 @@ footer.footer {
   height: $footer-height;
   padding: $footer-padding;
   color: $beige-light;
-  font-size: x-small;
+  font-size: small;
   position: fixed;
   bottom: 0;
 }

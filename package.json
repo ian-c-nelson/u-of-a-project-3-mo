@@ -38,7 +38,8 @@
     "redux": "^4.0.1",
     "redux-actions": "^2.6.4",
     "redux-burger-menu": "^0.2.8",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "sass-loader": "^7.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.0",
@@ -62,7 +63,6 @@
     "file-loader": "^2.0.0",
     "html-webpack-plugin": "^3.2.0",
     "node-sass": "^4.10.0",
-    "sass-loader": "^7.1.0",
     "style-loader": "^0.23.0",
     "url-loader": "^1.0.1",
     "webpack": "^4.5.0",

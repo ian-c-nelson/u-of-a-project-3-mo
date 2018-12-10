@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, CardHeader, CardFooter, CardContent } from "../Card";
+import Tooltip from "../ToolTip";
 import Icon from "../Icon";
 
 function Vehicle(props) {
@@ -16,31 +17,29 @@ function Vehicle(props) {
       </CardContent>
       <CardFooter>
         <p className="card-footer-item">
-          <button
-            type="button"
-            className="button  is-primary icon"
-            title="Maintenance"
-          >
-            <Icon icon={["fas", "wrench"]} fixedWidth />
-          </button>
+          <Tooltip message="Maintenance">
+            <button
+              type="button"
+              className="button is-primary icon"
+              data-tooltip=""
+            >
+              <Icon icon={["fas", "wrench"]} fixedWidth />
+            </button>
+          </Tooltip>
         </p>
         <p className="card-footer-item">
-          <button
-            type="button"
-            className="button is-primary icon"
-            title="Edit Vehicle"
-          >
-            <Icon icon={["fas", "pencil-alt"]} fixedWidth />
-          </button>
+          <Tooltip message="Edit Vehicle">
+            <button type="button" className="button is-primary icon">
+              <Icon icon={["fas", "pencil-alt"]} fixedWidth />
+            </button>
+          </Tooltip>
         </p>
         <p className="card-footer-item">
-          <button
-            type="button"
-            className="button is-primary icon"
-            title="Delete Vehicle"
-          >
-            <Icon icon={["fas", "trash-alt"]} fixedWidth />
-          </button>
+          <Tooltip message="Delete Vehicle">
+            <button type="button" className="button is-primary icon">
+              <Icon icon={["fas", "trash-alt"]} fixedWidth />
+            </button>
+          </Tooltip>
         </p>
       </CardFooter>
     </Card>

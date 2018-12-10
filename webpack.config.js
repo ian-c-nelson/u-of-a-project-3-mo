@@ -34,10 +34,7 @@ module.exports = {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
           fallback: "style-loader",
-          use: [
-            "css-loader",
-            "sass-loader"
-          ]
+          use: ["css-loader", "sass-loader"]
         })
       },
       {
@@ -50,7 +47,8 @@ module.exports = {
     port: 3000,
     open: true,
     proxy: {
-      "/api": "http://localhost:8080"
+      "/api": "http://localhost:8080",
+      // "/": "http://localhost:3000/"
     }
   },
   plugins: [

@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default () => {
   this.baseUrl = "/api";
-  
+
   this.get = function(endPoint) {
     const url = `${this.baseUrl}${endPoint}`;
     return axios.get(url);
@@ -16,5 +16,4 @@ export default () => {
   this.getPhrase = () => {
     return this.get("/api/v1/phrase");
   };
-
 };

@@ -3,6 +3,11 @@ import { action as toggleMenu } from "redux-burger-menu";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
+import {
+  incrementCounter,
+  decrementCounter
+} from "../../../redux/actions/counter";
+
 import { Icon, ToolTip } from "../../common";
 
 class SandBox extends React.Component {
@@ -20,6 +25,10 @@ class SandBox extends React.Component {
     actions.toggleMenu(isOpen, "right");
   };
 
+  incrementIt = () => {};
+
+  decrementIt = () => {};
+
   componentDidMount = () => {
     const { actions } = this.props;
 
@@ -30,6 +39,7 @@ class SandBox extends React.Component {
   };
 
   render = () => {
+    const { actions, state } = this.props;
     console.log(this.props);
 
     return (
@@ -67,6 +77,12 @@ class SandBox extends React.Component {
         >
           <Icon icon={["fab", "youtube"]} fixedWidth />
         </button>
+
+        <br />
+
+        <span>
+          <strong>Value: </strong> {state.counter}
+        </span>
       </div>
     );
   };
@@ -76,7 +92,9 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(
       {
-        toggleMenu
+        toggleMenu,
+        incrementCounter,
+        decrementCounter
       },
       dispatch
     )

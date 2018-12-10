@@ -22,6 +22,7 @@ const AddMaintenanceSchema = new Schema({
     type: Date,
     required: true
   },
+  
   model: {
     type: String,
     required: true
@@ -31,6 +32,7 @@ const AddMaintenanceSchema = new Schema({
     type: String,
     required: true
   },
+
   year: {
     type: Number,
     required: true
@@ -39,12 +41,22 @@ const AddMaintenanceSchema = new Schema({
   mileage: {
     type: Number,
     required: true,
-  }
+  },
+  
+  userVehicle: {
+    type: Schema.Types.ObjectId,
+    ref: "UserVehicle"
+  },
+
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  },
 
 });
 
 // This creates our model from the above schema, using mongoose's model method
-var AddMaintenance = mongoose.model("Maintenance", AddMaintenanceSchema);
+var AddMaintenance = mongoose.model("AddMaintenance", AddMaintenanceSchema);
 
 // Export the Note model
 module.exports = AddMaintenance;

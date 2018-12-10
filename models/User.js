@@ -8,9 +8,20 @@ const UserSchema = new Schema({
     lowercase: true,
     unique: true
   },
+
   password: {
     type: String,
     required: true
+  },
+
+  userVehicle: {
+    type: Schema.Types.ObjectId,
+    ref: "UserVehicle"
+  },
+  
+  addMaintenance: {
+    type: Schema.Types.ObjectId,
+    ref: "AddMaintenance"
   }
 });
 

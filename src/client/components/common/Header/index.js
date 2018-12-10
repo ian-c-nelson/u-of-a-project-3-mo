@@ -10,13 +10,13 @@ import { Icon, ToolTip } from "..";
 class Header extends React.Component {
   openMainMenu = event => {
     event.preventDefault();
-    const { actions, burgerMenu } = this.props;
-    const isOpen = !burgerMenu.left.isOpen;
+    console.log(this.props);
+
+    const { actions, state } = this.props;
+    const isOpen = !state.burgerMenu.left.isOpen;
     actions.toggleMenu(isOpen, "left");
     // actions.toggleMenu(isOpen, "right");
   };
-
-  onKeyUp = event => {};
 
   render = () => (
     <nav
@@ -34,6 +34,7 @@ class Header extends React.Component {
         <div className="navbar-item">
           <span className="subtitle">Maintenance Organized.</span>
         </div>
+
         <ToolTip message="Main Menu">
           <button
             type="button"
@@ -60,8 +61,9 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-  console.log(state);
-  return { ...state };
+  // trim the fat from the state
+  const { burgerMenu } = state;
+  return { state: { burgerMenu } };
 }
 
 export default connect(

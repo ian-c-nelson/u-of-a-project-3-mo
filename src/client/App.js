@@ -2,15 +2,13 @@
 /* eslint-disable no-underscore-dangle */
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 import { createStore, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
 import ReduxThunk from "redux-thunk";
-
-import RequireAuth from "./components/common/RequireAuth";
 import rootReducer from "./redux/reducers";
 
-import Header from "./components/common/Header";
-import Footer from "./components/common/Footer";
+import { Header, Footer } from "./components/common";
 import { LeftSidebar, RightSidebar } from "./components/layouts";
 
 import * as pages from "./components/pages";
@@ -49,9 +47,11 @@ class App extends Component {
               <RightSidebar pageWrapId="react-burger-page-wrap" right />
               <div id="react-burger-page">
                 <Switch>
-                  <Route path="/" exact component={RequireAuth(pages.Home)} />
-                  <Route path="/signup" exact component={pages.SignUp} />
+                  <Route path="/" exact component={pages.Home} />
+                  {/* <Route path="/" exact component={pages.SandBox} /> */}
                   <Route path="/login" exact component={pages.Login} />
+                  <Route path="/signup" exact component={pages.SignUp} />
+                  <Route path="/sandbox" exact component={pages.SandBox} />
                   <Route component={pages.NoMatch} />
                 </Switch>
               </div>

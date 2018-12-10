@@ -37,11 +37,22 @@ $footer-background-color: $purple;
 
 body {
   font-family: "Ubuntu", sans-serif;
+  overflow: hidden;
+}
+
+html,
+.wrapper {
+  overflow: hidden;
 }
 
 /* React Burger CSS */
 #react-burger-container {
-  margin-top: $navbar-height + 0.75rem;
+  position: absolute;
+  top: $navbar-height;
+  bottom: $footer-height;
+  left: 0;
+  right: 0;
+  overflow: auto;
 }
 
 /* Individual itrem */
@@ -105,6 +116,9 @@ body {
 /* End React Burger CSS */
 
 nav {
+  height: $navbar-height;
+  max-height: $navbar-height;
+
   .navbar-itrem {
     color: $beige-lighter;
 
@@ -133,18 +147,17 @@ $tooltip-triangle-width: $tooltip-border-width * 8;
 .tooltip {
   &-wrapper {
     position: relative;
+    display: inline;
 
-    /* Show the tooltip on hover */
-    &:hover .tooltip-bubble {
-      display: block;
+    &:hover {
+      .tooltip-bubble {
+        visibility: visible;
+      }
     }
   }
 
-  &.show-pointer {
-    cursor: pointer;
-  }
-
   &-bubble {
+    position: absolute;
     background: $tooltip-color;
     border-radius: 3px;
     color: $tooltip-text-color;
@@ -152,17 +165,16 @@ $tooltip-triangle-width: $tooltip-border-width * 8;
     line-height: 1.4;
     padding: 0.75rem;
     text-align: center;
-    position: absolute;
     min-width: 4rem;
     max-width: 10rem;
-    padding: .25rem;
+    padding: 0.25rem;
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
     border: $tooltip-border-width solid $tooltip-border-color;
     border-radius: 3px;
     z-index: 10;
 
     /* Hide the tooltip by default */
-    display: none;
+    visibility: hidden;
 
     &::before,
     &::after {
@@ -172,13 +184,13 @@ $tooltip-triangle-width: $tooltip-border-width * 8;
 
     /* The fill of the triangle */
     &::after {
-      z-index: 1;
+      z-index: 9;
     }
 
     // position transforms
     &.top {
       bottom: 100%;
-      margin-bottom: $tooltip-triangle-width + 2px;
+      margin-bottom: $tooltip-triangle-width + 3px;
       transform: translateX(-50%);
       left: 50%;
 
@@ -203,8 +215,8 @@ $tooltip-triangle-width: $tooltip-border-width * 8;
     }
 
     &.bottom {
-      top: 100%;
-      margin-top: $tooltip-triangle-width + 2px;
+      top: 200%;
+      margin-top: $tooltip-triangle-width + 5px;
       transform: translateX(-50%);
       left: 50%;
 
@@ -219,19 +231,19 @@ $tooltip-triangle-width: $tooltip-border-width * 8;
 
       &::before {
         border-bottom: $tooltip-triangle-width solid $tooltip-border-color;
-        margin-bottom: 1.5px;
+        margin-bottom: 1px;
       }
 
       &::after {
         border-bottom: $tooltip-triangle-width solid $tooltip-color;
-        margin-bottom: -1px;
+        margin-bottom: -0.5px;
       }
     }
 
     &.left {
-      margin-right: $tooltip-triangle-width + 2px;
+      margin-right: $tooltip-triangle-width + 1px;
       right: 100%;
-      top: 50%;
+      top: 100%;
       transform: translateY(-50%);
 
       &::before,
@@ -246,7 +258,7 @@ $tooltip-triangle-width: $tooltip-border-width * 8;
 
       &::before {
         border-left: $tooltip-triangle-width solid $tooltip-border-color;
-        margin-left: 1.5px;
+        margin-left: 0.5px;
       }
 
       &::after {
@@ -256,9 +268,9 @@ $tooltip-triangle-width: $tooltip-border-width * 8;
     }
 
     &.right {
-      margin-left: $tooltip-triangle-width + 2px;
+      margin-left: $tooltip-triangle-width + 1px;
       left: 100%;
-      top: 50%;
+      top: 100%;
       transform: translateY(-50%);
 
       &::before,
@@ -273,7 +285,7 @@ $tooltip-triangle-width: $tooltip-border-width * 8;
 
       &::before {
         border-right: $tooltip-triangle-width solid $tooltip-border-color;
-        margin-right: 1.5px;
+        margin-right: 0.5px;
       }
 
       &::after {
@@ -303,7 +315,7 @@ $tooltip-triangle-width: $tooltip-border-width * 8;
 
   .navbar-brand {
     .subtitle {
-      font-size: .75rem;
+      font-size: 0.75rem;
       color: $beige-lighter;
       font-family: "Ubuntu", sans-serif;
     }
@@ -320,14 +332,14 @@ $tooltip-triangle-width: $tooltip-border-width * 8;
 
 .vehicle {
   .card-header-title {
-    padding: 0.25rem .75rem;
+    padding: 0.25rem 0.75rem;
     font-size: 1.5rem;
     font-family: "Righteous", cursive;
   }
 
   .card-content {
     min-height: 150px;
-    padding: 0.5rem .75rem;
+    padding: 0.5rem 0.75rem;
 
     .make,
     .model {
@@ -341,7 +353,7 @@ $tooltip-triangle-width: $tooltip-border-width * 8;
 
     hr {
       background-color: $grey-dark;
-      margin: 0.5rem .1rem;
+      margin: 0.5rem 0.1rem;
       height: 1px;
     }
 
@@ -366,9 +378,28 @@ footer.footer {
   bottom: 0;
 }
 
-.dashboard {
-  & > .tile {
-    background-color: aqua;
-    margin: 0.25rem;
+.page {
+  padding: 0.75rem;
+
+  &.home {
+    /* TODO */
+  }
+
+  &.login {
+    /* TODO */
+  }
+
+  &.sign-up {
+    /* TODO */
+  }
+
+  &.no-match {
+    /* TODO */
+  }
+
+  &.sandbox {
+    .button {
+      margin: 0.1rem;
+    }
   }
 }

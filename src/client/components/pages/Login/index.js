@@ -34,36 +34,34 @@ class Login extends React.Component {
 
     return (
       <div className="page login">
-        <div className="container">
-          <form>
-            <div className="columns">
-              <div className="column is-half is-centered">
-                <Input
-                  name="email"
-                  type="email"
-                  value={credentials.email}
-                  onChange={this.handleInputChange}
-                />
-              </div>
-              <div className="column is-half is-centered">
-                <Input
-                  name="password"
-                  type="password"
-                  value={credentials.password}
-                  onChange={this.handleInputChange}
-                />
-              </div>
-              <div className="column is-half is-centered">
-                <button
-                  type="button"
-                  className="button is-primary"
-                  text="Login"
-                  onClick={this.onSave}
-                />
-              </div>
+        <form>
+          <div className="columns">
+            <div className="column is-half is-centered">
+              <Input
+                name="email"
+                type="email"
+                value={credentials.email}
+                onChange={this.handleInputChange}
+              />
             </div>
-          </form>
-        </div>
+            <div className="column is-half is-centered">
+              <Input
+                name="password"
+                type="password"
+                value={credentials.password}
+                onChange={this.handleInputChange}
+              />
+            </div>
+            <div className="column is-half is-centered">
+              <button
+                type="button"
+                className="button is-primary"
+                text="Login"
+                onClick={this.onSave}
+              />
+            </div>
+          </div>
+        </form>
       </div>
     );
   };

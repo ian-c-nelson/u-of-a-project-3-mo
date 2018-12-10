@@ -28,6 +28,9 @@ function LeftSidebar(props) {
         <li>
           <Link to="/vehicles/maintentance">Set Maintenance Reminders</Link>
         </li>
+        <li>
+          <Link to="/sandbox">SandBox</Link>
+        </li>
       </ul>
       <hr />
       <div className="buttons">

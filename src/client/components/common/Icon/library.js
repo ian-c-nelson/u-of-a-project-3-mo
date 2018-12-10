@@ -1,5 +1,7 @@
 import { library as iconLibrary } from "@fortawesome/fontawesome-svg-core";
 
+import { faYoutube } from "@fortawesome/free-brands-svg-icons";
+
 import {
   faCarMechanic as faCarMechanicLight,
   faBars as faBarsLight,
@@ -57,7 +59,8 @@ iconLibrary.add(
   faTrashAltSolid,
   faWrench,
   faWrenchLight,
-  faWrenchSolid
+  faWrenchSolid,
+  faYoutube
 );
 
 export default iconLibrary;

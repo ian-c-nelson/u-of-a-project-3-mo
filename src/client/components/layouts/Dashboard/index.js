@@ -18,8 +18,8 @@ class Home extends React.Component {
           make: "Toyota",
           notes: "weekend warrior"
         }
-      ],
-    //   charts: []
+      ]
+      //   charts: []
     };
   }
 
@@ -29,7 +29,10 @@ class Home extends React.Component {
       <div className="columns is-multiline is-centered">
         {vehicles.length ? (
           vehicles.map(vehicle => (
-            <div className="column is-10-mobile is-5-tablet is-3-desktop" key={vehicle.name}>
+            <div
+              className="column is-10-mobile is-5-tablet is-3-desktop"
+              key={vehicle.name}
+            >
               <Vehicle vehicle={vehicle} />
             </div>
           ))

@@ -26,10 +26,12 @@ router.get("/", (req, res) => {
   res.send("Welcome to the v1 routes!");
 });
 
-router.get("/redux-test", (req, res) => {
-  res.send("Redux request test.");
+router.get("/phrase", (req, res) => {
+  res.send({
+    value: "Redux request test.",
+    error: ""
+  });
 });
-
 
 router.post("/signin", requireSignin, (req, res) => {
   console.log(req.body);
@@ -69,8 +71,8 @@ router.get("/user/:email", requireAuth, (req, res) => {
     .then(dbuser => {
       if (dbuser) {
         return res.json(dbuser);
-      } 
-      
+      }
+
       // if the user doesn't exist return an error
       return res.status(404).send({ error: "User not fount." });
     })

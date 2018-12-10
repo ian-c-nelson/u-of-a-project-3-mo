@@ -8,7 +8,9 @@ import {
   faCheck as faCheckLight,
   faEnvelope as faEnvelopeLight,
   faLock as faLockLight,
+  faMinus as faMinusLight,
   faPencilAlt as faPencilAltLight,
+  faPlus as faPlusLight,
   faTrashAlt as faTrashAltLight,
   faWrench as faWrenchLight
 } from "@fortawesome/pro-light-svg-icons";
@@ -19,7 +21,9 @@ import {
   faCheck,
   faEnvelope,
   faLock,
+  faMinus,
   faPencilAlt,
+  faPlus,
   faTrashAlt,
   faWrench
 } from "@fortawesome/pro-regular-svg-icons";
@@ -30,7 +34,9 @@ import {
   faCheck as faCheckSolid,
   faEnvelope as faEnvelopeSolid,
   faLock as faLockSolid,
+  faMinus as faMinusSolid,
   faPencilAlt as faPencilAltSolid,
+  faPlus as faPlusSolid,
   faTrashAlt as faTrashAltSolid,
   faWrench as faWrenchSolid
 } from "@fortawesome/pro-solid-svg-icons";
@@ -51,9 +57,15 @@ iconLibrary.add(
   faLock,
   faLockLight,
   faLockSolid,
+  faMinus,
+  faMinusLight,
+  faMinusSolid,
   faPencilAlt,
   faPencilAltLight,
   faPencilAltSolid,
+  faPlus,
+  faPlusLight,
+  faPlusSolid,
   faTrashAlt,
   faTrashAltLight,
   faTrashAltSolid,

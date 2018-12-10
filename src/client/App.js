@@ -12,6 +12,7 @@ import { Header, Footer } from "./components/common";
 import { LeftSidebar, RightSidebar } from "./components/layouts";
 
 import * as pages from "./components/pages";
+import { faWindows } from "@fortawesome/free-brands-svg-icons";
 
 // Configure redux with redux-thunk and dev tools
 const middleware = [ReduxThunk];
@@ -19,7 +20,8 @@ const enhancer = compose(
   // Middleware you want to use in development:
   applyMiddleware(...middleware),
   // Required! Enable Redux DevTools with the monitors you chose
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  window.devToolsExtension ? window.devToolsExtension() : f => f
 );
 
 const initialState = {

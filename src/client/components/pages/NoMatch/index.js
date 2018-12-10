@@ -4,7 +4,7 @@ function NoMatch() {
   // TODO: Pretty it up;
 
   return (
-    <div>
+    <div className="page no-match">
       <h1>404 Page Not Found</h1>
       <h1>
         <span role="img" aria-label="Face With Rolling Eyes Emoji">

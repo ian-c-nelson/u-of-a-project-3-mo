@@ -1,7 +1,8 @@
 @charset "utf-8";
-@import url("https://fonts.googleapis.com/css?family=Audiowide|Monoton");
+@import url("https://fonts.googleapis.com/css?family=Righteous|Ubuntu");
 
 $purple: #8a4d76;
+$purple-dark: #62066f;
 $pink: #fa7c91;
 $brown: #757763;
 $beige-light: #d0d1cd;
@@ -20,20 +21,105 @@ $input-border-color: transparent;
 $input-shadow: none;
 $aside-border-color: $brown;
 
+// header
+$navbar-height: 3rem;
+
 // footer
-$footer-height: 2.5rem;
-$footer-padding: 0.5rem;
+$footer-height: 1.5rem;
+$footer-padding: 0.15rem;
 $footer-background-color: $purple;
 
 @import "../../node_modules/bulma/bulma.sass";
 
-body.has-navbar-fixed-top {
-  font-family: "Audiowide", cursive;
-  margin-bottom: $footer-height;
+* {
+  box-sizing: border-box;
 }
 
+body {
+  font-family: "Ubuntu", sans-serif;
+  overflow: hidden;
+}
+
+html,
+.wrapper {
+  overflow: hidden;
+}
+
+/* React Burger CSS */
+#react-burger-container {
+  position: absolute;
+  top: $navbar-height;
+  bottom: $footer-height;
+  left: 0;
+  right: 0;
+  overflow: auto;
+}
+
+/* Individual itrem */
+.bm-itrem {
+  display: inline-block;
+
+  /* Our sidebar itrem styling */
+  text-decoration: none;
+  margin-bottom: 10px;
+  color: #d1d1d1;
+  transition: color 0.2s;
+}
+
+/* Change color on hover */
+.bm-itrem:hover {
+  color: white;
+}
+
+/* hide the bm burger icon and use bulma icon */
+.bm-burger-button {
+  display: none;
+}
+
+/* Position and sizing of clickable cross button */
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+
+/* Color/shape of close button cross */
+.bm-cross {
+  background: #bdc3c7;
+}
+
+/* General sidebar styles */
+.bm-overlay {
+  height: calc(100% - #{$navbar-height} - #{$footer-height}) !important;
+}
+
+.bm-menu {
+  background: #373a47;
+  padding: 2.5rem 1.5rem 0;
+  font-size: 1.15rem;
+  height: calc(100% - #{$navbar-height} - #{$footer-height}) !important;
+}
+
+/* Morph shape necessary with bubble or elastic */
+.bm-morph-shape {
+  fill: #373a47;
+}
+
+/* Wrapper for itrem list */
+.bm-itrem-list {
+  color: #b8b7ad;
+}
+
+/* Styling of overlay */
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.3);
+}
+/* End React Burger CSS */
+
 nav {
-  .navbar-item {
+  height: $navbar-height;
+  max-height: $navbar-height;
+
+  .navbar-itrem {
     color: $beige-lighter;
 
     .title {
@@ -51,22 +137,269 @@ nav {
   }
 }
 
+// tooltip ===============================================================
+$tooltip-color: $purple;
+$tooltip-border-color: $purple-dark;
+$tooltip-text-color: $beige-lighter;
+$tooltip-border-width: 1px;
+$tooltip-triangle-width: $tooltip-border-width * 8;
 
-.page{
-&.home{
-  aside  {
-    border: solid $control-border-width $aside-border-color;
+.tooltip {
+  &-wrapper {
+    position: relative;
+    display: inline;
+
+    &:hover {
+      .tooltip-bubble {
+        visibility: visible;
+      }
+    }
+  }
+
+  &-bubble {
+    position: absolute;
+    background: $tooltip-color;
+    border-radius: 3px;
+    color: $tooltip-text-color;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    padding: 0.75rem;
+    text-align: center;
+    min-width: 4rem;
+    max-width: 10rem;
+    padding: 0.25rem;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+    border: $tooltip-border-width solid $tooltip-border-color;
+    border-radius: 3px;
+    z-index: 10;
+
+    /* Hide the tooltip by default */
+    visibility: hidden;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+    }
+
+    /* The fill of the triangle */
+    &::after {
+      z-index: 9;
+    }
+
+    // position transforms
+    &.top {
+      bottom: 100%;
+      margin-bottom: $tooltip-triangle-width + 3px;
+      transform: translateX(-50%);
+      left: 50%;
+
+      &::before,
+      &::after {
+        border-left: $tooltip-triangle-width solid transparent;
+        border-right: $tooltip-triangle-width solid transparent;
+        top: 100%;
+        left: 50%;
+        margin-left: -$tooltip-triangle-width;
+      }
+
+      &::before {
+        border-top: $tooltip-triangle-width solid $tooltip-border-color;
+        margin-top: 0.5px;
+      }
+
+      &::after {
+        border-top: $tooltip-triangle-width solid $tooltip-color;
+        margin-top: -1px;
+      }
+    }
+
+    &.bottom {
+      top: 200%;
+      margin-top: $tooltip-triangle-width + 5px;
+      transform: translateX(-50%);
+      left: 50%;
+
+      &::before,
+      &::after {
+        border-left: $tooltip-triangle-width solid transparent;
+        border-right: $tooltip-triangle-width solid transparent;
+        bottom: 100%;
+        left: 50%;
+        margin-left: -$tooltip-triangle-width;
+      }
+
+      &::before {
+        border-bottom: $tooltip-triangle-width solid $tooltip-border-color;
+        margin-bottom: 1px;
+      }
+
+      &::after {
+        border-bottom: $tooltip-triangle-width solid $tooltip-color;
+        margin-bottom: -0.5px;
+      }
+    }
+
+    &.left {
+      margin-right: $tooltip-triangle-width + 1px;
+      right: 100%;
+      top: 100%;
+      transform: translateY(-50%);
+
+      &::before,
+      &::after {
+        border-top: $tooltip-triangle-width solid transparent;
+        border-bottom: $tooltip-triangle-width solid transparent;
+        margin-left: -$tooltip-triangle-width;
+        left: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      &::before {
+        border-left: $tooltip-triangle-width solid $tooltip-border-color;
+        margin-left: 0.5px;
+      }
+
+      &::after {
+        border-left: $tooltip-triangle-width solid $tooltip-color;
+        margin-left: -1px;
+      }
+    }
+
+    &.right {
+      margin-left: $tooltip-triangle-width + 1px;
+      left: 100%;
+      top: 100%;
+      transform: translateY(-50%);
+
+      &::before,
+      &::after {
+        border-top: $tooltip-triangle-width solid transparent;
+        border-bottom: $tooltip-triangle-width solid transparent;
+        margin-right: -$tooltip-triangle-width;
+        right: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      &::before {
+        border-right: $tooltip-triangle-width solid $tooltip-border-color;
+        margin-right: 0.5px;
+      }
+
+      &::after {
+        border-right: $tooltip-triangle-width solid $tooltip-color;
+        margin-right: -1px;
+      }
+    }
   }
 }
 
+// End tooltip ===============================================================
+
+.button {
+  &.icon {
+    height: 2.75rem;
+    width: 2.75rem;
+    font-size: 1.5rem;
+
+    &.is-primary {
+      color: $grey-light;
+    }
+  }
 }
 
+.navbar {
+  font-family: "Righteous", cursive;
+
+  .navbar-brand {
+    .subtitle {
+      font-size: 0.75rem;
+      color: $beige-lighter;
+      font-family: "Ubuntu", sans-serif;
+    }
+
+    .button {
+      &.menu {
+        position: fixed;
+        top: 0.1rem;
+        right: 0.25rem;
+      }
+    }
+  }
+}
+
+.vehicle {
+  .card-header-title {
+    padding: 0.25rem 0.75rem;
+    font-size: 1.5rem;
+    font-family: "Righteous", cursive;
+  }
+
+  .card-content {
+    min-height: 150px;
+    padding: 0.5rem 0.75rem;
+
+    .make,
+    .model {
+      font-weight: bold;
+      font-size: 1.25rem;
+    }
+
+    .model {
+      margin-left: 0.25rem;
+    }
+
+    hr {
+      background-color: $grey-dark;
+      margin: 0.5rem 0.1rem;
+      height: 1px;
+    }
+
+    .notes {
+      font-size: 1rem;
+      margin: 0.5rem 0;
+    }
+  }
+
+  .card-footer-item {
+    padding: 0.5rem;
+  }
+}
 
 footer.footer {
   width: 100%;
   height: $footer-height;
   padding: $footer-padding;
   color: $beige-light;
+  font-size: small;
   position: fixed;
   bottom: 0;
+}
+
+.page {
+  padding: 0.75rem;
+
+  &.home {
+    /* TODO */
+  }
+
+  &.login {
+    /* TODO */
+  }
+
+  &.sign-up {
+    /* TODO */
+  }
+
+  &.no-match {
+    /* TODO */
+  }
+
+  &.sandbox {
+    .button {
+      margin: 0.1rem;
+    }
+  }
 }

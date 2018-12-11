@@ -5,8 +5,17 @@ import { connect } from "react-redux";
 
 import {
   incrementCounter,
-  decrementCounter
+  decrementCounter,
+  getCounter
 } from "../../../redux/actions/counter";
+
+import {
+  getPhrase,
+  getPhraseError,
+  getPhraseRequested,
+  clearPhrase,
+  fetchPhrase
+} from "../../../redux/actions/fetchPhrase";
 
 import { Icon, ToolTip } from "../../common";
 
@@ -25,9 +34,25 @@ class SandBox extends React.Component {
     actions.toggleMenu(isOpen, "right");
   };
 
-  incrementIt = () => {};
+  incrementIt = () => {
+    const { actions } = this.props;
+    actions.incrementCounter();
+  };
 
-  decrementIt = () => {};
+  decrementIt = () => {
+    const { actions, state } = this.props;
+    actions.decrementCounter();
+  };
+
+  fetchIt = () => {
+    const { actions, state } = this.props;
+    actions.fetchPhrase();
+  };
+
+  clearIt = () => {
+    const { actions, state } = this.props;
+    actions.clearPhrase();
+  };
 
   componentDidMount = () => {
     const { actions } = this.props;
@@ -65,26 +90,66 @@ class SandBox extends React.Component {
         <button
           type="button"
           className="button is-primary icon menu"
-          onClick={this.openVideoMenu}
+          onClick={this.decrementIt}
         >
-          <Icon icon={["fab", "youtube"]} fixedWidth />
+          <Icon icon={["fas", "minus"]} fixedWidth />
         </button>
 
         <button
           type="button"
           className="button is-primary icon menu"
-          onClick={this.openVideoMenu}
+          onClick={this.incrementIt}
         >
-          <Icon icon={["fab", "youtube"]} fixedWidth />
+          <Icon icon={["fas", "plus"]} fixedWidth />
         </button>
 
         <br />
 
         <span>
-          <strong>Value: </strong> {state.counter}
+          <strong>Counter: </strong> {state.counter}
         </span>
+        <br />
+
+        <button
+          type="button"
+          disabled={state.phraseRequested}
+          className="button is-primary icon menu"
+          onClick={this.fetchIt}
+        >
+          <Icon icon={["fas", "plus"]} fixedWidth />
+        </button>
+
+        <button
+          type="button"
+          disabled={state.phraseRequested}
+          className="button is-primary icon menu"
+          onClick={this.clearIt}
+        >
+          <Icon icon={["fas", "minus"]} fixedWidth />
+        </button>
+        <br />
+        <div>
+          <b>REQUESTED</b>: {state.phraseRequested ? "TRUE" : "FALSE"}
+        </div>
+        <div>
+          <b>PHRASE</b>: {state.phrase !== null ? state.phrase : "NO PHRASE"}
+        </div>
+        <div>
+          <b>ERROR</b>: {state.phraseError !== null ? state.phraseError : "NO ERROR"}
+        </div>
       </div>
     );
+  };
+}
+
+function mapStateToProps(state) {
+  return {
+    state: {
+      counter: getCounter(state),
+      phrase: getPhrase(state),
+      phraseError: getPhraseError(state),
+      phraseRequested: getPhraseRequested(state)
+    }
   };
 }
 
@@ -94,15 +159,13 @@ function mapDispatchToProps(dispatch) {
       {
         toggleMenu,
         incrementCounter,
-        decrementCounter
+        decrementCounter,
+        clearPhrase,
+        fetchPhrase
       },
       dispatch
     )
   };
-}
-
-function mapStateToProps(state) {
-  return { state: { ...state } };
 }
 
 export default connect(

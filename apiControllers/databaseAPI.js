@@ -32,8 +32,8 @@ export default {
     return axios.delete("/api/uservehicle/" + id);
   },
   // Saves a user vehicle to the database
-  saveUserVehicle: function (userData) {
-    return axios.post("/api/userVehicle", userData);
+  saveUserVehicle: function (userVehicleData) {
+    return axios.post("/api/userVehicle", userVehicleData);
   },
 
 
@@ -50,8 +50,8 @@ export default {
     return axios.delete("/api/maintenance/" + id);
   },
   // Saves a user to the database
-  saveUserMaintenance: function (userData) {
-    return axios.post("/api/maintenance", userData);
+  saveUserMaintenance: function (maintenanceData) {
+    return axios.post("/api/maintenance", maintenanceData);
   },
 
 
@@ -68,8 +68,8 @@ export default {
     return axios.delete("/api/manvehicle/" + id);
   },
   // Saves a manufactured  vehicle to the database
-  saveManVehicle: function (userData) {
-    return axios.post("/api/manVehicle", userData);
+  saveManVehicle: function (manVehicleData) {
+    return axios.post("/api/manVehicle", manVehicleData);
   },
 
 };

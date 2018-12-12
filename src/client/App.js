@@ -20,8 +20,8 @@ const enhancer = compose(
   // Middleware you want to use in development:
   applyMiddleware(...middleware),
   // Required! Enable Redux DevTools with the monitors you chose
-  //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  window.devToolsExtension ? window.devToolsExtension() : f => f
+  window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f
+  //window.devToolsExtension ? window.devToolsExtension() : f => f
 );
 
 const initialState = {

@@ -13,23 +13,24 @@ function LeftSidebar(props) {
         <li>
           <Link to="/profile">Profile</Link>
         </li>
+        <li>
+          <Link to="/sandbox">SandBox</Link>
+        </li>
       </ul>
       <p className="menu-label">Vehicle Information</p>
       <ul className="menu-list">
+        <li>
+          <Link to="/vehicles/maintentance">Set Maintenance Reminders</Link>
+        </li>
         <li>
           <Link to="/vehicles/search">Search for Vehicles</Link>
         </li>
         <li>
           <Link to="/vehicles/for-sale">Vehicles for Sale</Link>
         </li>
+        <p className="menu-label">How To</p>
         <li>
-          <Link to="/vehicles/how-to">How To</Link>
-        </li>
-        <li>
-          <Link to="/vehicles/maintentance">Set Maintenance Reminders</Link>
-        </li>
-        <li>
-          <Link to="/sandbox">SandBox</Link>
+          <Link to="/vehicles/how-to">Change Oil</Link>
         </li>
       </ul>
       <hr />

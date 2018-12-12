@@ -3,7 +3,7 @@ import axios from "axios";
 import config from "../config";
 
 const baseUrl = "https://www.googleapis.com/youtube/v3/";
-const topicId = "/m/07yv9";
+const topicId = "/m/07yv9"; // Vehicles
 
 const get = endPoint => {
   const url = `${baseUrl}${endPoint}`;
@@ -13,10 +13,10 @@ const get = endPoint => {
 
 export default {
   getVideo: (
-    make,
-    model,
-    year,
     procedure,
+    make = "",
+    model = "",
+    year = "",
     maxResults = 5,
     orderby = "relevance"
   ) => {

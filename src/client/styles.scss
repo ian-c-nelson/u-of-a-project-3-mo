@@ -27,7 +27,7 @@ $navbar-height: 3rem;
 // footer
 $footer-height: 1.5rem;
 $footer-padding: 0.15rem;
-$footer-background-color: $purple;
+$footer-background-color: $primary;
 
 @import "../../node_modules/bulma/bulma.sass";
 
@@ -138,9 +138,9 @@ nav {
 }
 
 // tooltip ===============================================================
-$tooltip-color: $purple;
+$tooltip-color: $primary;
 $tooltip-border-color: $purple-dark;
-$tooltip-text-color: $beige-lighter;
+$tooltip-text-color: $text;
 $tooltip-border-width: 1px;
 $tooltip-triangle-width: $tooltip-border-width * 8;
 

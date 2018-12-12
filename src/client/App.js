@@ -20,7 +20,7 @@ const enhancer = compose(
   applyMiddleware(...middleware),
   // Required! Enable Redux DevTools with the monitors you chose
 
-    window.__REDUX_DEVTOOLS_EXTENSION__
+  window.__REDUX_DEVTOOLS_EXTENSION__
     ? window.__REDUX_DEVTOOLS_EXTENSION__()
     : f => f
 );
@@ -60,8 +60,8 @@ class App extends Component {
               <RightSidebar pageWrapId="react-burger-page-wrap" right />
               <div id="react-burger-page">
                 <Switch>
-                  {/* <Route path="/" exact component={pages.Home} /> */}
-                  <Route path="/" exact component={pages.SandBox} />
+                  <Route path="/" exact component={pages.Home} />
+                  {/* <Route path="/" exact component={pages.SandBox} /> */}
                   <Route path="/login" exact component={pages.Login} />
                   <Route path="/signup" exact component={pages.SignUp} />
                   <Route path="/sandbox" exact component={pages.SandBox} />

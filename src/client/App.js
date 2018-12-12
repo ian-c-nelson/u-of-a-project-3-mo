@@ -12,7 +12,6 @@ import { Header, Footer } from "./components/common";
 import { LeftSidebar, RightSidebar } from "./components/layouts";
 
 import * as pages from "./components/pages";
-import { faWindows } from "@fortawesome/free-brands-svg-icons";
 
 // Configure redux with redux-thunk and dev tools
 const middleware = [ReduxThunk];
@@ -20,11 +19,21 @@ const enhancer = compose(
   // Middleware you want to use in development:
   applyMiddleware(...middleware),
   // Required! Enable Redux DevTools with the monitors you chose
-  window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f
-  //window.devToolsExtension ? window.devToolsExtension() : f => f
+
+    window.__REDUX_DEVTOOLS_EXTENSION__
+    ? window.__REDUX_DEVTOOLS_EXTENSION__()
+    : f => f
 );
 
+// export default combineReducers({
+//   auth,
+//   burgerMenu,
+//   counter,
+//   phraseReducers
+// });
+
 const initialState = {
+  auth: {},
   burgerMenu: {
     left: {
       isOpen: false
@@ -32,7 +41,13 @@ const initialState = {
     right: {
       isOpen: false
     }
-  }
+  },
+  counter: 0,
+  phrase: {
+    value: "",
+    error: "",
+    requested: false
+  },
 };
 
 const store = createStore(rootReducer, initialState, enhancer);
@@ -49,8 +64,8 @@ class App extends Component {
               <RightSidebar pageWrapId="react-burger-page-wrap" right />
               <div id="react-burger-page">
                 <Switch>
-                  <Route path="/" exact component={pages.Home} />
-                  {/* <Route path="/" exact component={pages.SandBox} /> */}
+                  {/* <Route path="/" exact component={pages.Home} /> */}
+                  <Route path="/" exact component={pages.SandBox} />
                   <Route path="/login" exact component={pages.Login} />
                   <Route path="/signup" exact component={pages.SignUp} />
                   <Route path="/sandbox" exact component={pages.SandBox} />

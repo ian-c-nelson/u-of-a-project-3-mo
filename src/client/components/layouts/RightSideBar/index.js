@@ -6,9 +6,10 @@ function RightSidebar(props) {
   const { children } = props;
   return (
     <Menu {...props}>
-      {state.videos ? (
+      {/* {state.videos ? (
         state.videos.map(item => {
           console.log(item);
+          const YTLink = "https://www.youtube.com/embed/";
           const link = YTLink + item.id.videoId;
           const uuid = uuidv4();
           return (
@@ -28,7 +29,7 @@ function RightSidebar(props) {
         })
       ) : (
         <h3>No Videos</h3>
-      )}
+      )} */}
     </Menu>
   );
 }

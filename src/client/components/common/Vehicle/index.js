@@ -4,7 +4,6 @@ import ToolTip from "../ToolTip";
 import Icon from "../Icon";
 
 function Vehicle(props) {
-  console.log(props);
   const { vehicle } = props;
 
   return (

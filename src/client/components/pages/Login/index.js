@@ -30,7 +30,7 @@ class Login extends React.Component {
   render = () => {
     const { credentials, counter } = this.state;
 
-    console.log(this.state);
+    // console.log(this.state);
 
     return (
       <div className="page login">

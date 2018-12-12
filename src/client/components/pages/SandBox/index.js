@@ -2,6 +2,7 @@ import React from "react";
 import { action as toggleMenu } from "redux-burger-menu";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import uuidv4 from "uuid/v4";
 
 import {
   incrementCounter,
@@ -17,7 +18,17 @@ import {
   fetchPhrase
 } from "../../../redux/actions/fetchPhrase";
 
+import {
+  getVideos,
+  getVideosError,
+  getVideosRequested,
+  clearVideos,
+  fetchVideos
+} from "../../../redux/actions/videos";
+
 import { Icon, ToolTip } from "../../common";
+
+const YTLink = "https://www.youtube.com/embed/";
 
 class SandBox extends React.Component {
   openMainMenu = event => {
@@ -50,22 +61,24 @@ class SandBox extends React.Component {
   };
 
   clearIt = () => {
-    const { actions, state } = this.props;
+    const { actions } = this.props;
     actions.clearPhrase();
+  };
+
+  fetchVideos = () => {
+    const { actions } = this.props;
+    actions.fetchVideos("Toyota", "Corolla", "2010", "Oil Change");
   };
 
   componentDidMount = () => {
     const { actions } = this.props;
-
-    console.log("Mounted!");
-
     actions.toggleMenu(false, "left");
     actions.toggleMenu(false, "right");
   };
 
   render = () => {
     const { actions, state } = this.props;
-    console.log(this.props);
+    console.log(state);
 
     return (
       <div className="page sandbox">
@@ -76,17 +89,14 @@ class SandBox extends React.Component {
         >
           <Icon icon={["fas", "bars"]} fixedWidth />
         </button>
-
         <button
           type="button"
           className="button is-primary icon menu"
-          onClick={this.openMainMenu}
+          onClick={this.openVideoMenu}
         >
-          <Icon icon={["fas", "bars"]} fixedWidth />
+          <Icon icon={["fab", "youtube"]} fixedWidth />
         </button>
-
         <br />
-
         <button
           type="button"
           className="button is-primary icon menu"
@@ -94,7 +104,6 @@ class SandBox extends React.Component {
         >
           <Icon icon={["fas", "minus"]} fixedWidth />
         </button>
-
         <button
           type="button"
           className="button is-primary icon menu"
@@ -102,14 +111,11 @@ class SandBox extends React.Component {
         >
           <Icon icon={["fas", "plus"]} fixedWidth />
         </button>
-
         <br />
-
         <span>
           <strong>Counter: </strong> {state.counter}
         </span>
         <br />
-
         <button
           type="button"
           disabled={state.phraseRequested}
@@ -118,7 +124,6 @@ class SandBox extends React.Component {
         >
           <Icon icon={["fas", "plus"]} fixedWidth />
         </button>
-
         <button
           type="button"
           disabled={state.phraseRequested}
@@ -135,7 +140,49 @@ class SandBox extends React.Component {
           <b>PHRASE</b>: {state.phrase !== null ? state.phrase : "NO PHRASE"}
         </div>
         <div>
-          <b>ERROR</b>: {state.phraseError !== null ? state.phraseError : "NO ERROR"}
+          <b>ERROR</b>:{" "}
+          {state.phraseError !== null ? state.phraseError : "NO ERROR"}
+        </div>
+        <br />
+        <button
+          type="button"
+          disabled={state.videoRequested}
+          className="button is-primary icon menu"
+          onClick={this.fetchVideos}
+        >
+          <Icon icon={["fab", "youtube"]} fixedWidth />
+        </button>
+        <div>
+          <b>REQUESTED</b>: {state.videosRequested ? "TRUE" : "FALSE"}
+        </div>
+        <div>
+          <b>ERROR</b>:
+          {state.phraseError !== null ? state.videosError : "NO ERROR"}
+        </div>
+        <div>
+          {state.videos ? (
+            state.videos.map(item => {
+              console.log(item);
+              const link = YTLink + item.id.videoId;
+              const uuid = uuidv4();
+              return (
+                <div key={uuid}>
+                  <iframe
+                    title="tester"
+                    width="560"
+                    height="315"
+                    src={link}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                  <p>{item.snippet.title}</p>
+                </div>
+              );
+            })
+          ) : (
+            <h3>No Videos</h3>
+          )}
         </div>
       </div>
     );
@@ -145,10 +192,14 @@ class SandBox extends React.Component {
 function mapStateToProps(state) {
   return {
     state: {
+      burgerMenu: state.burgerMenu,
       counter: getCounter(state),
       phrase: getPhrase(state),
       phraseError: getPhraseError(state),
-      phraseRequested: getPhraseRequested(state)
+      phraseRequested: getPhraseRequested(state),
+      videos: getVideos(state),
+      videosError: getVideosError(state),
+      videosRequested: getVideosRequested(state)
     }
   };
 }
@@ -161,7 +212,8 @@ function mapDispatchToProps(dispatch) {
         incrementCounter,
         decrementCounter,
         clearPhrase,
-        fetchPhrase
+        fetchPhrase,
+        fetchVideos
       },
       dispatch
     )

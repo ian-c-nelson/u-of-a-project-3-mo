@@ -24,13 +24,6 @@ const enhancer = compose(
     : f => f
 );
 
-// export default combineReducers({
-//   auth,
-//   burgerMenu,
-//   counter,
-//   phraseReducers
-// });
-
 const initialState = {
   auth: {},
   burgerMenu: {
@@ -47,6 +40,9 @@ const initialState = {
     error: "",
     requested: false
   },
+  videos: {
+    value: null
+  }
 };
 
 const store = createStore(rootReducer, initialState, enhancer);

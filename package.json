@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --mode production",
     "start": "npm run build && babel src/server/index.js",
-    "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
+    "client": "webpack-dev-server --mode development --devtool inline-source-map --hot --history-api-fallback --progress -p",
     "server": "babel src/server/index.js",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
@@ -39,7 +39,8 @@
     "redux-actions": "^2.6.4",
     "redux-burger-menu": "^0.2.8",
     "redux-thunk": "^2.3.0",
-    "sass-loader": "^7.1.0"
+    "sass-loader": "^7.1.0",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.0",

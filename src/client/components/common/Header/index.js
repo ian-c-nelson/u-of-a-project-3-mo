@@ -10,12 +10,9 @@ import { Icon, ToolTip } from "..";
 class Header extends React.Component {
   openMainMenu = event => {
     event.preventDefault();
-    console.log(this.props);
-
     const { actions, state } = this.props;
     const isOpen = !state.burgerMenu.left.isOpen;
     actions.toggleMenu(isOpen, "left");
-    // actions.toggleMenu(isOpen, "right");
   };
 
   render = () => (

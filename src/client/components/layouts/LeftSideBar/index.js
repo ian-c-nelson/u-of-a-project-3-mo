@@ -1,9 +1,26 @@
-import React from "react";
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { slide as Menu } from "react-burger-menu";
-import { decorator as reduxBurgerMenu } from "redux-burger-menu";
+import {
+  decorator as reduxBurgerMenu,
+  action as toggleMenu
+} from "redux-burger-menu";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+
+import { clearVideos, fetchVideos } from "../../../redux/actions/videos";
+
+function videoLinkOnClick(event, actions, query) {
+  event.preventDefault();
+  actions.clearVideos();
+  actions.fetchVideos(query);
+  actions.toggleMenu(false, "left");
+  actions.toggleMenu(true, "right");
+}
 
 function LeftSidebar(props) {
+  const { actions } = props;
   return (
     <Menu {...props}>
       <ul className="menu-list">
@@ -30,7 +47,54 @@ function LeftSidebar(props) {
         </li>
         <p className="menu-label">How To</p>
         <li>
-          <Link to="/vehicles/how-to">Change Oil</Link>
+          <Link
+            to="#"
+            onClick={event => {
+              videoLinkOnClick(event, actions, "Change Oil");
+            }}
+          >
+            Change Oil
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="#"
+            onClick={event => {
+              videoLinkOnClick(event, actions, "Replace Wiper Blades");
+            }}
+          >
+            Replace Wiper Blades
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="#"
+            onClick={event => {
+              videoLinkOnClick(event, actions, "Replace Air Filter");
+            }}
+          >
+            Replace Air Filter
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="#"
+            onClick={event => {
+              videoLinkOnClick(event, actions, "Change Tires");
+            }}
+          >
+            Change Tires
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="#"
+            onClick={event => {
+              videoLinkOnClick(event, actions, "Replace Battery");
+            }}
+          >
+            Replace Battery
+          </Link>
         </li>
       </ul>
       <hr />
@@ -46,4 +110,23 @@ function LeftSidebar(props) {
   );
 }
 
-export default reduxBurgerMenu(LeftSidebar, "left");
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(
+      {
+        toggleMenu,
+        clearVideos,
+        fetchVideos
+      },
+      dispatch
+    )
+  };
+}
+
+export default reduxBurgerMenu(
+  connect(
+    null,
+    mapDispatchToProps
+  )(LeftSidebar),
+  "left"
+);

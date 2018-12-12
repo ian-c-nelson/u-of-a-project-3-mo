@@ -1,12 +1,20 @@
 import React from "react";
 import { slide as Menu } from "react-burger-menu";
 import { decorator as reduxBurgerMenu } from "redux-burger-menu";
+import { connect } from "react-redux";
+import uuidv4 from "uuid/v4";
+
+import {
+  getVideos,
+  getVideosError,
+  getVideosRequested
+} from "../../../redux/actions/videos";
 
 function RightSidebar(props) {
-  const { children } = props;
+  const { state } = props;
   return (
     <Menu {...props}>
-      {/* {state.videos ? (
+      {state.videos ? (
         state.videos.map(item => {
           console.log(item);
           const YTLink = "https://www.youtube.com/embed/";
@@ -28,10 +36,27 @@ function RightSidebar(props) {
           );
         })
       ) : (
-        <h3>No Videos</h3>
-      )} */}
+        <p>Loading...</p>
+      )}
     </Menu>
   );
 }
 
-export default reduxBurgerMenu(RightSidebar, "right");
+function mapStateToProps(state) {
+  return {
+    state: {
+      burgerMenu: state.burgerMenu,
+      videos: getVideos(state),
+      videosError: getVideosError(state),
+      videosRequested: getVideosRequested(state)
+    }
+  };
+}
+
+export default reduxBurgerMenu(
+  connect(
+    mapStateToProps,
+    null
+  )(RightSidebar),
+  "right"
+);

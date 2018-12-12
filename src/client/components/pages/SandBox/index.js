@@ -67,7 +67,7 @@ class SandBox extends React.Component {
 
   fetchVideos = () => {
     const { actions } = this.props;
-    actions.fetchVideos("Toyota", "Corolla", "2010", "Oil Change");
+    actions.fetchVideos("Oil Change", "Toyota", "Corolla", "2010");
   };
 
   componentDidMount = () => {

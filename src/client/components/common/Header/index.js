@@ -13,6 +13,7 @@ class Header extends React.Component {
     const { actions, state } = this.props;
     const isOpen = !state.burgerMenu.left.isOpen;
     actions.toggleMenu(isOpen, "left");
+    actions.toggleMenu(false, "right");
   };
 
   render = () => (

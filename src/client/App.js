@@ -13,6 +13,8 @@ import { LeftSidebar, RightSidebar } from "./components/layouts";
 
 import * as pages from "./components/pages";
 
+import Datepicker from "./components/Datepicker";
+
 // Configure redux with redux-thunk and dev tools
 const middleware = [ReduxThunk];
 const enhancer = compose(

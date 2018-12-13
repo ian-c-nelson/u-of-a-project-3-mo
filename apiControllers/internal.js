@@ -1,4 +1,4 @@
-import axios from "axios";
+const axios = require("axios");
 const baseUrl = "/api/v1/";
 
 export default {
@@ -18,7 +18,8 @@ export default {
   // Deletes the user vehicle with the given id
   deleteUserVehicle: id => axios.delete(`${baseUrl}uservehicle/${id}`),
   // Saves a user vehicle to the database
-  saveUserVehicle: userVehicleData => axios.post(`${baseUrl}userVehicle`, userVehicleData),
+  saveUserVehicle: userVehicleData =>
+    axios.post(`${baseUrl}userVehicle`, userVehicleData),
 
   // Gets all maintenance
   getUserMaintenances: () => axios.get(`${baseUrl}maintenance`),
@@ -27,7 +28,8 @@ export default {
   // Deletes the maintenance with the given id
   deleteUserMaintenance: id => axios.delete(`${baseUrl}maintenance/${id}`),
   // Saves a user to the database
-  saveUserMaintenance: maintenanceData => axios.post(`${baseUrl}maintenance`, maintenanceData),
+  saveUserMaintenance: maintenanceData =>
+    axios.post(`${baseUrl}maintenance`, maintenanceData),
 
   // Gets all manufacturer vehicles
   getManVehicles: () => axios.get(`${baseUrl}manvehicle`),
@@ -36,8 +38,6 @@ export default {
   // Deletes the manufacturer vehicle with the given id
   deleteManVehicle: id => axios.delete(`${baseUrl}manvehicle/${id}`),
   // Saves a manufacturer  vehicle to the database
-  saveManVehicle: manVehicleData => axios.post(`${baseUrl}manVehicle`, manVehicleData)
-
-
-
+  saveManVehicle: manVehicleData =>
+    axios.post(`${baseUrl}manVehicle`, manVehicleData)
 };

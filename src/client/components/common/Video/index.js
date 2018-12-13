@@ -12,7 +12,7 @@ function Video(props) {
       <div className="content">
         <iframe
           title={video.snippet.title}
-          width="300"
+          width="auto"
           src={link}
           frameBorder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"

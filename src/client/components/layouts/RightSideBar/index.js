@@ -24,8 +24,8 @@ function RightSidebar(props) {
             <div key={uuid}>
               <iframe
                 title="tester"
-                width="560"
-                height="315"
+                width="auto"
+                height="auto"
                 src={link}
                 frameBorder="0"
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"

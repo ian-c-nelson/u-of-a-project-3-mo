@@ -102,6 +102,7 @@ var AddVehicle = React.createClass({
                 value={this.state.color}
                 onChange={this.handleColorInput} 
                 emptyMessage="Please confirm your color"
+                errorMessage="Color cannot be empty"
               /> 
   
   

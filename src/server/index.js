@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 // Serve Static
 app.use(express.static("dist"));
 
-app.use(require("./routes").default);
+app.use(require("./routes"));
 
 app.listen(PORT, () => {
   console.log(`App listening on PORT ${PORT}`);

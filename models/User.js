@@ -1,5 +1,7 @@
-import { Schema, model } from "mongoose";
-import { genSalt, hash, compare } from "bcryptjs";
+const mongoose = require("mongoose");
+const bcryptjs = require("bcryptjs");
+const { Schema, model } = mongoose;
+const { genSalt, hash, compare } = bcryptjs;
 
 const UserSchema = new Schema({
   email: {
@@ -18,7 +20,7 @@ const UserSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "UserVehicle"
   },
-  
+
   addMaintenance: {
     type: Schema.Types.ObjectId,
     ref: "AddMaintenance"
@@ -54,4 +56,4 @@ UserSchema.methods.isValidPassword = function(candidatePassword, callback) {
 
 const User = model("User", UserSchema);
 
-export default User;
+module.exports = User;

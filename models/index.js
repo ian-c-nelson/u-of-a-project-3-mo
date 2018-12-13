@@ -1,6 +1,3 @@
-// eslint-disable-next-line global-require
-// export default { User: require("./user") };
-
 const models = {
   User: require("./User"),
   ManVehicle: require("./ManVehicle"),
@@ -8,4 +5,4 @@ const models = {
   AddMaintenance: require("./AddMaintenance")
 };
 
-export default models;
+module.exports = models;

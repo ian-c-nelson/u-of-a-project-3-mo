@@ -28,7 +28,6 @@ import {
 
 import { Icon, ToolTip } from "../../common";
 
-const YTLink = "https://www.youtube.com/embed/";
 
 class SandBox extends React.Component {
   openMainMenu = event => {
@@ -163,8 +162,8 @@ class SandBox extends React.Component {
         <div>
           {state.videos ? (
             state.videos.map(item => {
-              console.log(item);
-              const link = YTLink + item.id.videoId;
+              const link = `https://www.youtube.com/embed/${item.id.videoId}`;
+
               const uuid = uuidv4();
               return (
                 <div key={uuid}>

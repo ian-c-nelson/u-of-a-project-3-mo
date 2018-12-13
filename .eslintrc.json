@@ -41,6 +41,7 @@
     "no-underscore-dangle": "off",
     "object-curly-newline":"off",
     "linebreak-style":"off", 
-    "arrow-parens": "off"
+    "arrow-parens": "off",
+    "global-require" : "off"
   }
 }

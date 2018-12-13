@@ -1,10 +1,9 @@
 /* eslint-disable no-undef */
-import passport from "passport";
-import jwt from "jwt-simple";
-import db from "../../../../models";
-import config from "../../../../config";
-
+const passport = require("passport");
+const jwt = require("jwt-simple");
 const router = require("express").Router();
+const db = require("../../../../models");
+const config = require("../../../../config");
 
 const requireSignin = passport.authenticate("local", { session: false });
 const requireAuth = passport.authenticate("jwt", { session: false });

@@ -1,9 +1,13 @@
-import passport from "passport";
-import LocalStrategy from "passport-local";
-import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
+const passport = require("passport");
+const passportJWT = require("passport-jwt");
 
-import User from "../models/User";
-import config from "../config";
+const LocalStrategy = require("passport-local");
+
+const JwtStrategy = passportJWT.Strategy;
+const { ExtractJwt } = passportJWT;
+
+const User = require("../models/User");
+const config = require("../config");
 
 // Setup options for Local Strategy
 const localOptions = {

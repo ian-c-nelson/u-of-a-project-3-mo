@@ -25,13 +25,10 @@ function LeftSidebar(props) {
     <Menu {...props}>
       <ul className="menu-list">
         <li>
-          <Link to="/">Dashboard</Link>
+          <Link to="/">Home</Link>
         </li>
         <li>
           <Link to="/profile">Profile</Link>
-        </li>
-        <li>
-          <Link to="/sandbox">SandBox</Link>
         </li>
       </ul>
       <p className="menu-label">Vehicle Information</p>

@@ -46,7 +46,7 @@ class Login extends React.Component {
 
       },
 
-      handleMakeInput function(event) {
+      handleMakeInput function (event) {
 
       },
 

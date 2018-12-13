@@ -1,5 +1,5 @@
-# VMCOO
-## Vehicular Maintenance & Cost of Ownership
+# MO
+## Maintenance Organized
 ### U of A Coding Boot Camp Project 3 - Team TCID
 
 ### Description

@@ -140,7 +140,7 @@ nav {
 // tooltip ===============================================================
 $tooltip-color: $primary;
 $tooltip-border-color: $purple-dark;
-$tooltip-text-color: $text;
+$tooltip-text-color: $beige-lighter;
 $tooltip-border-width: 1px;
 $tooltip-triangle-width: $tooltip-border-width * 8;
 
@@ -326,6 +326,20 @@ $tooltip-triangle-width: $tooltip-border-width * 8;
         top: 0.1rem;
         right: 0.25rem;
       }
+    }
+  }
+}
+
+.left-nav {
+  .menu-label {
+    font-size: 1rem;
+    // color: $beige-light;
+  }
+
+  .menu-list {
+    a {
+      font-size: .9rem;
+      color: $beige-light;
     }
   }
 }

@@ -2,8 +2,7 @@ import React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import Input from "../../common/Input";
-// import authActions from "../../../redux/actions/auth";
-import * as fromCounter from "../../../redux/actions/counter";
+import authActions from "../../../redux/actions/auth";
 
 class Login extends React.Component {
   constructor() {
@@ -22,15 +21,11 @@ class Login extends React.Component {
     const { actions } = this.props;
     const { credentials } = this.state;
     event.preventDefault();
-    // actions.logInUser(credentials);
-
-    actions.decrementCounter();
+    actions.logInUser(credentials);
   };
 
   render = () => {
     const { credentials, counter } = this.state;
-
-    // console.log(this.state);
 
     return (
       <div className="page login">
@@ -71,8 +66,7 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(
       {
-        decrementCounter: fromCounter.decrementCounter,
-        incrementCounter: fromCounter.incrementCounter
+
       },
       dispatch
     )
@@ -81,7 +75,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   return {
-    counter: fromCounter.getCounter(state)
+
   };
 }
 

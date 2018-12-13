@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import { createAction, handleActions } from "redux-actions";
-import API from "../../../../apiControllers/internalApiController";
+import API from "../../../../apiControllers/internal";
 
 // ACTION CREATORS
 const fetchPhraseRequest = createAction("PHRASE_FETCH_REQUEST");

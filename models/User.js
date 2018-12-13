@@ -1,5 +1,11 @@
-import { Schema, model } from "mongoose";
-import { genSalt, hash, compare } from "bcryptjs";
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const bcryptjs = require(bcryptjs);
+const genSalt = bcryptjs.genSalt;
+const hash = bcryptjs.hash;
+const compare = bcryptjs.compare;
+
+// import { genSalt, hash, compare } from "bcryptjs";
 
 const UserSchema = new Schema({
   email: {
@@ -52,6 +58,12 @@ UserSchema.methods.isValidPassword = function(candidatePassword, callback) {
   });
 };
 
-const User = model("User", UserSchema);
+// const User = model("User", UserSchema);
 
-export default User;
+// export default User;
+
+// This creates our model from the above schema, using mongoose's model method
+var User = mongoose.model("User", UserSchema);
+
+// Export the Note model
+module.exports = User;

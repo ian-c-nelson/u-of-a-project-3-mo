@@ -22,7 +22,7 @@ var AddMaintenance = React.createClass({
   
     handleVinInput: function (event) {
     
-      }
+      },
     
   
     

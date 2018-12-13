@@ -86,6 +86,7 @@ class SandBox extends React.Component {
           className="button is-primary icon menu"
           onClick={this.openMainMenu}
         >
+        
           <Icon icon={["fas", "bars"]} fixedWidth />
         </button>
         <button
@@ -185,6 +186,8 @@ class SandBox extends React.Component {
         </div>
       </div>
     );
+
+    
   };
 }
 

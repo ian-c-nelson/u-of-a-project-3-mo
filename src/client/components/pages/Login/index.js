@@ -24,15 +24,11 @@ class Login extends React.Component {
     const { actions } = this.props;
     const { credentials } = this.state;
     event.preventDefault();
-    // actions.logInUser(credentials);
-
-    actions.decrementCounter();
+    actions.logInUser(credentials);
   };
 
   render = () => {
     const { credentials, counter } = this.state;
-
-    // console.log(this.state);
 
     return (
       <div className="page login">
@@ -73,8 +69,7 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(
       {
-        decrementCounter: fromCounter.decrementCounter,
-        incrementCounter: fromCounter.incrementCounter
+
       },
       dispatch
     )
@@ -83,7 +78,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   return {
-    counter: fromCounter.getCounter(state)
+
   };
 }
 

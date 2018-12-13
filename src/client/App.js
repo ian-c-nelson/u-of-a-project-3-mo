@@ -13,8 +13,6 @@ import { LeftSidebar, RightSidebar } from "./components/layouts";
 
 import * as pages from "./components/pages";
 
-// import Datepicker from "./components/Datepicker";
-
 // Configure redux with redux-thunk and dev tools
 const middleware = [ReduxThunk];
 const enhancer = compose(
@@ -58,12 +56,15 @@ class App extends Component {
           <div className="wrapper">
             <div id="react-burger-container">
               <Header />
-              <LeftSidebar pageWrapId="react-burger-page-wrap" />
-              <RightSidebar pageWrapId="react-burger-page-wrap" right />
+              <LeftSidebar pageWrapId="react-burger-page-wrap" width={280} className="left-nav" />
+              <RightSidebar
+                pageWrapId="react-burger-page-wrap"
+                width={375}
+                right
+              />
               <div id="react-burger-page">
                 <Switch>
                   <Route path="/" exact component={pages.Home} />
-                  {/* <Route path="/" exact component={pages.SandBox} /> */}
                   <Route path="/login" exact component={pages.Login} />
                   <Route path="/signup" exact component={pages.SignUp} />
                   <Route path="/sandbox" exact component={pages.SandBox} />

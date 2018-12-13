@@ -19,7 +19,6 @@ class Home extends React.Component {
           notes: "weekend warrior"
         }
       ]
-      //   charts: []
     };
   }
 
@@ -30,7 +29,7 @@ class Home extends React.Component {
         {vehicles.length ? (
           vehicles.map(vehicle => (
             <div
-              className="column is-10-mobile is-5-tablet is-3-desktop"
+              className="column is-12-mobile is-5-tablet is-3-desktop"
               key={vehicle.name}
             >
               <Vehicle vehicle={vehicle} />

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const { Schema, model } = mongoose;
+
 
 const UserVehicleSchema = new Schema({
   vinNumber: {
@@ -44,7 +45,7 @@ const UserVehicleSchema = new Schema({
 });
 
 // This creates our model from the above schema, using mongoose's model method
-var UserVehicle = mongoose.model("UserVehicle", UserVehicleSchema);
+const UserVehicle = model("UserVehicle", UserVehicleSchema);
 
 // Export the Note model
 module.exports = UserVehicle;

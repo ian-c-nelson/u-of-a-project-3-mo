@@ -1,17 +1,14 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-
+const { Schema, model } = mongoose;
 
 const AddMaintenanceSchema = new Schema({
   type: {
     type: String,
     validate: {
-      validator: function (v) {
-        return v === "Actual" || v === "Planned";
-      },
-      message: `${props.path} must be Actual or Planned`
+      validator: (v) => v === "Actual" || v === "Planned",
+      message: "Type must be Actual or Planned"
     },
-    required: true,
+    required: true
   },
 
   description: {
@@ -23,7 +20,7 @@ const AddMaintenanceSchema = new Schema({
     type: Date,
     required: true
   },
-  
+
   model: {
     type: String,
     required: true
@@ -41,9 +38,9 @@ const AddMaintenanceSchema = new Schema({
 
   mileage: {
     type: Number,
-    required: true,
+    required: true
   },
-  
+
   userVehicle: {
     type: Schema.Types.ObjectId,
     ref: "UserVehicle"
@@ -52,12 +49,11 @@ const AddMaintenanceSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: "User"
-  },
-
+  }
 });
 
 // This creates our model from the above schema, using mongoose's model method
-var AddMaintenance = mongoose.model("AddMaintenance", AddMaintenanceSchema);
+const AddMaintenance = model("AddMaintenance", AddMaintenanceSchema);
 
 // Export the Note model
 module.exports = AddMaintenance;

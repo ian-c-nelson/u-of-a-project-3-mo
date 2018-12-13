@@ -7,6 +7,7 @@ import Modal from "./Modal";
 import RequireAuth from "./RequireAuth";
 import ToolTip from "./ToolTip";
 import Vehicle from "./Vehicle";
+import Video from "./Video";
 
 export {
   Card, CardContent, CardFooter, CardHeader,
@@ -17,5 +18,6 @@ export {
   Modal,
   RequireAuth,
   ToolTip,
-  Vehicle
-};
+  Vehicle,
+  Video
+};          

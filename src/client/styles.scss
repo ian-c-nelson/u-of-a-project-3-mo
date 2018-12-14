@@ -3,23 +3,28 @@
 
 $purple: #8a4d76;
 $purple-dark: #62066f;
+$purple-light: #BE90D4;
 $pink: #fa7c91;
 $brown: #757763;
 $beige-light: #d0d1cd;
 $beige-lighter: #eff0eb;
 
-$grey-dark: $brown;
-$grey-light: $beige-light;
+$grey-dark: #757D75;
+$grey-medium: #ABB7B7;
+$grey-light: #BDC3C7;
+$porcelain: #ECF0F1;
+$cherry-blossom: #5D8CAE;
+
 $primary: $purple;
 $link: $pink;
 $widescreen-enabled: false;
 $fullhd-enabled: false;
 
-$body-background-color: $beige-lighter;
+$body-background-color: $porcelain;
 $control-border-width: 2px;
 $input-border-color: transparent;
 $input-shadow: none;
-$aside-border-color: $brown;
+$border-color: $brown;
 
 // header
 $navbar-height: 3rem;
@@ -41,6 +46,7 @@ body {
 }
 
 html,
+body,
 .wrapper {
   overflow: hidden;
 }
@@ -52,7 +58,8 @@ html,
   bottom: $footer-height;
   left: 0;
   right: 0;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 /* Individual itrem */
@@ -338,7 +345,7 @@ $tooltip-triangle-width: $tooltip-border-width * 8;
 
   .menu-list {
     a {
-      font-size: .9rem;
+      font-size: 0.9rem;
       color: $beige-light;
     }
   }
@@ -393,7 +400,15 @@ footer.footer {
 }
 
 .page {
-  padding: 0.75rem;
+  margin-top: 0.75rem;
+
+
+  .form-wrapper {
+    margin: 1.5rem auto;
+    background-color: $purple-light;
+    border: $border-color solid 1px;
+    border-radius: 5px;
+  }
 
   &.home {
     /* TODO */
@@ -404,7 +419,9 @@ footer.footer {
   }
 
   &.sign-up {
-    /* TODO */
+    .form-wrapper {
+      min-height: 12rem;
+    }
   }
 
   &.no-match {

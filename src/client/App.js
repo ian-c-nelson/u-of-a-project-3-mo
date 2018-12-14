@@ -7,6 +7,7 @@ import { createStore, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
 import ReduxThunk from "redux-thunk";
 import rootReducer from "./redux/reducers";
+import initialState from "../../config/initialState";
 
 import { Header, Footer } from "./components/common";
 import { LeftSidebar, RightSidebar } from "./components/layouts";
@@ -25,26 +26,6 @@ const enhancer = compose(
     : f => f
 );
 
-const initialState = {
-  auth: {},
-  burgerMenu: {
-    left: {
-      isOpen: false
-    },
-    right: {
-      isOpen: false
-    }
-  },
-  counter: 0,
-  phrase: {
-    value: "",
-    error: "",
-    requested: false
-  },
-  videos: {
-    value: null
-  }
-};
 
 const store = createStore(rootReducer, initialState, enhancer);
 
@@ -68,6 +49,8 @@ class App extends Component {
                   <Route path="/login" exact component={pages.Login} />
                   <Route path="/signup" exact component={pages.SignUp} />
                   <Route path="/sandbox" exact component={pages.SandBox} />
+                  <Route path="/vehicles/add" exact component={pages.AddVehicle} />
+                  
                   <Route component={pages.NoMatch} />
                 </Switch>
               </div>

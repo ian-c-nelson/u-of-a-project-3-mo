@@ -1,7 +1,7 @@
 const axios = require("axios");
 const baseUrl = "/api/v1/";
 
-export default {
+module.exports = {
   // Gets all users
   getUsers: () => axios.get(`${baseUrl}user`),
   // Gets the user with the given id
@@ -10,6 +10,10 @@ export default {
   deleteUser: id => axios.delete(`${baseUrl}user/${id}`),
   // Saves a user to the database
   saveUser: userData => axios.post(`${baseUrl}user`, userData),
+
+  signUp: userData => axios.post(`${baseUrl}signup`, userData),
+  logIn: credentials => axios.post(`${baseUrl}login`, credentials),
+
 
   // Gets all user vehicles
   getUserVehicles: () => axios.get(`${baseUrl}uservehicle`),

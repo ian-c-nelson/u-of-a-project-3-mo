@@ -1,23 +1,13 @@
 /* eslint-disable no-undef */
 const passport = require("passport");
-const jwt = require("jwt-simple");
 const router = require("express").Router();
-const db = require("../../../../models");
-const config = require("../../../../config");
+const db = require("../../../../../models");
+const controllers = require("../../../../../controllers");
+
+const { tokenEncoder } = require("../../../../../services/passport");
 
 const requireSignin = passport.authenticate("local", { session: false });
 const requireAuth = passport.authenticate("jwt", { session: false });
-
-function tokenizer(user) {
-  const timestamp = new Date().getTime();
-  return jwt.encode(
-    {
-      sub: user.id,
-      iat: timestamp
-    },
-    config.secret
-  );
-}
 
 // open routes ===============================================================
 
@@ -35,10 +25,12 @@ router.get("/phrase", (req, res) => {
 router.post("/signin", requireSignin, (req, res) => {
   console.log(req.body);
 
-  res.json({ token: tokenizer(req.user) });
+  res.json({ token: tokenEncoder(req.user), user: req.user });
 });
 
 router.post("/signup", (req, res) => {
+  console.log(req.body);
+
   const { email, password } = req.body;
 
   if (!email || !password) {
@@ -58,7 +50,7 @@ router.post("/signup", (req, res) => {
       user.save().then(user => {
         console.log(user);
         // respond with the success if the user existed
-        res.json({ token: tokenizer(user) });
+        res.json({ token: tokenEncoder(user), user });
       });
     })
     .catch(err => next(err));
@@ -77,5 +69,19 @@ router.get("/user/:email", requireAuth, (req, res) => {
     })
     .catch(err => next(err));
 });
+
+router.delete("/user/:email", requireAuth, (req, res) => {
+  db.User.findOne({ email: req.params.email })
+    .then(dbuser => {
+      if (dbuser) {
+        dbuser.remove().then(() => res.json(dbuser));
+      }
+
+      // if the user doesn't exist return an error
+      return res.status(404).send({ error: "User not fount." });
+    })
+    .catch(err => next(err));
+});
+
 
 module.exports = router;

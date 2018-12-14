@@ -13,6 +13,7 @@ export default {
     }
   },
   counter: 0,
+  formValues: {},
   phrase: {
     value: "",
     error: "",

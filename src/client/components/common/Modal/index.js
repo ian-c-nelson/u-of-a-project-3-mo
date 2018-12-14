@@ -1,7 +1,7 @@
 import React from "react";
 
 function Modal(props) {
-  const { show, title, msg, handleModalOkayClick } = props;
+  const { show, title, children, handleModalOkayClick } = props;
 
   const modalclassName = `modal${show ? " is-active" : ""}`;
 
@@ -14,7 +14,7 @@ function Modal(props) {
           <button type="button" className="delete" aria-label="close" />
         </header>
         <section className="modal-card-body">
-          <p>{msg}</p>
+          {children}
         </section>
         <footer className="modal-card-foot">
           <button

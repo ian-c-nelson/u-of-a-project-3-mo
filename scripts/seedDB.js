@@ -10,17 +10,21 @@ mongoose.connect(
 
 const userVehicleSeed = [
   {
-    model: "bronco",
+    name: "OJ's Vehicle",
+    vinNumber: "VNN",
+    year: "1993",
     make: "ford",
-    year: "2004",
-    color: "black",
+    model: "bronco",
+    color: "white",
     mileage: 2000,
     date: new Date(Date.now())
   },
   {
-    model: "silverado",
-    make: "chevy",
+    name: "Who's Vehicle",
+    vinNumber: "VNN",
     year: "2018",
+    make: "chevy",
+    model: "silverado",
     color: "white",
     mileage: 2000,
     date: new Date(Date.now())
@@ -30,17 +34,17 @@ const userVehicleSeed = [
 
 const ManVehicleSeed = [
   {
-    model: "bronco",
-    make: "ford",
     year: "2004",
+    make: "ford",
+    model: "bronco",
     color: "black",
     mileage: 2000,
     date: new Date(Date.now())
   },
   {
-    model: "silverado",
-    make: "chevy",
     year: "2018",
+    make: "chevy",
+    model: "silverado",
     color: "white",
     mileage: 2000,
     date: new Date(Date.now())

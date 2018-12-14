@@ -1,31 +1,32 @@
 import React from "react";
 import Icon from "../Icon";
 
-
 function Input(props) {
-  let icon;
-  let placeholder;
-  const { name, type } = props;
+  let i, ph;
+  const { name, type, placeholder, icon } = props;
 
   switch (type) {
     case "email":
-      placeholder = "Email";
-      icon = <Icon icon="envelope" />;
+      ph = placeholder || "Email";
+      i = icon || ["far", "envelope"];
       break;
     case "password":
-      placeholder = "Password";
-      icon = <Icon icon="lock" />;
+      ph = placeholder || "Password";
+      i = icon || ["far", "lock"];
       break;
     default:
-      icon = <Icon icon="pencilAlt" />;
+      ph = placeholder;
+      i = icon || ["far", "pencil-alt"];
       break;
   }
 
   return (
     <div className="field">
       <p className="control has-icons-left has-icons-right">
-        <input className="input" name={name} type={type} placeholder={placeholder} />
-        <span className="icon is-small is-left">{icon}</span>
+        <input className="input" name={name} type={type} placeholder={ph} />
+        <span className="icon is-small is-left">
+          <Icon icon={i} />
+        </span>
         <span className="icon is-small is-right">
           <Icon icon="check" />
         </span>

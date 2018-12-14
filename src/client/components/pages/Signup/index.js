@@ -1,14 +1,20 @@
 import React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import Input from "../../common/Input";
-import authActions from "../../../redux/actions/auth";
+import { action as toggleMenu } from "redux-burger-menu";
+import { Input } from "../../common";
 
 class SignUp extends React.Component {
   constructor() {
     super();
     this.state = { credentials: { email: "", password: "" } };
   }
+
+  componentDidMount = () => {
+    const { actions } = this.props;
+    actions.toggleMenu(false, "left");
+    actions.toggleMenu(false, "right");
+  };
 
   handleInputChange = event => {
     const field = event.target.name;
@@ -62,20 +68,22 @@ class SignUp extends React.Component {
   };
 }
 
+function mapStateToProps(state) {
+  return {
+    state: {
+      burgerMenu: state.burgerMenu
+    }
+  };
+}
+
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(
       {
-
+        toggleMenu
       },
       dispatch
     )
-  };
-}
-
-function mapStateToProps(state) {
-  return {
-
   };
 }
 

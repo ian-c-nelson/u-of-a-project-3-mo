@@ -2,22 +2,12 @@
 const passport = require("passport");
 const jwt = require("jwt-simple");
 const router = require("express").Router();
-const db = require("../../../../models");
-const config = require("../../../../config");
+const db = require("../../../../../models");
+const config = require("../../../../../config");
+const { tokenEncoder } = require("../../../../../services/passport");
 
 const requireSignin = passport.authenticate("local", { session: false });
 const requireAuth = passport.authenticate("jwt", { session: false });
-
-function tokenizer(user) {
-  const timestamp = new Date().getTime();
-  return jwt.encode(
-    {
-      sub: user.id,
-      iat: timestamp
-    },
-    config.secret
-  );
-}
 
 // open routes ===============================================================
 
@@ -35,7 +25,7 @@ router.get("/phrase", (req, res) => {
 router.post("/signin", requireSignin, (req, res) => {
   console.log(req.body);
 
-  res.json({ token: tokenizer(req.user) });
+  res.json({ token: tokenEncoder(req.user) });
 });
 
 router.post("/signup", (req, res) => {
@@ -58,7 +48,7 @@ router.post("/signup", (req, res) => {
       user.save().then(user => {
         console.log(user);
         // respond with the success if the user existed
-        res.json({ token: tokenizer(user) });
+        res.json({ token: tokenEncoder(user) });
       });
     })
     .catch(err => next(err));

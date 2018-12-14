@@ -1,127 +1,162 @@
 import React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import { action as toggleMenu } from "redux-burger-menu";
 import Input from "../../common/Input";
-// import authActions from "../../../redux/actions/auth";
-import * as fromCounter from "../../../redux/actions/counter";
 
-class Login extends React.Component {
-    constructor() {
-      super();
-    
-var AddVehicle = React.createClass({
-    getInitialState: function () {
-      return {
-        vinNumber: null,
-        year: null,
-        make: null,
-        model: null,
-        color: null
-      }
-    },
-  
-    handleVinInput: function (event) {
-    
-      }
-    
-  
-    handleYearInput: function (event) {
-     
-      }
+class AddVehicle extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      vinNumber: null,
+      year: null,
+      make: null,
+      model: null,
+      color: null
+    };
+  }
 
-    handleMakeInput function (event){
+  componentDidMount = () => {
+    const { actions } = this.props;
+    actions.toggleMenu(false, "left");
+    actions.toggleMenu(false, "right");
+  };
 
-    }
+  handleInputChange = event => {
+    const field = event.target.name;
+    const { credentials } = this.state;
+    credentials[field] = event.target.value;
+    return this.setState({ credentials });
+  };
 
-    handleModelInput function (event){
+  saveAndContinue = event => {
+    const { actions } = this.props;
+    event.preventDefault();
+  };
 
-    }
+  validateRequired = event => {};
 
-    handleColorInput function (event){
+  render() {
+    const {
+      vinNumber,
+      showVinError,
+      validateYear,
+      year,
+      make,
+      model,
+      color,
+      name,
+      mileage
+    } = this.state;
+    return (
+      <div className="addvehcile">
+        <div className="addvehicle">
+          <h1>Add a vehicle to your account</h1>
+          <form>
+            <Input
+              name="name"
+              type="text"
+              value={name}
+              placeholder="Vehicle Name"
+              icon={["far", "pencil-alt"]}
+              onChange={this.handleInputChange}
+              errorMessage="Name is required."
+              errorVisible={showVinError}
+            />
 
-    }
-    
-  
-    
-  
-    render: function() {
-      return (
-        <div className="addvehcile">
-  
-          <div className="addvehicle">
-            <h1>Add a vehcile to your account</h1>
-            <form onSubmit={this.saveAndContinue}>
-  
-              <Input 
-                text="VIN" 
-                ref="vin"
-                type="text"
-                defaultValue={this.state.vinNumber} 
-                validate={this.validateVinNumber}
-                value={this.state.vinNumber}
-                onChange={this.handleVinInput} 
-                errorMessage="VIN is invalid"
-                errorVisible={this.state.showVinError}
-              />
-  
-              <Input 
-                text="Year" 
-                ref="year"
-                validate={this.state.validateYear}
-                value={this.state.year}
-                onChange={this.handleYearInput} 
-                emptyMessage="Year can't be empty"
-              /> 
-  
-              <Input 
-                text="Make" 
-                type="make"
-                ref="make"
-                validator="true"
-                value={this.state.make}
-                emptyMessage="Please confirm your Make"
-                errorMessage="Make does not match"
-                onChange={this.handleMakeInput} 
-              /> 
-  
-              <Input 
-                text="Model" 
-                ref="model"
-                type="model"
-                value={this.state.model}
-                emptyMessage="Please confirm your Model"
-                errorMessage="Model does not match"
-                onChange={this.handleModelInput}
-              /> 
+            <Input
+              name="vinNumber"
+              type="text"
+              value={vinNumber}
+              icon={["fas", "hashtag"]}
+              placeholder="VIN Number"
+              onChange={this.handleInputChange}
+              errorVisible={showVinError}
+            />
 
-              <Input 
-                text="Color of Vehicle" 
-                ref="colorConfirm"
-                type="vehicleColor"
-                validate={this.state.color}
-                value={this.state.color}
-                onChange={this.handleColorInput} 
-                emptyMessage="Please confirm your color"
-                errorMessage="Color cannot be empty"
-              /> 
-  
-  
-              <button 
-                type="submit" 
-                className="button button_wide">
-                Add Vehicle
-              </button>
-  
-            </form>
-  
-            
-          </div>
-  
+            <Input
+              type="text"
+              name="year"
+              value={year}
+              icon={["fas", "calendar-alt"]}
+              placeholder="Vehicle Year"
+              validate={this.validateRequired}
+              onChange={this.handleInputChange}
+              emptyMessage="Year is required"
+            />
+
+            <Input
+              type="text"
+              name="make"
+              value={make}
+              placeholder="Vehicle Make"
+              onChange={this.handleInputChange}
+              // validator="true"
+              // emptyMessage="Please confirm your Make"
+              // errorMessage="Make does not match"
+            />
+
+            <Input
+              type="text"
+              name="model"
+              value={model}
+              placeholder="Vehicle Model"
+              onChange={this.handleInputChange}
+              // emptyMessage="Please confirm your Model"
+              // errorMessage="Model does not match"
+            />
+
+            <Input
+              type="text"
+              name="vehicleColor"
+              value={color}
+              placeholder="Vehicle Color"
+              onChange={this.handleInputChange}
+              // emptyMessage="Please confirm your color"
+            />
+
+            <Input
+              type="text"
+              name="mileage"
+              value={mileage}
+              placeholder="Vehicle Mileage"
+              onChange={this.handleInputChange}
+            />
+
+            <button
+              type="button"
+              className="button button_wide"
+              onClick={this.saveAndContinue}
+            >
+              Add Vehicle
+            </button>
+          </form>
         </div>
-      );
+      </div>
+    );
+  }
+}
+
+function mapStateToProps(state) {
+  return {
+    state: {
+      burgerMenu: state.burgerMenu
     }
-      
-  });
-      
-  module.exports = AddVehicle;
-  
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(
+      {
+        toggleMenu
+      },
+      dispatch
+    )
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddVehicle);

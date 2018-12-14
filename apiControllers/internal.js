@@ -1,7 +1,7 @@
 const axios = require("axios");
 const baseUrl = "/api/v1/";
 
-export default {
+module.exports = {
   // Gets all users
   getUsers: () => axios.get(`${baseUrl}user`),
   // Gets the user with the given id

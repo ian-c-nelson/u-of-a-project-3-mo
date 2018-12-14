@@ -1,6 +1,6 @@
+const jwt = require("jwt-simple");
 const passport = require("passport");
 const passportJWT = require("passport-jwt");
-
 const LocalStrategy = require("passport-local");
 
 const JwtStrategy = passportJWT.Strategy;
@@ -18,7 +18,7 @@ const localOptions = {
 const localLogin = new LocalStrategy(localOptions, (email, password, done) => {
   // Verify email and password
   User.findOne({ email })
-    .then((user) => {
+    .then(user => {
       if (!user) {
         return done(null, false);
       }
@@ -51,7 +51,7 @@ const jwtOptions = {
 const jwtLogin = new JwtStrategy(jwtOptions, (payload, done) => {
   // See if the user exist in the DB
   User.findById(payload.sub)
-    .then((user) => {
+    .then(user => {
       // If the user exists, call the done function with that user
       if (user) {
         done(null, user);
@@ -67,3 +67,19 @@ const jwtLogin = new JwtStrategy(jwtOptions, (payload, done) => {
 // Tell Passport to use this strategy
 passport.use(jwtLogin);
 passport.use(localLogin);
+
+module.exports = {
+  tokenEncoder: user => {
+    const timestamp = new Date().getTime();
+    return jwt.encode(
+      {
+        sub: user.id,
+        iat: timestamp
+      },
+      config.secret
+    );
+  },
+  tokenDencoder: token => {
+    return jwt.decode(token, config.secret);
+  }
+};

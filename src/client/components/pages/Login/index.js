@@ -32,34 +32,48 @@ class Login extends React.Component {
 
     return (
       <div className="page login">
-        <form>
-          <div className="columns">
-            <div className="column is-half is-centered">
-              <Input
-                name="email"
-                type="email"
-                value={credentials.email}
-                onChange={this.handleInputChange}
-              />
-            </div>
-            <div className="column is-half is-centered">
-              <Input
-                name="password"
-                type="password"
-                value={credentials.password}
-                onChange={this.handleInputChange}
-              />
-            </div>
-            <div className="column is-half is-centered">
-              <button
-                type="button"
-                className="button is-primary"
-                text="Login"
-                onClick={this.onSave}
-              />
-            </div>
+        <div className="columns is-centered is-vcentered">
+          <div className="column is-10-mobile is-8-tablet is-4-desktop form-wrapper">
+            <form>
+              <div className="columns is-multiline is-centered">
+                <div className="column is-12">
+                  <Input
+                    name="email"
+                    type="email"
+                    value={credentials.email}
+                    onChange={this.handleInputChange}
+                  />
+                </div>
+                <div className="column is-12">
+                  <Input
+                    name="password"
+                    type="password"
+                    value={credentials.password}
+                    onChange={this.handleInputChange}
+                  />
+                </div>
+                <div className="column is-12 is-clearfix">
+                  <button
+                    id="sign-up-button"
+                    type="button"
+                    className="button is-light is-pulled-left"
+                    onClick={this.onSave}
+                  >
+                    Sign Up
+                  </button>
+                  <button
+                    id="log-in-button"
+                    type="button"
+                    className="button is-light is-pulled-right"
+                    onClick={this.onSave}
+                  >
+                    Log In
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
-        </form>
+        </div>
       </div>
     );
   };
@@ -67,19 +81,12 @@ class Login extends React.Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(
-      {
-
-      },
-      dispatch
-    )
+    actions: bindActionCreators({}, dispatch)
   };
 }
 
 function mapStateToProps(state) {
-  return {
-
-  };
+  return {};
 }
 
 export default connect(

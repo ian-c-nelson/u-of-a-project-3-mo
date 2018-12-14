@@ -3,12 +3,13 @@ import { createAction, handleActions } from "redux-actions";
 import API from "../../../../apiControllers/internal";
 
 // ACTION CREATORS
-const signUpRequest = createAction("PHRASE_FETCH_REQUEST");
-const signUpResponse = createAction("PHRASE_FETCH_RESPONSE");
+const signUpRequest = createAction("SIGN_UP_REQUEST");
+const signUpResponse = createAction("SIGN_UP_RESPONSE");
 
-export const signUp = () => dispatch => {
+export const signUp = credentials => dispatch => {
   dispatch(signUpRequest());
-  API.getPhrase()
+  console.log(credentials);
+  API.signUp(credentials)
     .then(value => {
       dispatch(signUpResponse(value));
     })
@@ -49,8 +50,8 @@ const value = handleActions(
 const error = handleActions(
   {
     [signUpResponse]: {
-      next() {
-        return null;
+      next(state, { payload }) {
+        return payload;
       },
       throw(
         state,
@@ -68,15 +69,25 @@ const error = handleActions(
   null
 );
 
-const phraseReducers = combineReducers({
+const authReducers = combineReducers({
   error,
   requested,
   value
 });
 
-export default phraseReducers;
+export default authReducers;
 
 // SELECTORS
-export const getPhrase = state => state.phrase.value;
-export const getPhraseError = state => state.phrase.error;
-export const getPhraseRequested = state => state.phrase.requested;
+export const getToken = state => {
+  return state && state.auth && state.auth.value
+    ? state.auth.value.token
+    : null;
+};
+
+export const getSignUpError = state => {
+  return state && state.auth ? state.auth.error : null;
+};
+
+export const getSignUpRequested = state => {
+  return state && state.auth ? state.auth.requested : false;
+};

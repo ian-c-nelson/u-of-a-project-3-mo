@@ -34,7 +34,7 @@ function LeftSidebar(props) {
       <p className="menu-label">Vehicle Information</p>
       <ul className="menu-list">
         <li>
-          <Link to="/vehicles/maintentance">Set Maintenance Reminders</Link>
+          <Link to="/vehicles/add">Add Vehicle</Link>
         </li>
         <li>
           <Link to="/vehicles/search">Search for Vehicles</Link>

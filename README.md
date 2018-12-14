@@ -5,6 +5,7 @@
 ### Description
 A full stack application to schedule and track maintenance and costs of ownership related to vehicles.
 
+
 ### Goals
  - Create a user friendly application to store vehicle information and provide utility for the user about the vehicle's cost of ownership including maintenance records, vehicle values, and links for performing basic maintenance.
 
@@ -35,6 +36,16 @@ A full stack application to schedule and track maintenance and costs of ownershi
 
 #### APIs
 - YouTube - ([Docs](https://developers.google.com/youtube/v3/docs/))
+- NHSTA - ([Docs] (https://vpic.nhtsa.dot.gov/api/))
+
+
+#### Sample VINs
+- 2019 Acura MDX, 5J8YD4H88KL010450
+- 2019 Toyota 4Runner, JTEBU5JR3K5622052
+- 2017 Rolls-Royce Wraith, SCA665C56HUX86685
+- 2018 Tesla Model S, 5YJSA1E4XJF250484
+- 2018 Jeep Wrangler, 1C4HJXFN2JW212005
+
 
 ----------------------------------------------------------------------------
 #### Boiler Plate taken from 

@@ -50,6 +50,7 @@ class SignUp extends React.Component {
     return this.setState({ credentials });
   };
 
+
   onSave = event => {
     const { actions } = this.props;
     const { credentials } = this.state;

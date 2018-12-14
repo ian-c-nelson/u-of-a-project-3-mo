@@ -3,6 +3,8 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { action as toggleMenu } from "redux-burger-menu";
 import Input from "../../common/Input";
+import API from "../../../../../apiControllers/internal"
+
 
 class AddVehicle extends React.Component {
   constructor() {
@@ -22,17 +24,41 @@ class AddVehicle extends React.Component {
     actions.toggleMenu(false, "right");
   };
 
+  // handleInputChange = event => {
+  //   const field = event.target.name;
+  //   const { credentials } = this.state;
+  //   credentials[field] = event.target.value;
+  //   return this.setState({ credentials });
+  // };
+
   handleInputChange = event => {
-    const field = event.target.name;
-    const { credentials } = this.state;
-    credentials[field] = event.target.value;
-    return this.setState({ credentials });
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
   };
 
   saveAndContinue = event => {
     const { actions } = this.props;
     event.preventDefault();
   };
+
+  handleFormSubmit = event => {
+    event.preventDefault();
+    if (this.state.model && this.state.make) {
+      API.saveUserVehicle({
+        vinNumber: this.state.vinNumber,
+        model: this.state.model,
+        make: this.state.make,
+        year: this.state.year,
+        color: this.state.color,
+        mileage: this.state.mileage
+      })
+        .then(res => this.loadAddVehicle)
+        .catch(err => console.log(err));
+    }
+  };
+
 
   validateRequired = event => {};
 
@@ -75,7 +101,7 @@ class AddVehicle extends React.Component {
             />
 
             <Input
-              type="text"
+              type="number"
               name="year"
               value={year}
               icon={["fas", "calendar-alt"]}
@@ -116,7 +142,7 @@ class AddVehicle extends React.Component {
             />
 
             <Input
-              type="text"
+              type="number"
               name="mileage"
               value={mileage}
               placeholder="Vehicle Mileage"
@@ -126,7 +152,7 @@ class AddVehicle extends React.Component {
             <button
               type="button"
               className="button button_wide"
-              onClick={this.saveAndContinue}
+              onClick={this.handleFormSubmit}
             >
               Add Vehicle
             </button>

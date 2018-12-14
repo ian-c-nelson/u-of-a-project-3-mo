@@ -8,13 +8,12 @@ const signUpResponse = createAction("SIGN_UP_RESPONSE");
 
 export const signUp = credentials => dispatch => {
   dispatch(signUpRequest());
-  console.log(credentials);
   API.signUp(credentials)
     .then(value => {
       dispatch(signUpResponse(value));
     })
     .catch(err => {
-      dispatch(signUpResponse(err));
+      dispatch(signUpResponse(err.response.data.error));
     });
 };
 
@@ -78,10 +77,8 @@ const authReducers = combineReducers({
 export default authReducers;
 
 // SELECTORS
-export const getToken = state => {
-  return state && state.auth && state.auth.value
-    ? state.auth.value.token
-    : null;
+export const getAuthData = state => {
+  return state && state.auth ? state.auth.value : null;
 };
 
 export const getSignUpError = state => {

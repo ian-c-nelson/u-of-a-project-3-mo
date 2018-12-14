@@ -2,44 +2,49 @@ import React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { action as toggleMenu } from "redux-burger-menu";
-import { Input } from "../../common";
+import { Input, Modal } from "../../common";
 
 import {
   signUp,
-  getToken,
+  getAuthData,
   getSignUpError,
   getSignUpRequested
 } from "../../../redux/actions/auth";
 
-class SignUp extends React.Component {
-  constructor() {
-    super();
-    this.state = { credentials: { email: "", password: "" } };
-  }
+import {
+  setFormValues,
+  getFormValues
+} from "../../../redux/actions/formValues";
 
+class SignUp extends React.Component {
   componentDidMount = () => {
     const { actions } = this.props;
+    actions.setFormValues({ email: "", password: "" });
     actions.toggleMenu(false, "left");
     actions.toggleMenu(false, "right");
   };
 
   handleInputChange = event => {
+    const { state } = this.props;
+    const { actions } = this.props;
     const field = event.target.name;
-    const { credentials } = this.state;
-    credentials[field] = event.target.value;
-    return this.setState({ credentials });
+    state.credentials[field] = event.target.value;
+    actions.setFormValues(state.credentials);
   };
 
   onSave = event => {
+    const { state } = this.props;
     const { actions } = this.props;
-    const { credentials } = this.state;
     event.preventDefault();
-    console.log(this.state);
-    actions.signUp(credentials);
+    actions.signUp(state.credentials);
   };
 
   render = () => {
-    const { credentials } = this.state;
+    const { state } = this.props;
+    const { credentials, signUpError } = state;
+
+    console.log(state);
+    console.log(credentials);
 
     return (
       <div className="page sign-up">
@@ -51,7 +56,7 @@ class SignUp extends React.Component {
                   <Input
                     name="email"
                     type="email"
-                    value={credentials.email}
+                    value={(credentials || { email: "" }).email}
                     onChange={this.handleInputChange}
                   />
                 </div>
@@ -59,7 +64,7 @@ class SignUp extends React.Component {
                   <Input
                     name="password"
                     type="password"
-                    value={credentials.password}
+                    value={(credentials || { password: "" }).password}
                     onChange={this.handleInputChange}
                   />
                 </div>
@@ -76,6 +81,9 @@ class SignUp extends React.Component {
             </form>
           </div>
         </div>
+        <Modal title="Authentication Error">
+          <p>{signUpError}</p>
+        </Modal>
       </div>
     );
   };
@@ -85,9 +93,10 @@ function mapStateToProps(state) {
   return {
     state: {
       burgerMenu: state.burgerMenu,
-      token: getToken(),
-      signUpError: getSignUpError(),
-      signUpRequested: getSignUpRequested()
+      authData: getAuthData(state),
+      credentials: getFormValues(state),
+      signUpError: getSignUpError(state),
+      signUpRequested: getSignUpRequested(state)
     }
   };
 }
@@ -96,6 +105,7 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(
       {
+        setFormValues,
         signUp,
         toggleMenu
       },

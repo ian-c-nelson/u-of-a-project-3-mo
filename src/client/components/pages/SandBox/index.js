@@ -76,9 +76,7 @@ class SandBox extends React.Component {
   };
 
   render = () => {
-    const { actions, state } = this.props;
-    console.log(state);
-
+    const { state } = this.props;
     return (
       <div className="page sandbox">
         <button

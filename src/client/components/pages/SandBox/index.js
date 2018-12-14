@@ -186,8 +186,6 @@ class SandBox extends React.Component {
         </div>
       </div>
     );
-
-    
   };
 }
 

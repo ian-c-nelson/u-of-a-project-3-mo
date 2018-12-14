@@ -11,6 +11,10 @@ module.exports = {
   // Saves a user to the database
   saveUser: userData => axios.post(`${baseUrl}user`, userData),
 
+  signUp: userData => axios.post(`${baseUrl}signup`, userData),
+  logIn: credentials => axios.post(`${baseUrl}login`, credentials),
+
+
   // Gets all user vehicles
   getUserVehicles: () => axios.get(`${baseUrl}uservehicle`),
   // Gets the user vehicle with the given id

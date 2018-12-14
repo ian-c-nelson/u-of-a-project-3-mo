@@ -3,7 +3,7 @@ import Icon from "../Icon";
 
 function Input(props) {
   let i, ph;
-  const { name, type, placeholder, icon } = props;
+  const { name, type, placeholder, icon, onChange } = props;
 
   switch (type) {
     case "email":
@@ -23,7 +23,13 @@ function Input(props) {
   return (
     <div className="field">
       <p className="control has-icons-left has-icons-right">
-        <input className="input" name={name} type={type} placeholder={ph} />
+        <input
+          className="input"
+          name={name}
+          type={type}
+          placeholder={ph}
+          onChange={onChange}
+        />
         <span className="icon is-small is-left">
           <Icon icon={i} />
         </span>

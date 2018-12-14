@@ -20,15 +20,6 @@ var AddMaintenance = React.createClass({
       }
     },
   
-    handleVinInput: function (event) {
-    
-      },
-    
-  
-    
-  
-    
-  
     render: function() {
       return (
         <div className="addMaintenance">
@@ -94,8 +85,9 @@ var AddMaintenance = React.createClass({
         </div>
       );
     }
-      
+  
   });
+
+}}
       
   module.exports = AddVehicle;
-  

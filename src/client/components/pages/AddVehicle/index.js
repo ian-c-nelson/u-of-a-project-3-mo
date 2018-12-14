@@ -5,7 +5,7 @@ import Input from "../../common/Input";
 // import authActions from "../../../redux/actions/auth";
 import * as fromCounter from "../../../redux/actions/counter";
 
-class Login extends React.Component {
+class AddVehicle extends React.Component {
   constructor() {
     super();
 
@@ -37,24 +37,24 @@ class Login extends React.Component {
         }
       },
 
-      handleVinInput: function (event) {
+      handleVinInput = event => {
 
       },
 
 
-      handleYearInput: function (event) {
+      handleYearInput = event => {
 
       },
 
-      handleMakeInput function (event) {
+      handleMakeInput = event => {
 
       },
 
-      handleModelInput function(event) {
+      handleModelInput = event => {
 
       },
 
-      handleColorInput function(event) {
+      handleColorInput = event => {
 
       },
 
@@ -149,5 +149,6 @@ class Login extends React.Component {
       }
 
     });
+  }}
 
     module.exports = AddVehicle;

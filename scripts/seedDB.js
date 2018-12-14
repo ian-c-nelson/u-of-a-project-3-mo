@@ -10,14 +10,18 @@ mongoose.connect(
 
 const userVehicleSeed = [
   {
+    name: "OJ's Vehicle",
+    vinNumber: "VNN",
     model: "bronco",
     make: "ford",
-    year: "2004",
-    color: "black",
+    year: "1993",
+    color: "white",
     mileage: 2000,
     date: new Date(Date.now())
   },
   {
+    name: "Who's Vehicle",
+    vinNumber: "VNN",
     model: "silverado",
     make: "chevy",
     year: "2018",

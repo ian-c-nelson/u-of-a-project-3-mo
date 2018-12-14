@@ -1,5 +1,5 @@
 import React from "react";
-import API from "../../../../../apiControllers/databaseAPI"
+import API from "../../../../../apiControllers/internal"
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import Input from "../../common/Input";

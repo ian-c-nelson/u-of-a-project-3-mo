@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import Input from "../../common/Input";
 // import authActions from "../../../redux/actions/auth";
 import * as fromCounter from "../../../redux/actions/counter";
-import API from "../../../../../apiControllers/databaseAPI"
+import API from "../../../../../apiControllers/internal"
 
 
 class Login extends React.Component {

@@ -68,6 +68,8 @@ class App extends Component {
                   <Route path="/login" exact component={pages.Login} />
                   <Route path="/signup" exact component={pages.SignUp} />
                   <Route path="/sandbox" exact component={pages.SandBox} />
+                  <Route path="/addvehicle" exact component={pages.AddVehicle} />
+
                   <Route component={pages.NoMatch} />
                 </Switch>
               </div>

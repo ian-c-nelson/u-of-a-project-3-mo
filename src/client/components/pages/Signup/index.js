@@ -5,6 +5,7 @@ import { action as toggleMenu } from "redux-burger-menu";
 import { Input, Modal } from "../../common";
 
 import {
+  clearAuth,
   signUp,
   getAuthData,
   getSignUpError,
@@ -17,6 +18,11 @@ import {
 } from "../../../redux/actions/formValues";
 
 class SignUp extends React.Component {
+  handleModalOkayClick = () => {
+    const { actions } = this.props;
+    actions.clearAuth();
+  };
+
   componentDidMount = () => {
     const { actions } = this.props;
     actions.setFormValues({ email: "", password: "" });
@@ -43,9 +49,6 @@ class SignUp extends React.Component {
     const { state } = this.props;
     const { credentials, signUpError } = state;
 
-    console.log(state);
-    console.log(credentials);
-
     return (
       <div className="page sign-up">
         <div className="columns is-centered is-vcentered">
@@ -56,7 +59,7 @@ class SignUp extends React.Component {
                   <Input
                     name="email"
                     type="email"
-                    value={(credentials || { email: "" }).email}
+                    value={credentials.email}
                     onChange={this.handleInputChange}
                   />
                 </div>
@@ -64,7 +67,7 @@ class SignUp extends React.Component {
                   <Input
                     name="password"
                     type="password"
-                    value={(credentials || { password: "" }).password}
+                    value={credentials.password}
                     onChange={this.handleInputChange}
                   />
                 </div>
@@ -81,7 +84,11 @@ class SignUp extends React.Component {
             </form>
           </div>
         </div>
-        <Modal title="Authentication Error">
+        <Modal
+          show={!!signUpError}
+          title="Authentication Error"
+          handleModalOkayClick={this.handleModalOkayClick}
+        >
           <p>{signUpError}</p>
         </Modal>
       </div>
@@ -105,6 +112,7 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(
       {
+        clearAuth,
         setFormValues,
         signUp,
         toggleMenu

@@ -18,6 +18,7 @@ export const signUp = credentials => dispatch => {
 };
 
 export const logOut = createAction("LOG_OUT_USER");
+export const clearAuth = createAction("CLEAR_AUTH");
 
 // REDUCERS
 const requested = handleActions(
@@ -41,6 +42,9 @@ const value = handleActions(
     },
     [logOut]() {
       return null;
+    },
+    [clearAuth]() {
+      return null;
     }
   },
   null
@@ -62,6 +66,9 @@ const error = handleActions(
       }
     },
     [logOut]() {
+      return null;
+    },
+    [clearAuth]() {
       return null;
     }
   },

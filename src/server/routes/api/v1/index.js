@@ -9,6 +9,24 @@ const { tokenEncoder } = require("../../../../../services/passport");
 const requireSignin = passport.authenticate("local", { session: false });
 const requireAuth = passport.authenticate("jwt", { session: false });
 
+const userRoutes = require("./user");
+const userVehicleRoutes = require("./userVehicle")
+const maintenanceRoutes = require("./addMaintenance")
+const manVehicleRoutes = require("./manVehicle")
+
+
+// User routes
+router.use("/user", userRoutes);
+
+// User vehicle routes
+router.use("/uservehicle", userVehicleRoutes)
+
+// Maintenance routes
+router.use("/maintenance", maintenanceRoutes)
+
+// Manufactured Vehicle Routes
+router.use("/manvehicle", manVehicleRoutes)
+
 // open routes ===============================================================
 
 router.get("/", (req, res) => {

@@ -101,9 +101,19 @@ class AddMaintenance extends React.Component {
   
        
       );
+<<<<<<< HEAD
+    }
+  
+  });
+
+}}
+      
+  module.exports = AddVehicle;
+=======
   }
 
 });
 
 module.exports = AddVehicle;
 
+>>>>>>> 450eefa719d1099d8f6865583042b44eebf0c467

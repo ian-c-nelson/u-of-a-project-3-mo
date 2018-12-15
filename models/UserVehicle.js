@@ -3,6 +3,15 @@ const { Schema, model } = mongoose;
 
 
 const UserVehicleSchema = new Schema({
+  name: {
+    type: String,
+    required: true
+  },
+
+  vinNumber: {
+    type: String
+  },
+  
   model: {
     type: String,
     required: true

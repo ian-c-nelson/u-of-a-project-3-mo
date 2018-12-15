@@ -1,4 +1,5 @@
 import React from "react";
+import API from "../../../../../apiControllers/internal"
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { action as toggleMenu } from "redux-burger-menu";
@@ -37,6 +38,7 @@ class SignUp extends React.Component {
     state.credentials[field] = event.target.value;
     actions.setFormValues(state.credentials);
   };
+
 
   onSave = event => {
     const { state } = this.props;

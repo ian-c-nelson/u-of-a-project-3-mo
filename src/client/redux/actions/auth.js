@@ -2,31 +2,43 @@ import { combineReducers } from "redux";
 import { createAction, handleActions } from "redux-actions";
 import API from "../../../../apiControllers/internal";
 
-// ACTION CREATORS
-const signUpRequest = createAction("SIGN_UP_REQUEST");
-const signUpResponse = createAction("SIGN_UP_RESPONSE");
+// PRIVATE ACTION CREATORS
+const authRequest = createAction("AUTH_UP_REQUEST");
+const authResponse = createAction("AUTH_UP_RESPONSE");
+
+// EXPORTED ACTION CREATORS
+export const logOut = createAction("LOG_OUT_USER");
+export const clearAuthError = createAction("CLEAR_AUTH_ERROR");
 
 export const signUp = credentials => dispatch => {
-  dispatch(signUpRequest());
+  dispatch(authRequest());
   API.signUp(credentials)
     .then(value => {
-      dispatch(signUpResponse(value));
+      dispatch(authResponse(value));
     })
     .catch(err => {
-      dispatch(signUpResponse(err.response.data.error));
+      dispatch(authResponse(err.response.data.error));
     });
 };
 
-export const logOut = createAction("LOG_OUT_USER");
-export const clearAuth = createAction("CLEAR_AUTH");
+export const logIn = credentials => dispatch => {
+  dispatch(authRequest());
+  API.logIn(credentials)
+    .then(value => {
+      dispatch(authResponse(value));
+    })
+    .catch(err => {
+      dispatch(authResponse(err.response.data.error));
+    });
+};
 
 // REDUCERS
 const requested = handleActions(
   {
-    [signUpRequest]() {
+    [authRequest]() {
       return true;
     },
-    [signUpResponse]() {
+    [authResponse]() {
       return false;
     }
   },
@@ -35,15 +47,15 @@ const requested = handleActions(
 
 const value = handleActions(
   {
-    [signUpResponse]: {
-      next(state, { payload }) {
+    [authResponse]: {
+      next(_state, { payload }) {
         return payload;
       }
     },
     [logOut]() {
       return null;
     },
-    [clearAuth]() {
+    [clearAuthError]() {
       return null;
     }
   },
@@ -52,12 +64,12 @@ const value = handleActions(
 
 const error = handleActions(
   {
-    [signUpResponse]: {
-      next(state, { payload }) {
+    [authResponse]: {
+      next(_state, { payload }) {
         return payload;
       },
       throw(
-        state,
+        _state,
         {
           payload: { message }
         }
@@ -68,7 +80,7 @@ const error = handleActions(
     [logOut]() {
       return null;
     },
-    [clearAuth]() {
+    [clearAuthError]() {
       return null;
     }
   },
@@ -92,6 +104,6 @@ export const getSignUpError = state => {
   return state && state.auth ? state.auth.error : null;
 };
 
-export const getSignUpRequested = state => {
+export const getAuthRequested = state => {
   return state && state.auth ? state.auth.requested : false;
 };

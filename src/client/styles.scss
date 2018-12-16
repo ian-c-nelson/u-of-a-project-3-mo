@@ -34,6 +34,18 @@ $footer-height: 1.5rem;
 $footer-padding: 0.15rem;
 $footer-background-color: $primary;
 
+// Modal
+$modal-card-head-background-color: $primary;
+$modal-card-title-color: $beige-lighter;
+$modal-card-head-padding: .75rem;
+
+// tooltip ===============================================================
+$tooltip-color: $primary;
+$tooltip-border-color: $purple-dark;
+$tooltip-text-color: $beige-lighter;
+$tooltip-border-width: 1px;
+$tooltip-triangle-width: $tooltip-border-width * 8;
+
 @import "../../node_modules/bulma/bulma.sass";
 
 * {
@@ -144,12 +156,6 @@ nav {
   }
 }
 
-// tooltip ===============================================================
-$tooltip-color: $primary;
-$tooltip-border-color: $purple-dark;
-$tooltip-text-color: $beige-lighter;
-$tooltip-border-width: 1px;
-$tooltip-triangle-width: $tooltip-border-width * 8;
 
 .tooltip {
   &-wrapper {
@@ -303,8 +309,6 @@ $tooltip-triangle-width: $tooltip-border-width * 8;
   }
 }
 
-// End tooltip ===============================================================
-
 .button {
   &.icon {
     height: 2.75rem;
@@ -414,8 +418,10 @@ footer.footer {
     /* TODO */
   }
 
-  &.login {
-    /* TODO */
+  &.log-in {
+    .form-wrapper {
+      min-height: 12rem;
+    }
   }
 
   &.sign-up {

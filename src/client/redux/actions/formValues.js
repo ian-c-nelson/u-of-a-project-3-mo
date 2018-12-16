@@ -7,7 +7,7 @@ export const clearFormValues = createAction("CLEAR_FORM_VALUES");
 // REDUCERS
 export default handleActions(
   {
-    [setFormValues](state, { payload }) {
+    [setFormValues](_state, { payload }) {
       return payload;
     },
     [clearFormValues]() {
@@ -19,7 +19,5 @@ export default handleActions(
 
 // SELECTORS
 export const getFormValues = state => {
-  console.log("getFormValues", state);
-
   return state.formValues;
 };

@@ -6,12 +6,10 @@ function Input(props) {
   const { name, type, placeholder, icon, validation, onChange } = props;
 
   const hasValidation = !!validation;
-  const isValid = validation ? validation.isValid : true;
+  const isValid = (!hasValidation) || validation.isValid;
   const validationMessage = validation ? validation.message : "";
   const validationIcon = isValid ? ["fas", "check"] : ["fas", "times"];
   const validationIconClass = isValid ? "has-text-success" : "has-text-danger";
-
-  console.log(isValid, validationMessage, validationIcon, validationIconClass);
 
   switch (type) {
     case "email":

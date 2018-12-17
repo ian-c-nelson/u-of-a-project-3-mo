@@ -3,10 +3,10 @@ const baseUrl = "/api/v1/";
 
 module.exports = {
   // create account
-  signUp: credentials => axios.post(`${baseUrl}/auth/signup`, credentials),
+  signUp: credentials => axios.post(`${baseUrl}auth/signup`, credentials),
 
   // log into account
-  logIn: credentials => axios.post(`${baseUrl}/auth/login`, credentials),
+  logIn: credentials => axios.post(`${baseUrl}auth/login`, credentials),
 
   // Gets all users
   getUsers: () => axios.get(`${baseUrl}user`),

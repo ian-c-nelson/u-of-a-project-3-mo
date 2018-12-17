@@ -2,31 +2,22 @@
 const passport = require("passport");
 const router = require("express").Router();
 const db = require("../../../../../models");
+const validation = require("../../../../../services/validation");
 
 const { tokenEncoder } = require("../../../../../services/passport");
-const requireSignin = passport.authenticate("local", { session: false });
+const requireLogIn = passport.authenticate("local", { session: false });
 
-router.post("/signin", requireSignin, (req, res) => {
-  console.log(req.body);
-
+router.post("/logIn", requireLogIn, (req, res) => {
+  const response = { token: tokenEncoder(req.user), user: req.user };
   res.json({ token: tokenEncoder(req.user), user: req.user });
 });
 
 router.post("/signup", (req, res) => {
-  console.log(req.body);
+  const { email, password } = req.body;
+  const validationResults = validation.validateCredentials(req.body);
 
-  const { email, password, passwordConfirmation } = req.body;
-
-  if (!email || !password) {
-    res.status(422).send({ error: "You must provide an email and password" });
-  }
-
-  if (password.length < 8) {
-    res.status(422).send({ error: "Password must be at least 8 characters." });
-  }
-
-  if (password !== passwordConfirmation) {
-    res.status(422).send({ error: "Password confirmation does not match password." });
+  if(!validationResults.isValid) {
+    return res.status(422).send({ error: "Validation Faulure", messages: validationResults.messages });
   }
 
   db.User.findOne({ email })
@@ -40,7 +31,6 @@ router.post("/signup", (req, res) => {
       const user = new db.User({ email, password });
       // save the user
       user.save().then(user => {
-        console.log(user);
         // respond with the success if the user existed
         res.json({ token: tokenEncoder(user), user });
       });

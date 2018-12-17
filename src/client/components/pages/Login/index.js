@@ -1,8 +1,8 @@
 import React from "react";
 import { Auth } from "../../layouts";
 
-function Login() {
+function LogIn() {
   return <Auth mode="LogIn" />;
 }
 
-export default Login;
+export default LogIn;

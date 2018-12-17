@@ -1,12 +1,13 @@
-/* eslint-disable no-useless-escape */
 import React from "react";
+import uuidv4 from "uuid/v4";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { action as toggleMenu } from "redux-burger-menu";
-import { Input, Modal } from "../../common";
+
 import validation from "../../../../../services/validation";
 
+import { getLocation, push } from "../../../redux/actions/router";
 import {
   clearAuthError,
   getAuthData,
@@ -17,105 +18,174 @@ import {
 } from "../../../redux/actions/auth";
 
 import {
-  setFormValues,
-  getFormValues
+  getFormValues,
+  setFormValues
 } from "../../../redux/actions/formValues";
 
+import { Icon, Input, Modal } from "../../common";
+
 class SignUp extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      email: "",
-      password: "",
-      passwordConfirmation: ""
-    };
-  }
-
-  handleModalOkayClick = () => {
-    const { actions } = this.props;
-    actions.clearAuthError();
-  };
-
   componentDidMount = () => {
     const { actions } = this.props;
     actions.toggleMenu(false, "left");
     actions.toggleMenu(false, "right");
-  };
-
-  handleInputChange = event => {
-    const fieldValidationName = `${event.target.name}Validation`;
-    const validationResults = this.validateField(
-      event.target.name,
-      event.target.value
-    );
-
-    this.setState({
-      [event.target.name]: event.target.value,
-      [fieldValidationName]: validationResults
+    actions.setFormValues({
+      email: "",
+      password: "",
+      passwordConfirmation: "",
+      showModal: false
     });
   };
 
   validateForm = () => {
-    const {
-      emailValidation,
-      passwordValidation,
-      passwordConfirmationValidation
-    } = this.state;
+    let isValid = true;
+    const results = {};
 
-    return (
-      emailValidation && passwordValidation && passwordConfirmationValidation
-    );
+    const { state, actions, mode } = this.props;
+    const { email, password, passwordConfirmation } = state.formValues;
+
+    results.emailValidation = this.validateField("email", email);
+    if (!results.emailValidation.isValid) {
+      isValid = false;
+    }
+
+    results.passwordValidation = this.validateField("password", password);
+    if (!results.passwordValidation.isValid) {
+      isValid = false;
+    }
+
+    if (mode === "SignUp") {
+      if (results.passwordValidation.isValid) {
+        results.passwordConfirmationValidation = this.validateField(
+          "passwordConfirmation",
+          passwordConfirmation
+        );
+        if (!results.passwordConfirmationValidation.isValid) {
+          isValid = false;
+        }
+      }
+    }
+
+    actions.setFormValues(results);
+
+    return isValid;
   };
 
   validateField = (fieldName, value) => {
-    const { password } = this.state;
+    const { state, mode } = this.props;
+    const { password } = state.formValues;
     const results = validation.validationObject;
+
     switch (fieldName) {
       case "email":
         if (!value) {
-          results.IsValid = false;
+          results.isValid = false;
           results.message = "Email is required.";
           return results;
         }
-        return validation.email(value);
+        return validation.validateEmail(value);
 
       case "password":
-        return validation.password(value);
+        if (!value) {
+          results.isValid = false;
+          results.message = "Password is required.";
+          return results;
+        }
+        return mode === "SignUp"
+          ? validation.validatePassword(value)
+          : validation.validationObject;
 
       case "passwordConfirmation":
         if (value !== password) {
-          results.IsValid = false;
+          results.isValid = false;
           results.message = "Password and Password Confirmation must match.";
           return results;
         }
-        return validation.password(value);
+        return validation.validatePassword(value);
 
       default:
         return results;
     }
   };
 
+  handleInputChange = event => {
+    const { actions } = this.props;
+    const fieldValidationName = `${event.target.name}Validation`;
+    const validationResults = this.validateField(
+      event.target.name,
+      event.target.value
+    );
+
+    actions.setFormValues({
+      [event.target.name]: event.target.value,
+      [fieldValidationName]: validationResults
+    });
+  };
+
+  handleModalOkayClick = () => {
+    const { actions } = this.props;
+    actions.setFormValues({
+      showModal: false
+    });
+    actions.clearAuthError();
+  };
+
   onSignUpClick = () => {
     const { state, actions } = this.props;
-    actions.signUp(state.formValues);
+    const { email, password, passwordConfirmation } = state.formValues;
+
+    const isValid = this.validateForm();
+    if (isValid) {
+      actions.signUp({ email, password, passwordConfirmation });
+      // actions.push("/");
+    } else {
+      actions.setFormValues({ showModal: !isValid });
+    }
   };
 
   onLogInClick = () => {
     const { state, actions } = this.props;
-    actions.logIn(state.formValues);
+    const { email, password, passwordConfirmation } = state.formValues;
+
+    const isValid = this.validateForm();
+    if (isValid) {
+      actions.logIn({ email, password, passwordConfirmation });
+      // actions.push("/");
+    } else {
+      actions.setFormValues({ showModal: !isValid });
+    }
   };
 
   render = () => {
+    const { state, mode } = this.props;
+    const { authError, formValues } = state;
     const {
       email,
       emailValidation,
       password,
       passwordValidation,
       passwordConfirmation,
-      passwordConfirmationValidation
-    } = this.state;
-    const { state, mode } = this.props;
-    const { authError } = state;
+      passwordConfirmationValidation,
+      showModal
+    } = formValues;
+
+    const errorMessages = [];
+
+    if (authError) {
+      errorMessages.push(authError);
+    }
+
+    if (emailValidation) {
+      errorMessages.push(emailValidation.message);
+    }
+
+    if (passwordValidation) {
+      errorMessages.push(passwordValidation.message);
+    }
+
+    if (passwordConfirmationValidation) {
+      errorMessages.push(passwordConfirmationValidation.message);
+    }
 
     return (
       <div className={`page ${mode === "LogIn" ? "log-in" : "sign-up"}`}>
@@ -157,20 +227,16 @@ class SignUp extends React.Component {
                 <div className="column is-12 is-clearfix">
                   {mode === "LogIn" ? (
                     <div>
-                      <Link
-                        className="button is-light is-pulled-left"
-                        to="/signup"
-                      >
-                        Sign Up
-                      </Link>
-
                       <button
                         type="button"
-                        className="button is-light is-pulled-right"
+                        className="button is-light is-pulled-left"
                         onClick={this.onLogInClick}
                       >
-                        Log In
+                        <strong>Log In</strong>
                       </button>
+                      <Link className="is-pulled-left" to="/signup">
+                        Or click here to create an account.
+                      </Link>
                     </div>
                   ) : (
                     <button
@@ -178,7 +244,7 @@ class SignUp extends React.Component {
                       className="button is-light is-pulled-left"
                       onClick={this.onSignUpClick}
                     >
-                      Sign Up
+                      <strong>Sign Up</strong>
                     </button>
                   )}
                 </div>
@@ -186,12 +252,34 @@ class SignUp extends React.Component {
             </form>
           </div>
         </div>
+
         <Modal
-          show={!!authError}
+          show={showModal || !!authError}
           title="Authentication Error"
           handleModalOkayClick={this.handleModalOkayClick}
         >
-          <p>{authError}</p>
+          <ul>
+            {errorMessages ? (
+              [...new Set(errorMessages)].map(msg =>
+                msg ? (
+                  <li key={uuidv4()} className="error-message">
+                    <div className="columns">
+                      <div className="column is-1 has-text-right">
+                        <Icon
+                          icon={["far", "exclamation-circle"]}
+                          className="has-text-danger"
+                          size="s"
+                        />
+                      </div>
+                      <div className="column is-11">{msg}</div>
+                    </div>
+                  </li>
+                ) : null
+              )
+            ) : (
+              <p>Loading...</p>
+            )}
+          </ul>
         </Modal>
       </div>
     );
@@ -205,7 +293,8 @@ function mapStateToProps(state) {
       authData: getAuthData(state),
       formValues: getFormValues(state),
       authError: getSignUpError(state),
-      authRequested: getAuthRequested(state)
+      authRequested: getAuthRequested(state),
+      location: getLocation(state)
     }
   };
 }
@@ -216,6 +305,7 @@ function mapDispatchToProps(dispatch) {
       {
         clearAuthError,
         logIn,
+        push,
         setFormValues,
         signUp,
         toggleMenu

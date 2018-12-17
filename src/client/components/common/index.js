@@ -4,7 +4,6 @@ import Header from "./Header";
 import Icon from "./Icon";
 import Input from "./Input";
 import Modal from "./Modal";
-import RequireAuth from "./RequireAuth";
 import ToolTip from "./ToolTip";
 import Vehicle from "./Vehicle";
 import Video from "./Video";
@@ -16,7 +15,6 @@ export {
   Icon,
   Input,
   Modal,
-  RequireAuth,
   ToolTip,
   Vehicle,
   Video

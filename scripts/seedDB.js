@@ -17,7 +17,7 @@ const userVehicleSeed = [
     model: "bronco",
     color: "white",
     mileage: 2000,
-    date: new Date(Date.now())
+    date: Date.now()
   },
   {
     name: "Who's Vehicle",
@@ -27,7 +27,7 @@ const userVehicleSeed = [
     model: "silverado",
     color: "white",
     mileage: 2000,
-    date: new Date(Date.now())
+    date: Date.now()
   }
 
 ];
@@ -39,7 +39,7 @@ const ManVehicleSeed = [
     model: "bronco",
     color: "black",
     mileage: 2000,
-    date: new Date(Date.now())
+    date: Date.now()
   },
   {
     year: "2018",
@@ -47,7 +47,7 @@ const ManVehicleSeed = [
     model: "silverado",
     color: "white",
     mileage: 2000,
-    date: new Date(Date.now())
+    date: Date.now()
   }
 
 ];
@@ -56,36 +56,43 @@ const UserSeed = [
   {
     email: "user1@gmail.com",
     password: "user1",
-    date: new Date(Date.now())
+    date: Date.now()
   },
   {
     email: "user2@gmail.com",
     password: "user2",
-    date: new Date(Date.now())
+    date: Date.now()
+  },
+  {
+    email: "test.user1@mo.com",
+    password: "P@ssW0rd1",
+    date: Date.now()
+  },
+  {
+    email: "test.user2@mo.com",
+    password: "P@ssW0rd2",
+    date: Date.now()
   }
-
 ];
 
 const AddMaintenanceSeed = [
   {
     type: "planned",
     description: "oil change",
-    date: new Date(Date.now),
     model: "silverado",
     make: "chevey",
     year: 2018,
     mileage: 2000,
-    date: new Date(Date.now())
+    date: Date.now()
   },
   {
     type: "planned",
     description: "oil change",
-    date: new Date(Date.now),
     model: "bronco",
     make: "ford",
     year: 2004,
     mileage: 2000,
-    date: new Date(Date.now())
+    date: Date.now()
   }
 
 ];
@@ -94,7 +101,7 @@ db.UserVehicle
   .remove({})
   .then(() => db.UserVehicle.collection.insertMany(userVehicleSeed))
   .then(data => {
-    console.log(data.result.n + " records inserted!");
+    console.log(`${data.result.n  } records inserted!`);
     process.exit(0);
   })
   .catch(err => {
@@ -106,7 +113,7 @@ db.ManVehicle
   .remove({})
   .then(() => db.ManVehicle.collection.insertMany(ManVehicleSeed))
   .then(data => {
-    console.log(data.result.n + " records inserted!");
+    console.log(`${data.result.n  } records inserted!`);
     process.exit(0);
   })
   .catch(err => {
@@ -118,7 +125,7 @@ db.ManVehicle
   .remove({})
   .then(() => db.User.collection.insertMany(UserSeed))
   .then(data => {
-    console.log(data.result.n + " records inserted!");
+    console.log(`${data.result.n  } records inserted!`);
     process.exit(0);
   })
   .catch(err => {
@@ -130,7 +137,7 @@ db.ManVehicle
   .remove({})
   .then(() => db.AddMaintenance.collection.insertMany(AddMaintenanceSeed))
   .then(data => {
-    console.log(data.result.n + " records inserted!");
+    console.log(`${data.result.n  } records inserted!`);
     process.exit(0);
   })
   .catch(err => {

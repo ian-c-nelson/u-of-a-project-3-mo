@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 import { createAction, handleActions } from "redux-actions";
+import { push } from "connected-react-router";
 import API from "../../../../apiControllers/internal";
 
 // PRIVATE ACTION CREATORS
@@ -12,23 +13,37 @@ export const clearAuthError = createAction("CLEAR_AUTH_ERROR");
 
 export const signUp = credentials => dispatch => {
   dispatch(authRequest());
-  API.signUp(credentials)
-    .then(value => {
-      dispatch(authResponse(value));
+  API.signIn(credentials)
+    .then(res => {
+      dispatch(authResponse(res.data));
+    })
+    .then(()=> {
+      dispatch(push("/"));
     })
     .catch(err => {
-      dispatch(authResponse(err.response.data.error));
+      if (err.response) {
+        dispatch(authResponse(err.response.data.error));
+      } else {
+        dispatch(authResponse(err));
+      }
     });
 };
 
 export const logIn = credentials => dispatch => {
   dispatch(authRequest());
   API.logIn(credentials)
-    .then(value => {
-      dispatch(authResponse(value));
+    .then(res => {
+      dispatch(authResponse(res.data));
     })
+    .then(()=> {
+      dispatch(push("/"));
+    })    
     .catch(err => {
-      dispatch(authResponse(err.response.data.error));
+      if (err.response) {
+        dispatch(authResponse(err.response.data.error));
+      } else {
+        dispatch(authResponse(err.Error));
+      }
     });
 };
 
@@ -66,7 +81,7 @@ const error = handleActions(
   {
     [authResponse]: {
       next(_state, { payload }) {
-        return payload;
+        return null;
       },
       throw(
         _state,

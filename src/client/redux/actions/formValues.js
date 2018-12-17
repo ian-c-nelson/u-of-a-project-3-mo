@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 import { createAction, handleActions } from "redux-actions";
 
 // ACTION CREATORS
@@ -7,8 +8,13 @@ export const clearFormValues = createAction("CLEAR_FORM_VALUES");
 // REDUCERS
 export default handleActions(
   {
-    [setFormValues](_state, { payload }) {
-      return payload;
+    [setFormValues](state, { payload }) {
+      const p = JSON.parse(JSON.stringify(state));
+      // match and override keys.
+      for (const key of Object.keys(payload)) {
+          p[key] = payload[key];
+      }
+      return p;
     },
     [clearFormValues]() {
       return null;

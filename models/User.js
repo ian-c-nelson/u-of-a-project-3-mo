@@ -54,6 +54,7 @@ UserSchema.methods.isValidPassword = function(candidatePassword, callback) {
   });
 };
 
-const User = model("User", UserSchema);
+// This creates our model from the above schema, using mongoose's model method
+const User = mongoose.model("User", UserSchema);
 
 module.exports = User;

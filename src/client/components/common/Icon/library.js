@@ -3,30 +3,13 @@ import { library as iconLibrary } from "@fortawesome/fontawesome-svg-core";
 import { faYoutube } from "@fortawesome/free-brands-svg-icons";
 
 import {
-  faBars as faBarsLight,
-  faCalendarAlt as faCalendarAltLight,
-  faCarSide as faCarSideLight,
-  faCarMechanic as faCarMechanicLight,
-  faCheck as faCheckLight,
-  faEnvelope as faEnvelopeLight,
-  faHashtag as faHashtagLight,
-  faLock as faLockLight,
-  faMinus as faMinusLight,
-  faPaintBrush as faPaintBrushLight,
-  faPencilAlt as faPencilAltLight,
-  faPlus as faPlusLight,
-  faTachometerAlt as faTachometerAltLight,
-  faTrashAlt as faTrashAltLight,
-  faWrench as faWrenchLight
-} from "@fortawesome/pro-light-svg-icons";
-
-import {
   faBars,
   faCalendarAlt,
   faCarMechanic,
   faCarSide,
   faCheck,
   faEnvelope,
+  faExclamationCircle,
   faHashtag,
   faLock,
   faMinus,
@@ -34,9 +17,30 @@ import {
   faPencilAlt,
   faPlus,
   faTachometerAlt,
+  faTimes,
   faTrashAlt,
   faWrench
 } from "@fortawesome/pro-regular-svg-icons";
+
+import {
+  faBars as faBarsLight,
+  faCalendarAlt as faCalendarAltLight,
+  faCarSide as faCarSideLight,
+  faCarMechanic as faCarMechanicLight,
+  faCheck as faCheckLight,
+  faEnvelope as faEnvelopeLight,
+  faExclamationCircle as faExclamationCircleLight,
+  faHashtag as faHashtagLight,
+  faLock as faLockLight,
+  faMinus as faMinusLight,
+  faPaintBrush as faPaintBrushLight,
+  faPencilAlt as faPencilAltLight,
+  faPlus as faPlusLight,
+  faTachometerAlt as faTachometerAltLight,
+  faTimes as faTimesLight,
+  faTrashAlt as faTrashAltLight,
+  faWrench as faWrenchLight
+} from "@fortawesome/pro-light-svg-icons";
 
 import {
   faBars as faBarsSolid,
@@ -45,6 +49,7 @@ import {
   faCarSide as faCarSideSolid,
   faCheck as faCheckSolid,
   faEnvelope as faEnvelopeSolid,
+  faExclamationCircle as faExclamationCircleSolid,
   faHashtag as faHashtagSolid,
   faLock as faLockSolid,
   faMinus as faMinusSolid,
@@ -52,6 +57,7 @@ import {
   faPencilAlt as faPencilAltSolid,
   faPlus as faPlusSolid,
   faTachometerAlt as faTachometerAltSolid,
+  faTimes as faTimesSolid,
   faTrashAlt as faTrashAltSolid,
   faWrench as faWrenchSolid
 } from "@fortawesome/pro-solid-svg-icons";
@@ -75,6 +81,9 @@ iconLibrary.add(
   faEnvelope,
   faEnvelopeLight,
   faEnvelopeSolid,
+  faExclamationCircle,
+  faExclamationCircleLight,
+  faExclamationCircleSolid,
   faHashtag,
   faHashtagLight,
   faHashtagSolid,
@@ -96,6 +105,9 @@ iconLibrary.add(
   faTachometerAlt,
   faTachometerAltLight,
   faTachometerAltSolid,
+  faTimes,
+  faTimesLight,
+  faTimesSolid,
   faTrashAlt,
   faTrashAltLight,
   faTrashAltSolid,

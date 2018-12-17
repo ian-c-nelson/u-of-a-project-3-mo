@@ -7,7 +7,6 @@ const topicId = "/m/07yv9"; // Vehicles
 
 const get = endPoint => {
   const url = `${baseUrl}${endPoint}`;
-  console.log(url);
   return axios.get(url);
 };
 

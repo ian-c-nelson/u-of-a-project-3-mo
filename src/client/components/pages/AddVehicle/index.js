@@ -2,8 +2,9 @@ import React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { action as toggleMenu } from "redux-burger-menu";
-import Input from "../../common/Input";
+import { Input } from "../../common";
 import API from "../../../../../apiControllers/internal";
+import { models, makes } from "../../../../../config/dropDownData";
 
 class AddVehicle extends React.Component {
   constructor() {
@@ -13,7 +14,9 @@ class AddVehicle extends React.Component {
       year: null,
       make: null,
       model: null,
-      color: null
+      color: null,
+      name: null,
+      mileage: null
     };
   }
 
@@ -42,10 +45,11 @@ class AddVehicle extends React.Component {
     if (model && make) {
       API.saveUserVehicle({
         vinNumber,
-        model,
-        make,
         year,
+        make,
+        model,
         color,
+        name,
         mileage
       })
         .then(res => this.loadAddVehicle)
@@ -56,7 +60,6 @@ class AddVehicle extends React.Component {
   render() {
     const {
       vinNumber,
-      showVinError,
       year,
       make,
       model,
@@ -80,7 +83,6 @@ class AddVehicle extends React.Component {
                     icon={["far", "pencil-alt"]}
                     onChange={this.handleInputChange}
                     errorMessage="Name is required."
-                    errorVisible={showVinError}
                   />
                 </div>
                 <div className="column is-12">
@@ -91,7 +93,6 @@ class AddVehicle extends React.Component {
                     icon={["fas", "hashtag"]}
                     placeholder="VIN Number"
                     onChange={this.handleInputChange}
-                    errorVisible={showVinError}
                   />
                 </div>
                 <div className="column is-12">
@@ -103,30 +104,27 @@ class AddVehicle extends React.Component {
                     placeholder="Vehicle Year"
                     validate={this.validateRequired}
                     onChange={this.handleInputChange}
-                    emptyMessage="Year is required"
                   />
                 </div>
                 <div className="column is-12">
                   <Input
-                    type="text"
+                    type="dropdown"
                     name="make"
                     value={make}
+                    options={makes}
                     placeholder="Vehicle Make"
                     onChange={this.handleInputChange}
-                    // validator="true"
-                    // emptyMessage="Please confirm your Make"
-                    // errorMessage="Make does not match"
                   />
                 </div>
                 <div className="column is-12">
                   <Input
-                    type="text"
+                    type="dropdown"
                     name="model"
                     value={model}
+                    options={models}
+                    filter={make}
                     placeholder="Vehicle Model"
                     onChange={this.handleInputChange}
-                    // emptyMessage="Please confirm your Model"
-                    // errorMessage="Model does not match"
                   />
                 </div>
                 <div className="column is-12">
@@ -136,7 +134,6 @@ class AddVehicle extends React.Component {
                     value={color}
                     placeholder="Vehicle Color"
                     onChange={this.handleInputChange}
-                    // emptyMessage="Please confirm your color"
                   />
                 </div>
                 <div className="column is-12">

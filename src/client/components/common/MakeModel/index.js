@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './MakeModel.css';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
-import API from "../../../../apiControllers/internal";
+import API from "../../../../../apiControllers/internal";
 
 class MakeModel extends Component {
   constructor() {

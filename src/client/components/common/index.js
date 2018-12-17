@@ -20,4 +20,4 @@ export {
   Vehicle,
   Video,
   MakeModel
-};          
+};

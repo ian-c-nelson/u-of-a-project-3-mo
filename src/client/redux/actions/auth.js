@@ -13,7 +13,7 @@ export const clearAuthError = createAction("CLEAR_AUTH_ERROR");
 
 export const signUp = credentials => dispatch => {
   dispatch(authRequest());
-  API.signIn(credentials)
+  API.signUp(credentials)
     .then(res => {
       dispatch(authResponse(res.data));
     })

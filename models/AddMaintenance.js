@@ -1,3 +1,9 @@
+import React from 'react';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
+import DatePicker from 'material-ui/DatePicker';
+
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 
@@ -54,6 +60,8 @@ const AddMaintenanceSchema = new Schema({
 
 // This creates our model from the above schema, using mongoose's model method
 const AddMaintenance = model("AddMaintenance", AddMaintenanceSchema);
+
+
 
 // Export the Note model
 module.exports = AddMaintenance;

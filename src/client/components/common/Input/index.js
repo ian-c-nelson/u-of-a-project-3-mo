@@ -1,5 +1,7 @@
 import React from "react";
 import Icon from "../Icon";
+import DatePicker from 'material-ui/DatePicker';
+
 
 function Input(props) {
   let i, ph;
@@ -14,6 +16,9 @@ function Input(props) {
       ph = placeholder || "Password";
       i = icon || ["far", "lock"];
       break;
+    case "datepicker":
+      ph = placeholder || "Date";
+      i = icon || ["far", "lock"];
     default:
       ph = placeholder;
       i = icon || ["far", "pencil-alt"];

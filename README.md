@@ -29,6 +29,7 @@ A full stack application to schedule and track maintenance and costs of ownershi
 - SASS Bourbon - ([Docs](https://www.bourbon.io/))
 - FontAwesome - ([Docs](https://fontawesome.com/how-to-use/on-the-web/referencing-icons/basic-use)) ([React Guide](https://scotch.io/tutorials/using-font-awesome-5-with-react))
 - React/Redux Burger Menu - ([React Docs](https://github.com/negomi/react-burger-menu)) ([Redux Docs](https://negomi.github.io/redux-burger-menu/))
+- Material UI - ([Docs](https://www.npmjs.com/package/@material-ui/core))
 
 #### Development
 - ESLint - ([Docs](https://eslint.org/docs/user-guide/getting-started))

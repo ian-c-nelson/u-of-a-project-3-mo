@@ -2,7 +2,19 @@ import React from "react";
 import Icon from "../Icon";
 import DatePicker from 'material-ui/DatePicker';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { purple400, purple700 } from "material-ui/styles/colors";
+import { createMuiTheme } from 'material-ui/styles';
 
+const theme = getMuiTheme({
+  palette: {
+     primary1Color: purple400,
+     primary2Color: purple700,
+     pickerHeaderColor: purple400,
+   
+  
+  },
+});
 
 
 function Input(props) {
@@ -37,7 +49,7 @@ function Input(props) {
     <div className="field">
       <p className="control has-icons-left has-icons-right">
         {type === "datepicker" ? (
-          <MuiThemeProvider>
+          <MuiThemeProvider  muiTheme={theme}>
             <DatePicker className="input" hintText={ph} title={validationMessage}
               onChange={onChange} />
           </MuiThemeProvider>

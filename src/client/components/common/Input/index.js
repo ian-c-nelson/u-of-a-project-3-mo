@@ -1,5 +1,21 @@
 import React from "react";
 import Icon from "../Icon";
+import DatePicker from 'material-ui/DatePicker';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { purple400, purple700 } from "material-ui/styles/colors";
+import { createMuiTheme } from 'material-ui/styles';
+
+const theme = getMuiTheme({
+  palette: {
+     primary1Color: purple400,
+     primary2Color: purple700,
+     pickerHeaderColor: purple400,
+   
+  
+  },
+});
+
 
 function Input(props) {
   let i, ph;
@@ -20,6 +36,9 @@ function Input(props) {
       ph = placeholder || "Password";
       i = icon || ["fas", "lock"];
       break;
+    case "datepicker":
+      ph = placeholder || "Date";
+      i = icon || ["fas", "calendar-alt"];
     default:
       ph = placeholder;
       i = icon || ["fas", "pencil-alt"];
@@ -29,14 +48,22 @@ function Input(props) {
   return (
     <div className="field">
       <p className="control has-icons-left has-icons-right">
-        <input
-          className="input"
-          name={name}
-          type={type}
-          placeholder={ph}
-          title={validationMessage}
-          onChange={onChange}
-        />
+        {type === "datepicker" ? (
+          <MuiThemeProvider  muiTheme={theme}>
+            <DatePicker className="input" hintText={ph} title={validationMessage}
+              onChange={onChange} />
+          </MuiThemeProvider>
+        ) : (
+            <input
+              className="input"
+              name={name}
+              type={type}
+              placeholder={ph}
+              title={validationMessage}
+              onChange={onChange}
+            />
+          )}
+
         <span className="icon is-small is-left">
           <Icon icon={i} />
         </span>

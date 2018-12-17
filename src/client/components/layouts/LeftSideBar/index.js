@@ -35,6 +35,12 @@ function LeftSidebar(props) {
       <ul className="menu-list">
         <li>
           <Link to="/vehicles/add">Add Vehicle</Link>
+
+        </li>
+        <li>
+          <Link to="/maintenance/add">
+            Add Maintenance
+          </Link>
         </li>
         <li>
           <Link to="/vehicles/search">Search for Vehicles</Link>

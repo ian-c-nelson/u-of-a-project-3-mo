@@ -55,6 +55,17 @@ function Routes(props) {
                   component={pages.AddVehicle}
                   authData={authData}
                 />
+                 <PrivateRoute
+                  path="/maintenance/add"
+                  exact
+                  component={pages.AddMaintenance}
+                  authData={authData}
+                />
+                 <PrivateRoute
+                  path="/maintenance/"
+                  component={pages.ViewMaintenance}
+                  authData={authData}
+                />
                 <PrivateRoute
                   path="/"
                   exact

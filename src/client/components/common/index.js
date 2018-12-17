@@ -7,6 +7,7 @@ import Modal from "./Modal";
 import ToolTip from "./ToolTip";
 import Vehicle from "./Vehicle";
 import Video from "./Video";
+import MakeModel from "./MakeModel";
 
 export {
   Card, CardContent, CardFooter, CardHeader,
@@ -17,5 +18,6 @@ export {
   Modal,
   ToolTip,
   Vehicle,
-  Video
+  Video,
+  MakeModel
 };          

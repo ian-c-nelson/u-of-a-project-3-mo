@@ -1,6 +1,8 @@
 import React from "react";
 import Icon from "../Icon";
 import DatePicker from 'material-ui/DatePicker';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+
 
 
 function Input(props) {
@@ -24,7 +26,7 @@ function Input(props) {
       break;
     case "datepicker":
       ph = placeholder || "Date";
-      i = icon || ["far", "lock"];
+      i = icon || ["fas", "calendar-alt"];
     default:
       ph = placeholder;
       i = icon || ["fas", "pencil-alt"];
@@ -34,14 +36,22 @@ function Input(props) {
   return (
     <div className="field">
       <p className="control has-icons-left has-icons-right">
-        <input
-          className="input"
-          name={name}
-          type={type}
-          placeholder={ph}
-          title={validationMessage}
-          onChange={onChange}
-        />
+        {type === "datepicker" ? (
+          <MuiThemeProvider>
+            <DatePicker className="input" hintText={ph} title={validationMessage}
+              onChange={onChange} />
+          </MuiThemeProvider>
+        ) : (
+            <input
+              className="input"
+              name={name}
+              type={type}
+              placeholder={ph}
+              title={validationMessage}
+              onChange={onChange}
+            />
+          )}
+
         <span className="icon is-small is-left">
           <Icon icon={i} />
         </span>

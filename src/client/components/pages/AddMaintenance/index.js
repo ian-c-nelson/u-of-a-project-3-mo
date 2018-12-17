@@ -1,120 +1,140 @@
 import React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import { action as toggleMenu } from "redux-burger-menu";
 import Input from "../../common/Input";
-// import authActions from "../../../redux/actions/auth";
-import * as fromCounter from "../../../redux/actions/counter";
+import API from "../../../../../apiControllers/internal";
 
 class AddMaintenance extends React.Component {
   constructor() {
     super();
-
-    var AddMaintenance = React.createClass({
-      getInitialState: function () {
-        return {
-          MaintenanceType: null,
-          Month: null,
-          Day: null,
-          Year: null,
-          Time: null
-        }
-      },
-
-      handleVinInput: function (event) {
-
-      }
-    
-  
-    
-  
-    
-  
-    render: function () {
-        return (
-          <div className="addMaintenance">
-            <div className="addMaintenance">
-              <h1>Add a Maintenance Reminder</h1>
-
-              <form onSubmit={this.saveAndContinue}>
-                <div className="column is-12">
-                  <Input
-                    text="Maintenance Type"
-                    ref="maintenanceType"
-                    type="text"
-                    defaultValue={this.state.MaintenanceType}
-                    validate={this.validateMaintenanceType}
-                    value={this.state.MaintenanceType}
-                    onChange={this.handleMaintenanceInput}
-                    emptyMessage="Message field cannot be empty"
-                    errorVisible={this.state.showVinError}
-                  />
-                </div>
-
-                <div className="column is-12"></div>
-                <Input
-                  text="Month"
-                  ref="month"
-                  type="text"
-                  validate={this.state.validateMonth}
-                  value={this.state.month}
-                  onChange={this.handleMonthInput}
-                  emptyMessage="Month can't be empty"
-                /> 
-                </div>
-
-              <div className="column is-12">
-                <Input
-                  text="Day"
-                  ref="day"
-                  type="text"
-                  validate={this.state.validatDay}
-                  value={this.state.day}
-                  onChange={this.handleDayInput}
-                  emptyMessage="Day can't be empty"
-                />
-              </div>
-
-              <div className="column is-12">
-                <Input
-                  text="Year"
-                  ref="year"
-                  type="text"
-                  validate={this.state.validateYear}
-                  value={this.state.year}
-                  onChange={this.handleYearInput}
-                  emptyMessage="Year can't be empty"
-                />
-              </div>
-
-
-
-
-              <button
-                type="submit"
-                className="button button_wide">
-                Add Maintenance Reminder
-              </button>
-  
-            </form>
-
-
-          </div>
-  
-       
-      );
-<<<<<<< HEAD
-    }
-  
-  });
-
-}}
-      
-  module.exports = AddVehicle;
-=======
+    this.state = {
+      type: null,
+      date: null,
+      description: null,
+      cost: null
+    };
   }
 
-});
+  componentDidMount = () => {
+    const { actions } = this.props;
+    actions.toggleMenu(false, "left");
+    actions.toggleMenu(false, "right");
+  };
 
-module.exports = AddVehicle;
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
 
->>>>>>> 450eefa719d1099d8f6865583042b44eebf0c467
+  saveAndContinue = event => {
+    const { actions } = this.props;
+    event.preventDefault();
+  };
+
+
+
+
+  render() {
+    const {
+      type,
+      date,
+      description,
+      cost
+    } = this.state;
+    return (
+      <div className="addMaintenance" >
+        <div className="addMaintenance">
+          <h1>Add a Maintenance Reminder</h1>
+
+          <form onSubmit={this.saveAndContinue}>
+            <div className="column is-12">
+              <Input
+                type="text"
+                name="type"
+                value={type}
+                // icon={["fas", "calendar-alt"]}
+                placeholder="Maintenance Type"
+                onChange={this.handleInputChange}
+
+              />
+            </div>
+            <div className="column is-12">
+              <Input
+                type="text"
+                name="description"
+                value={description}
+                // icon={["fas", "calendar-alt"]}
+                placeholder="Description"
+                onChange={this.handleInputChange}
+
+              />
+            </div>
+            <div className="column is-12">
+              <Input
+                type="text"
+                name="cost"
+                value={cost}
+                // icon={["fas", "calendar-alt"]}
+                placeholder="Maintenance Cost"
+                onChange={this.handleInputChange}
+
+              />
+            </div>
+
+
+            <div className="column is-12">
+              <Input
+                type="datepicker"
+                name="date"
+                value={date}
+                icon={["fas", "calendar-alt"]}
+                placeholder="Maintenance Date"
+                onChange={this.handleInputChange}
+
+              />
+            </div>
+
+
+            <button
+              type="button"
+              className="button button_wide" onClick={this.saveAndContinue}>
+
+              Add Maintenance Reminder
+            </button>
+
+          </form>
+
+
+        </div>
+      </div>
+
+    );
+  }
+}
+
+function mapStateToProps(state) {
+  return {
+    state: {
+      burgerMenu: state.burgerMenu
+    }
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(
+      {
+        toggleMenu
+      },
+      dispatch
+    )
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddMaintenance);

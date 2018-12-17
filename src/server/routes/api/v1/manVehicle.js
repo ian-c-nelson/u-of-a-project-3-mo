@@ -1,5 +1,4 @@
 const router = require("express").Router();
-// const manVehicleController = require("../../controllers/manVehicleController");
 const manVehicleController = require("../../../../../controllers/manVehicleController");
 
 

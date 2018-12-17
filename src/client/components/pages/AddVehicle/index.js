@@ -3,8 +3,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { action as toggleMenu } from "redux-burger-menu";
 import Input from "../../common/Input";
-import API from "../../../../../apiControllers/internal"
-
+import API from "../../../../../apiControllers/internal";
 
 class AddVehicle extends React.Component {
   constructor() {
@@ -24,13 +23,6 @@ class AddVehicle extends React.Component {
     actions.toggleMenu(false, "right");
   };
 
-  // handleInputChange = event => {
-  //   const field = event.target.name;
-  //   const { credentials } = this.state;
-  //   credentials[field] = event.target.value;
-  //   return this.setState({ credentials });
-  // };
-
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -44,29 +36,27 @@ class AddVehicle extends React.Component {
   };
 
   handleFormSubmit = event => {
+    const { make, model, vinNumber, year, color, mileage } = this.state;
+
     event.preventDefault();
-    if (this.state.model && this.state.make) {
+    if (model && make) {
       API.saveUserVehicle({
-        vinNumber: this.state.vinNumber,
-        model: this.state.model,
-        make: this.state.make,
-        year: this.state.year,
-        color: this.state.color,
-        mileage: this.state.mileage
+        vinNumber,
+        model,
+        make,
+        year,
+        color,
+        mileage
       })
         .then(res => this.loadAddVehicle)
         .catch(err => console.log(err));
     }
   };
 
-
-  validateRequired = event => {};
-
   render() {
     const {
       vinNumber,
       showVinError,
-      validateYear,
       year,
       make,
       model,
@@ -92,7 +82,6 @@ class AddVehicle extends React.Component {
                     errorMessage="Name is required."
                     errorVisible={showVinError}
                   />
-
                 </div>
                 <div className="column is-12">
                   <Input
@@ -124,9 +113,9 @@ class AddVehicle extends React.Component {
                     value={make}
                     placeholder="Vehicle Make"
                     onChange={this.handleInputChange}
-                  // validator="true"
-                  // emptyMessage="Please confirm your Make"
-                  // errorMessage="Make does not match"
+                    // validator="true"
+                    // emptyMessage="Please confirm your Make"
+                    // errorMessage="Make does not match"
                   />
                 </div>
                 <div className="column is-12">
@@ -136,8 +125,8 @@ class AddVehicle extends React.Component {
                     value={model}
                     placeholder="Vehicle Model"
                     onChange={this.handleInputChange}
-                  // emptyMessage="Please confirm your Model"
-                  // errorMessage="Model does not match"
+                    // emptyMessage="Please confirm your Model"
+                    // errorMessage="Model does not match"
                   />
                 </div>
                 <div className="column is-12">
@@ -147,7 +136,7 @@ class AddVehicle extends React.Component {
                     value={color}
                     placeholder="Vehicle Color"
                     onChange={this.handleInputChange}
-                  // emptyMessage="Please confirm your color"
+                    // emptyMessage="Please confirm your color"
                   />
                 </div>
                 <div className="column is-12">
@@ -160,9 +149,7 @@ class AddVehicle extends React.Component {
                   />
                 </div>
 
-
                 <div className="column is-12 is-clearfix">
-
                   <button
                     id="log-in-button"
                     type="button"
@@ -170,16 +157,13 @@ class AddVehicle extends React.Component {
                     onClick={this.saveAndContinue}
                   >
                     Add Vehicle
-                </button>
+                  </button>
                 </div>
               </div>
             </form>
           </div>
         </div>
       </div>
-
-
-
     );
   }
 }

@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const addMaintenanceController = require("../../../../../controllers/addMaintenanceController");
 
-
 // Matches with "/api/maintenance"
 router.route("/")
   .get(addMaintenanceController.findAll)

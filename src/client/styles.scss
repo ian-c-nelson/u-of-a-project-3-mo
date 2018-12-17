@@ -3,17 +3,17 @@
 
 $purple: #8a4d76;
 $purple-dark: #62066f;
-$purple-light: #BE90D4;
+$purple-light: #be90d4;
 $pink: #fa7c91;
 $brown: #757763;
 $beige-light: #d0d1cd;
 $beige-lighter: #eff0eb;
 
-$grey-dark: #757D75;
-$grey-medium: #ABB7B7;
-$grey-light: #BDC3C7;
-$porcelain: #ECF0F1;
-$cherry-blossom: #5D8CAE;
+$grey-dark: #757d75;
+$grey-medium: #abb7b7;
+$grey-light: #bdc3c7;
+$porcelain: #ecf0f1;
+$cherry-blossom: #5d8cae;
 
 $primary: $purple;
 $link: $pink;
@@ -33,6 +33,19 @@ $navbar-height: 3rem;
 $footer-height: 1.5rem;
 $footer-padding: 0.15rem;
 $footer-background-color: $primary;
+
+// Modal
+$modal-card-head-background-color: $primary;
+$modal-card-title-color: $beige-lighter;
+$modal-card-head-padding: 0.75rem;
+$modal-card-body-padding: 0.75rem;
+
+// tooltip ===============================================================
+$tooltip-color: $primary;
+$tooltip-border-color: $purple-dark;
+$tooltip-text-color: $beige-lighter;
+$tooltip-border-width: 1px;
+$tooltip-triangle-width: $tooltip-border-width * 8;
 
 @import "../../node_modules/bulma/bulma.sass";
 
@@ -143,13 +156,6 @@ nav {
     }
   }
 }
-
-// tooltip ===============================================================
-$tooltip-color: $primary;
-$tooltip-border-color: $purple-dark;
-$tooltip-text-color: $beige-lighter;
-$tooltip-border-width: 1px;
-$tooltip-triangle-width: $tooltip-border-width * 8;
 
 .tooltip {
   &-wrapper {
@@ -303,16 +309,30 @@ $tooltip-triangle-width: $tooltip-border-width * 8;
   }
 }
 
-// End tooltip ===============================================================
-
 .button {
+  &.is-primary {
+    color: $beige-lighter;
+  }
+  
+  &.is-light {
+    color: $purple;
+  }
+
   &.icon {
     height: 2.75rem;
     width: 2.75rem;
     font-size: 1.5rem;
+  }
+}
 
-    &.is-primary {
-      color: $grey-light;
+.modal {
+  .error-message {
+    .column {
+      padding: 0.5rem;
+      &:first-of-type {
+        padding-right: 0;
+        text-align: right;
+      }
     }
   }
 }
@@ -402,7 +422,6 @@ footer.footer {
 .page {
   margin-top: 0.75rem;
 
-
   .form-wrapper {
     margin: 1.5rem auto;
     background-color: $purple-light;
@@ -410,12 +429,26 @@ footer.footer {
     border-radius: 5px;
   }
 
-  &.home {
-    /* TODO */
-  }
+  /* TODO */
+  // &.home {
+  // }
 
-  &.login {
-    /* TODO */
+  &.log-in {
+    .form-wrapper {
+      min-height: 12rem;
+    }
+
+    a {
+      color: $purple-dark;
+      line-height: 2.4rem;
+      margin-left: 0.5rem;
+      &:visited {
+        color: $purple-dark;
+      }
+      &:hover {
+        color: $beige-light;
+      }
+    }
   }
 
   &.sign-up {
@@ -424,9 +457,9 @@ footer.footer {
     }
   }
 
-  &.no-match {
-    /* TODO */
-  }
+  /* TODO */
+  // &.no-match {
+  // }
 
   &.sandbox {
     .button {

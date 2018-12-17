@@ -1,66 +1,34 @@
-/* eslint-disable react/prefer-stateless-function */
-/* eslint-disable no-underscore-dangle */
-import React, { Component } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
-import { createStore, applyMiddleware, compose } from "redux";
+import React from "react";
+import { createBrowserHistory } from "history";
+import { routerMiddleware } from "connected-react-router";
 import { Provider } from "react-redux";
+import { createStore, applyMiddleware, compose } from "redux";
 import ReduxThunk from "redux-thunk";
 import rootReducer from "./redux/reducers";
 import initialState from "../../config/initialState";
 
-import { Header, Footer } from "./components/common";
-import { LeftSidebar, RightSidebar } from "./components/layouts";
+import Routes from "./components/routes";
 
-import * as pages from "./components/pages";
+const history = createBrowserHistory();
 
 // Configure redux with redux-thunk and dev tools
 const middleware = [ReduxThunk];
 const enhancer = compose(
-  // Middleware you want to use in development:
-  applyMiddleware(...middleware),
-  // Required! Enable Redux DevTools with the monitors you chose
-
+  applyMiddleware(routerMiddleware(history), ...middleware),
   window.__REDUX_DEVTOOLS_EXTENSION__
     ? window.__REDUX_DEVTOOLS_EXTENSION__()
     : f => f
 );
 
+// Create the redux store
+const store = createStore(rootReducer(history), initialState, enhancer);
 
-const store = createStore(rootReducer, initialState, enhancer);
-
-class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <Router>
-          <div className="wrapper">
-            <div id="react-burger-container">
-              <Header />
-              <LeftSidebar pageWrapId="react-burger-page-wrap" width={280} className="left-nav" />
-              <RightSidebar
-                pageWrapId="react-burger-page-wrap"
-                width={375}
-                right
-              />
-              <div id="react-burger-page">
-                <Switch>
-                  <Route path="/" exact component={pages.Home} />
-                  <Route path="/login" exact component={pages.Login} />
-                  <Route path="/signup" exact component={pages.SignUp} />
-                  <Route path="/sandbox" exact component={pages.SandBox} />
-                  <Route path="/vehicles/add" exact component={pages.AddVehicle} />
-                  
-                  <Route component={pages.NoMatch} />
-                </Switch>
-              </div>
-              <Footer />
-            </div>
-          </div>
-        </Router>
-      </Provider>
-    );
-  }
+function App() {
+  return (
+    <Provider store={store}>
+      <Routes history={history} />
+    </Provider>
+  );
 }
 
 export default App;

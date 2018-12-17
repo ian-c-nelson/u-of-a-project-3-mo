@@ -22,7 +22,9 @@ A full stack application to schedule and track maintenance and costs of ownershi
 
 #### Front End
 - React - ([Docs](https://reactjs.org/docs/getting-started.html))
-- ReactRouter - ([Docs](https://reacttraining.com/react-router/web/guides/quick-start))
+- React Router - ([Docs](https://reacttraining.com/react-router/web/guides/quick-start))
+- Connected React Router - ([Docs](https://github.com/supasate/connected-react-router))
+- History - ([Docs](https://github.com/ReactTraining/history))
 - SASS - ([Docs](https://sass-lang.com/))
 - SASS Bourbon - ([Docs](https://www.bourbon.io/))
 - FontAwesome - ([Docs](https://fontawesome.com/how-to-use/on-the-web/referencing-icons/basic-use)) ([React Guide](https://scotch.io/tutorials/using-font-awesome-5-with-react))

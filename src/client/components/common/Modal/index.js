@@ -1,9 +1,9 @@
 import React from "react";
 
 function Modal(props) {
-  const { show, title, children, handleModalOkayClick } = props;
+  const { show, title, children, className, handleModalOkayClick } = props;
 
-  const modalclassName = `modal${show ? " is-active" : ""}`;
+  const modalclassName = `modal ${className} ${show ? " is-active" : ""}`;
 
   return (
     <div className={modalclassName}>
@@ -11,11 +11,14 @@ function Modal(props) {
       <div className="modal-card">
         <header className="modal-card-head">
           <p className="modal-card-title">{title}</p>
-          <button type="button" className="delete" aria-label="close" />
+          <button
+            type="button"
+            className="delete"
+            aria-label="close"
+            onClick={handleModalOkayClick}
+          />
         </header>
-        <section className="modal-card-body">
-          {children}
-        </section>
+        <section className="modal-card-body">{children}</section>
         <footer className="modal-card-foot">
           <button
             type="button"

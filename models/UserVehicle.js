@@ -37,10 +37,15 @@ const UserVehicleSchema = new Schema({
     required: true,
   },
 
-  addMaintenance: {
+  notes: {
+    type: String,
+    required: false
+  },
+
+  maintenance: [{
     type: Schema.Types.ObjectId,
     ref: "AddMaintenance"
-  },
+  }],
 
   user: {
     type: Schema.Types.ObjectId,

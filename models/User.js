@@ -16,15 +16,10 @@ const UserSchema = new Schema({
     required: true
   },
 
-  userVehicle: {
+  vehicles: [{
     type: Schema.Types.ObjectId,
     ref: "UserVehicle"
-  },
-
-  addMaintenance: {
-    type: Schema.Types.ObjectId,
-    ref: "AddMaintenance"
-  }
+  }]
 });
 
 // On save hook, encrypt password

@@ -13,7 +13,7 @@ export const clearVehicleError = createAction("CLEAR_VEHICLE_ERROR");
 
 export const addVehicle = vehicle => dispatch => {
   dispatch(authRequest());
-  API.saveUserVehicle(vehicle)
+  API.saveVehicle(vehicle)
     .then(res => {
       dispatch(authResponse(res.data));
     })
@@ -31,7 +31,7 @@ export const addVehicle = vehicle => dispatch => {
 
 export const getVehicle = id => dispatch => {
   dispatch(authRequest());
-  API.getUserVehicle(id)
+  API.getVehicle(id)
     .then(res => {
       dispatch(authResponse(res.data));
     })
@@ -49,7 +49,7 @@ export const getVehicle = id => dispatch => {
 
 export const getVehicles = user => dispatch => {
   dispatch(authRequest());
-  API.getUserVehicles(user)
+  API.getUserVehicles(user._id)
     .then(res => {
       dispatch(authResponse(res.data));
     })

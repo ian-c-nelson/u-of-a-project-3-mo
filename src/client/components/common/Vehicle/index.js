@@ -6,7 +6,7 @@ import Icon from "../Icon";
 function Vehicle(props) {
   const { vehicle } = props;
 
-  console.log(vehicle);
+  // console.log(vehicle);
 
   return (
     <div className="vehicle">
@@ -31,7 +31,7 @@ function Vehicle(props) {
               </li>
               <li>
                 <span className="label">Odometer:</span>
-                <span className="value">{vehicle.color}</span>
+                <span className="value">{vehicle.mileage}</span>
               </li>
             </ul>
           </div>

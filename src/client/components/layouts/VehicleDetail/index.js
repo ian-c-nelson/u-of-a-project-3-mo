@@ -201,6 +201,8 @@ class VehicleDetail extends React.Component {
         user: userId
       };
 
+      console.log(vehicle);
+
       if (mode === "Add") {
         actions.addVehicle(vehicle);
       } else {
@@ -298,7 +300,7 @@ class VehicleDetail extends React.Component {
                 <div className="column is-12">
                   <TextBox
                     type="text"
-                    name="vehicleColor"
+                    name="color"
                     value={color}
                     placeholder="Vehicle Color"
                     icon={["fas", "paint-brush"]}

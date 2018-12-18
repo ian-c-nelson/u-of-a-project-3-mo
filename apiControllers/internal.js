@@ -33,8 +33,10 @@ module.exports = {
   deleteVehicle: id => axios.delete(`${baseUrl}vehicle/${id}`),
 
   // Saves a user vehicle to the database
-  saveVehicle: userVehicleData =>
-    axios.post(`${baseUrl}vehicle`, userVehicleData),
+  saveVehicle: vehicle => {
+    console.log(vehicle);
+    return axios.post(`${baseUrl}vehicle`, vehicle);
+  },
 
   // Gets all maintenance
   getAllMaintenance: () => axios.get(`${baseUrl}maintenance`),
@@ -47,6 +49,5 @@ module.exports = {
 
   // Saves a user to the database
   saveUserMaintenance: maintenanceData =>
-    axios.post(`${baseUrl}maintenance`, maintenanceData),
-
+    axios.post(`${baseUrl}maintenance`, maintenanceData)
 };

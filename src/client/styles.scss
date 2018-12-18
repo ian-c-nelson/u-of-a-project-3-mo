@@ -22,9 +22,11 @@ $fullhd-enabled: false;
 
 $body-background-color: $porcelain;
 $control-border-width: 2px;
+$border-color: $brown;
+
 $input-border-color: transparent;
 $input-shadow: none;
-$border-color: $brown;
+$input-placeholder-color: $purple-dark;
 
 // header
 $navbar-height: 3rem;
@@ -313,7 +315,7 @@ nav {
   &.is-primary {
     color: $beige-lighter;
   }
-  
+
   &.is-light {
     color: $purple;
   }
@@ -322,6 +324,60 @@ nav {
     height: 2.75rem;
     width: 2.75rem;
     font-size: 1.5rem;
+  }
+}
+
+.input {
+  &::placeholder {
+    color: $input-placeholder-color;
+    opacity: 0.4;
+  }
+
+  &.react-select-container {
+    padding: 0;
+    margin: 0;
+
+    .react-select__control {
+      width: 100%;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      padding: 0;
+      margin: 0;
+      line-height: 20px;
+      background-color: transparent;
+    }
+
+    .react-select__value-container {
+      padding: 0;
+      margin: 0;
+
+      & > div {
+        padding: 0;
+        margin: 0;
+      }
+
+      // &:last-child {
+      //   // padding: 0;
+
+      //   // background-color: yellow;
+
+      // }
+
+      // .react-select__input {
+      // }
+    }
+
+    .react-select__placeholder {
+      color: $input-placeholder-color;
+      opacity: 0.4;
+    }
+
+    .react-select__menu {
+      left: 0;
+      z-index: 25;
+      padding: 0 2px;
+    }
   }
 }
 
@@ -423,10 +479,41 @@ footer.footer {
   margin-top: 0.75rem;
 
   .form-wrapper {
-    margin: 1.5rem auto;
-    background-color: $purple-light;
-    border: $border-color solid 1px;
-    border-radius: 5px;
+    margin: 0.5rem auto;
+
+    & > .column {
+      margin: 0 auto;
+      background-color: $purple-light;
+      border: $border-color solid 1px;
+      border-radius: 5px;
+      padding: 0.25rem 0.5rem;
+
+      .form-header {
+        margin-bottom: 0.6rem;
+        text-align: center;
+
+        .form-title {
+          color: $purple;
+          font-weight: bold;
+          font-size: 18px;
+        }
+      }
+
+      .form-content {
+        & > .column {
+          padding: 0.4rem 0.75rem;
+
+          &.button-bar {
+            padding-top: 0.2rem;
+            padding-bottom: 1rem;
+
+            strong {
+              color: $purple;
+            }
+          }
+        }
+      }
+    }
   }
 
   /* TODO */

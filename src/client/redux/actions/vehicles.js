@@ -4,20 +4,20 @@ import { push } from "connected-react-router";
 import API from "../../../../apiControllers/internal";
 
 // PRIVATE ACTION CREATORS
-const authRequest = createAction("AUTH_REQUEST");
-const authResponse = createAction("AUTH_RESPONSE");
+const authRequest = createAction("VEHICLE_REQUEST");
+const authResponse = createAction("VEHICLE_RESPONSE");
 
 // EXPORTED ACTION CREATORS
 export const logOut = createAction("LOG_OUT_USER");
-export const clearAuthError = createAction("CLEAR_AUTH_ERROR");
+export const clearVehicleError = createAction("CLEAR_VEHICLE_ERROR");
 
-export const signUp = credentials => dispatch => {
+export const addVehicle = vehicle => dispatch => {
   dispatch(authRequest());
-  API.signUp(credentials)
+  API.saveUserVehicle(vehicle)
     .then(res => {
       dispatch(authResponse(res.data));
     })
-    .then(()=> {
+    .then(() => {
       dispatch(push("/"));
     })
     .catch(err => {
@@ -29,20 +29,38 @@ export const signUp = credentials => dispatch => {
     });
 };
 
-export const logIn = credentials => dispatch => {
+export const getVehicle = id => dispatch => {
   dispatch(authRequest());
-  API.logIn(credentials)
+  API.getUserVehicle(id)
     .then(res => {
       dispatch(authResponse(res.data));
     })
-    .then(()=> {
+    .then(() => {
       dispatch(push("/"));
-    })    
+    })
     .catch(err => {
       if (err.response) {
         dispatch(authResponse(err.response.data.error));
       } else {
-        dispatch(authResponse(err.Error));
+        dispatch(authResponse(err));
+      }
+    });
+};
+
+export const getVehicles = user => dispatch => {
+  dispatch(authRequest());
+  API.getUserVehicles(user)
+    .then(res => {
+      dispatch(authResponse(res.data));
+    })
+    .then(() => {
+      dispatch(push("/"));
+    })
+    .catch(err => {
+      if (err.response) {
+        dispatch(authResponse(err.response.data.error));
+      } else {
+        dispatch(authResponse(err));
       }
     });
 };
@@ -67,10 +85,7 @@ const value = handleActions(
         return payload;
       }
     },
-    [logOut]() {
-      return null;
-    },
-    [clearAuthError]() {
+    [clearVehicleError]() {
       return null;
     }
   },
@@ -92,33 +107,28 @@ const error = handleActions(
         return message;
       }
     },
-    [logOut]() {
-      return null;
-    },
-    [clearAuthError]() {
+    [clearVehicleError]() {
       return null;
     }
   },
   null
 );
 
-const authReducers = combineReducers({
+export default combineReducers({
   error,
   requested,
   value
 });
 
-export default authReducers;
-
 // SELECTORS
-export const getAuthData = state => {
-  return state.auth.value;
+export const getVehicleData = state => {
+  return state.vehicles.value;
 };
 
-export const getAuthError = state => {
-  return state.auth.error;
+export const getVehicleError = state => {
+  return state.vehicles.error;
 };
 
-export const getAuthRequested = state => {
-  return state.auth.requested;
+export const getVehicleRequested = state => {
+  return state.vehicles.requested;
 };

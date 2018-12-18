@@ -7,6 +7,7 @@ import { models, makes } from "../../../../../config/dropDownData";
 import { getLocation, push } from "../../../redux/actions/router";
 import { DropDown, Modal, TextBox, Icon } from "../../common";
 import validation from "../../../../../services/validation";
+import API from "../../../../../apiControllers/internal"
 
 import {
   addVehicle,
@@ -165,24 +166,24 @@ class VehicleDetail extends React.Component {
     event.preventDefault();
   };
 
-  // handleFormSubmit = event => {
-  //   const { name, make, model, vinNumber, year, color, mileage } = this.state;
+  handleFormSubmit = event => {
+    const { name, make, model, vinNumber, year, color, mileage } = this.state.formValues;
 
-  //   event.preventDefault();
-  //   if (model && make) {
-  //     API.saveUserVehicle({
-  //       vinNumber,
-  //       year,
-  //       make,
-  //       model,
-  //       color,
-  //       name,
-  //       mileage
-  //     })
-  //       .then(res => this.loadAddVehicle)
-  //       .catch(err => console.log(err));
-  //   }
-  // };
+    event.preventDefault();
+    if (model && make) {
+      API.saveUserVehicle({
+        vinNumber,
+        year,
+        make,
+        model,
+        color,
+        name,
+        mileage
+      })
+        .then(res => this.loadAddVehicle)
+        .catch(err => console.log(err));
+    }
+  };
 
   render() {
     const { mode, actions, state } = this.props;
@@ -292,7 +293,7 @@ class VehicleDetail extends React.Component {
                     type="button"
                     disabled={requested}
                     className="button is-light is-pulled-right"
-                    onClick={this.saveAndContinue}
+                    onClick={this.handleFormSubmit}
                   >
                     <strong>Save Vehicle</strong>
                   </button>

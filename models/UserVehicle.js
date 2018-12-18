@@ -36,6 +36,12 @@ const UserVehicleSchema = new Schema({
     type: Number,
     required: true,
   },
+  
+  date: { 
+    type: Date, 
+    default: Date.now 
+  },
+
 
   addMaintenance: {
     type: Schema.Types.ObjectId,

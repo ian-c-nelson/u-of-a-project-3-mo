@@ -12,13 +12,19 @@ const requireAuth = passport.authenticate("jwt", { session: false });
 router.use("/auth", authRoutes);
 
 // User routes
-router.use("/user", requireAuth, userRoutes);
+// router.use("/user", requireAuth, userRoutes);
+router.use("/user",  userRoutes);
+
 
 // User vehicle routes
-router.use("/uservehicle", requireAuth, userVehicleRoutes);
+// router.use("/uservehicle", requireAuth, userVehicleRoutes);
+router.use("/uservehicle", userVehicleRoutes);
+
 
 // Maintenance routes
-router.use("/maintenance", requireAuth, maintenanceRoutes);
+// router.use("/maintenance", requireAuth, maintenanceRoutes);
+router.use("/maintenance", maintenanceRoutes);
+
 
 // Manufactured Vehicle Routes
 router.use("/manvehicle", manVehicleRoutes);

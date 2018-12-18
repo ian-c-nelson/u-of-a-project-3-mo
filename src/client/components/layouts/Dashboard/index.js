@@ -1,5 +1,6 @@
 import React from "react";
 import Vehicle from "../../common/Vehicle";
+import API from "../../../../../apiControllers/internal";
 
 class Home extends React.Component {
   constructor() {
@@ -21,6 +22,32 @@ class Home extends React.Component {
       ]
     };
   }
+
+  componentDidMount() {
+    this.loadVehicles();
+  }
+
+  loadVehicles = () => {
+    API.getUserVehicles()
+      .then(res =>
+        this.setState({ vehicles: res.data, name: "", model: "", make: "", notes: "" })
+      )
+      .catch(err => console.log(err));
+  };
+
+  deleteVehicle = id => {
+    API.deleteUserVehicle(id)
+      .then(res => this.loadVehicles())
+      .catch(err => console.log(err));
+  };
+
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
+
 
   render = () => {
     const { vehicles } = this.state;

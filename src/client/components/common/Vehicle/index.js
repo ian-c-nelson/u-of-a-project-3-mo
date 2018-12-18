@@ -2,11 +2,16 @@ import React from "react";
 import { Card, CardHeader, CardFooter, CardContent } from "../Card";
 import ToolTip from "../ToolTip";
 import Icon from "../Icon";
+import API from "../../../../../apiControllers/internal"
+
 
 function Vehicle(props) {
   const { vehicle } = props;
 
+  
+
   return (
+   
     <div className="vehicle">
       <Card>
         <CardHeader title={vehicle.name} />
@@ -37,7 +42,11 @@ function Vehicle(props) {
           </p>
           <p className="card-footer-item">
             <ToolTip message="Delete Vehicle">
-              <button type="button" className="button is-primary icon">
+              <button  
+              type="button" 
+              className="button is-primary icon" 
+              onClick={() => API.deleteUserVehicle(vehicle._id)}
+              >
                 <Icon icon={["fas", "trash-alt"]} fixedWidth />
               </button>
             </ToolTip>

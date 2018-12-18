@@ -12,12 +12,15 @@ module.exports = {
   findById: function(req, res) {
     db.UserVehicle
       .findById(req.params.id)
+      .populate("user")
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   create: function(req, res) {
     db.UserVehicle
       .create(req.body)
+      .then(db.UserVehicle.user = db.user._id)
+      .populate("user")
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },

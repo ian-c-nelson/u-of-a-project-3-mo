@@ -9,11 +9,13 @@ class AddVehicle extends React.Component {
   constructor() {
     super();
     this.state = {
+      name: null,
       vinNumber: null,
       year: null,
       make: null,
       model: null,
-      color: null
+      color: null,
+      mileage: null
     };
   }
 
@@ -36,11 +38,12 @@ class AddVehicle extends React.Component {
   };
 
   handleFormSubmit = event => {
-    const { make, model, vinNumber, year, color, mileage } = this.state;
+    const {name, vinNumber, model, make, year, color, mileage } = this.state;
 
     event.preventDefault();
     if (model && make) {
       API.saveUserVehicle({
+        name,
         vinNumber,
         model,
         make,
@@ -154,7 +157,7 @@ class AddVehicle extends React.Component {
                     id="log-in-button"
                     type="button"
                     className="button is-light is-pulled-right"
-                    onClick={this.saveAndContinue}
+                    onClick={this.handleFormSubmit}
                   >
                     Add Vehicle
                   </button>

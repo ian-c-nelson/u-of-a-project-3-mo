@@ -97,41 +97,41 @@ const AddMaintenanceSeed = [
 
 ];
 
-db.UserVehicle
-  .remove({})
-  .then(() => db.UserVehicle.collection.insertMany(userVehicleSeed))
-  .then(data => {
-    console.log(`${data.result.n  } records inserted!`);
-    process.exit(0);
-  })
-  .catch(err => {
-    console.error(err);
-    process.exit(1);
-  });
+// db.UserVehicle
+//   .remove({})
+//   .then(() => db.UserVehicle.collection.insertMany(userVehicleSeed))
+//   .then(data => {
+//     console.log(`${data.result.n  } records inserted!`);
+//     process.exit(0);
+//   })
+//   .catch(err => {
+//     console.error(err);
+//     process.exit(1);
+//   });
 
-db.ManVehicle
-  .remove({})
-  .then(() => db.ManVehicle.collection.insertMany(ManVehicleSeed))
-  .then(data => {
-    console.log(`${data.result.n  } records inserted!`);
-    process.exit(0);
-  })
-  .catch(err => {
-    console.error(err);
-    process.exit(1);
-  });
+// db.ManVehicle
+//   .remove({})
+//   .then(() => db.ManVehicle.collection.insertMany(ManVehicleSeed))
+//   .then(data => {
+//     console.log(`${data.result.n  } records inserted!`);
+//     process.exit(0);
+//   })
+//   .catch(err => {
+//     console.error(err);
+//     process.exit(1);
+//   });
 
-  db.User
-  .remove({})
-  .then(() => db.User.collection.insertMany(UserSeed))
-  .then(data => {
-    console.log(`${data.result.n  } records inserted!`);
-    process.exit(0);
-  })
-  .catch(err => {
-    console.error(err);
-    process.exit(1);
-  });
+  // db.User
+  // .remove({})
+  // .then(() => db.User.collection.insertMany(UserSeed))
+  // .then(data => {
+  //   console.log(`${data.result.n  } records inserted!`);
+  //   process.exit(0);
+  // })
+  // .catch(err => {
+  //   console.error(err);
+  //   process.exit(1);
+  // });
 
   db.AddMaintenance
   .remove({})

@@ -5,6 +5,7 @@ import auth from "../actions/auth";
 import counter from "../actions/counter";
 import phrase from "../actions/fetchPhrase";
 import formValues from "../actions/formValues";
+import vehicles from "../actions/vehicles";
 import videos from "../actions/videos";
 
 export default (history) => combineReducers({
@@ -14,5 +15,6 @@ export default (history) => combineReducers({
   counter,
   formValues,
   phrase,
+  vehicles,
   videos
 });

@@ -44,11 +44,6 @@ const AddMaintenanceSchema = new Schema({
   userVehicle: {
     type: Schema.Types.ObjectId,
     ref: "UserVehicle"
-  },
-
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: "User"
   }
 });
 

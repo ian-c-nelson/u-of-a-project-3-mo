@@ -1,10 +1,11 @@
 const router = require("express").Router();
 // const userController = require("../../controllers/userController");
 const userController = require("../../../../../controllers/userController");
-
+const vehicleController = require("../../../../../controllers/userVehicleController");
 
 // Matches with "/api/user"
-router.route("/")
+router
+  .route("/")
   .get(userController.findAll)
   .post(userController.create);
 
@@ -14,6 +15,8 @@ router
   .get(userController.findById)
   .put(userController.update)
   .delete(userController.remove);
+
+router.route("/:id/vehicles").get(vehicleController.findByUserId);
 
 // // secured routes ===============================================================
 // router.get("/:email", (req, res) => {
@@ -41,6 +44,5 @@ router
 //     })
 //     .catch(err => next(err));
 // });
-
 
 module.exports = router;

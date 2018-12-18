@@ -2,9 +2,8 @@ const router = require("express").Router();
 const passport = require("passport");
 const authRoutes = require("./auth");
 const userRoutes = require("./user");
-const userVehicleRoutes = require("./userVehicle");
+const userVehicleRoutes = require("./vehicle");
 const maintenanceRoutes = require("./addMaintenance");
-const manVehicleRoutes = require("./manVehicle");
 
 const requireAuth = passport.authenticate("jwt", { session: false });
 
@@ -16,15 +15,12 @@ router.use("/user", userRoutes);
 // router.use("/user", requireAuth, userRoutes);
 
 // User vehicle routes
-router.use("/uservehicle", userVehicleRoutes);
+router.use("/vehicle", userVehicleRoutes);
 // router.use("/uservehicle", requireAuth, userVehicleRoutes);
 
 // Maintenance routes
 router.use("/maintenance", maintenanceRoutes);
 // router.use("/maintenance", requireAuth, maintenanceRoutes);
-
-// Manufactured Vehicle Routes
-router.use("/manvehicle", manVehicleRoutes);
 
 router.get("/", (req, res) => {
   res.send("Welcome to the v1 routes!");

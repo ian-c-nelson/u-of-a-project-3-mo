@@ -9,6 +9,12 @@ import { DropDown, Modal, TextBox, Icon } from "../../common";
 import validation from "../../../../../services/validation";
 
 import {
+  getFormValues,
+  setFormValues
+} from "../../../redux/actions/formValues";
+import { getAuthData } from "../../../redux/actions/auth";
+
+import {
   addVehicle,
   clearVehicleError,
   getVehicle,
@@ -16,11 +22,6 @@ import {
   getVehicleError,
   getVehicleRequested
 } from "../../../redux/actions/vehicles";
-
-import {
-  getFormValues,
-  setFormValues
-} from "../../../redux/actions/formValues";
 
 class VehicleDetail extends React.Component {
   constructor() {
@@ -40,6 +41,7 @@ class VehicleDetail extends React.Component {
       color: null,
       name: null,
       mileage: null,
+      errorMessages: [],
       showModal: false
     });
   };
@@ -86,7 +88,9 @@ class VehicleDetail extends React.Component {
   };
 
   validateField = (fieldName, value) => {
-    const results = validation.validationObject;
+    const { state, actions } = this.props;
+    const { errorMessages } = state.formValues;
+    let results = validation.validationObject;
 
     switch (fieldName) {
       case "name":
@@ -94,36 +98,53 @@ class VehicleDetail extends React.Component {
           results.isValid = false;
           results.message = "Email is required.";
         }
-        return results;
-
+        break;
       case "make":
         if (!value) {
           results.isValid = false;
           results.message = "Vehicle Make is required.";
         }
-        return results;
+        break;
 
       case "model":
         if (!value) {
           results.isValid = false;
           results.message = "Vehicle Model is required.";
         }
-        return results;
+        break;
 
       case "mileage":
-        return validation.validateMileage(value);
+        if (value) {
+          results = validation.validateMileage(value);
+        }
+        break;
+
+      case "vinNumber":
+        if (value) {
+          results = validation.validateVinNumber(value);
+        }
+        break;
 
       case "year":
         if (!value) {
           results.isValid = false;
           results.message = "Vehicle Year is required.";
-          return results;
+        } else {
+          results = validation.validateYear(value);
         }
-        return validation.validateYear(value);
+        break;
 
       default:
-        return results;
+        // Nothing to do
+        break;
     }
+
+    if (!results.isValid) {
+      errorMessages.push(results.message);
+      actions.setFormValues({ errorMessages });
+    }
+
+    return results;
   };
 
   handleInputChange = event => {
@@ -155,34 +176,43 @@ class VehicleDetail extends React.Component {
   handleModalOkayClick = () => {
     const { actions } = this.props;
     actions.setFormValues({
-      showModal: false
+      showModal: false,
+      errorMessages: []
     });
-    actions.clearAuthError();
+    actions.clearVehicleError();
   };
 
-  saveAndContinue = event => {
-    const { actions } = this.props;
-    event.preventDefault();
+  onSaveClick = () => {
+    const { actions, state, mode } = this.props;
+    const { formValues, authData } = state;
+    const { year, make, model, color, name, mileage, vinNumber } = formValues;
+    const userId = authData.user._id;
+
+    const isValid = this.validateForm();
+    if (isValid) {
+      const vehicle = {
+        vinNumber,
+        year,
+        make,
+        model,
+        color,
+        name,
+        mileage: validation.stripNonNumeric(mileage),
+        user: userId
+      };
+
+      if (mode === "Add") {
+        actions.addVehicle(vehicle);
+      } else {
+        // TODO
+        // actions.saveVehicle(vehicle);
+      }
+
+      actions.push("/");
+    } else {
+      actions.setFormValues({ showModal: !isValid });
+    }
   };
-
-  // handleFormSubmit = event => {
-  //   const { name, make, model, vinNumber, year, color, mileage } = this.state;
-
-  //   event.preventDefault();
-  //   if (model && make) {
-  //     API.saveUserVehicle({
-  //       vinNumber,
-  //       year,
-  //       make,
-  //       model,
-  //       color,
-  //       name,
-  //       mileage
-  //     })
-  //       .then(res => this.loadAddVehicle)
-  //       .catch(err => console.log(err));
-  //   }
-  // };
 
   render() {
     const { mode, actions, state } = this.props;
@@ -195,10 +225,9 @@ class VehicleDetail extends React.Component {
       color,
       name,
       mileage,
+      errorMessages,
       showModal
     } = formValues;
-
-    const errorMessages = [];
 
     if (requestError) {
       errorMessages.push(requestError);
@@ -292,7 +321,7 @@ class VehicleDetail extends React.Component {
                     type="button"
                     disabled={requested}
                     className="button is-light is-pulled-right"
-                    onClick={this.saveAndContinue}
+                    onClick={this.onSaveClick}
                   >
                     <strong>Save Vehicle</strong>
                   </button>
@@ -338,11 +367,12 @@ function mapStateToProps(state) {
   return {
     state: {
       burgerMenu: state.burgerMenu,
+      location: getLocation(state),
+      authData: getAuthData(state),
       formValues: getFormValues(state),
       vehicleData: getVehicleData(state),
       requestError: getVehicleError(state),
-      requested: getVehicleRequested(state),
-      location: getLocation(state)
+      requested: getVehicleRequested(state)
     }
   };
 }

@@ -4,14 +4,14 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { action as toggleMenu } from "redux-burger-menu";
-
 import validation from "../../../../../services/validation";
+
 
 import { getLocation, push } from "../../../redux/actions/router";
 import {
   clearAuthError,
   getAuthData,
-  getSignUpError,
+  getAuthError,
   getAuthRequested,
   logIn,
   signUp
@@ -22,7 +22,7 @@ import {
   setFormValues
 } from "../../../redux/actions/formValues";
 
-import { Icon, Input, Modal } from "../../common";
+import { Icon, TextBox, Modal } from "../../common";
 
 class SignUp extends React.Component {
   componentDidMount = () => {
@@ -137,7 +137,6 @@ class SignUp extends React.Component {
     const isValid = this.validateForm();
     if (isValid) {
       actions.signUp({ email, password, passwordConfirmation });
-      // actions.push("/");
     } else {
       actions.setFormValues({ showModal: !isValid });
     }
@@ -150,7 +149,6 @@ class SignUp extends React.Component {
     const isValid = this.validateForm();
     if (isValid) {
       actions.logIn({ email, password, passwordConfirmation });
-      // actions.push("/");
     } else {
       actions.setFormValues({ showModal: !isValid });
     }
@@ -158,7 +156,7 @@ class SignUp extends React.Component {
 
   render = () => {
     const { state, mode } = this.props;
-    const { authError, formValues } = state;
+    const { requested, requestError, formValues } = state;
     const {
       email,
       emailValidation,
@@ -171,8 +169,8 @@ class SignUp extends React.Component {
 
     const errorMessages = [];
 
-    if (authError) {
-      errorMessages.push(authError);
+    if (requestError) {
+      errorMessages.push(requestError);
     }
 
     if (emailValidation) {
@@ -189,12 +187,17 @@ class SignUp extends React.Component {
 
     return (
       <div className={`page ${mode === "LogIn" ? "log-in" : "sign-up"}`}>
-        <div className="columns is-centered is-vcentered">
-          <div className="column is-10-mobile is-8-tablet is-4-desktop form-wrapper">
+        <div className="columns is-centered form-wrapper">
+          <div className="column is-10-mobile is-8-tablet is-4-desktop">
             <form>
-              <div className="columns is-multiline is-centered">
+              <div className="form-header">
+                <span className="form-title">
+                  {`${mode === "LogIn" ? "Log In" : "Sign Up"}`}
+                </span>
+              </div>
+              <div className="columns is-multiline is-centered form-content">
                 <div className="column is-12">
-                  <Input
+                  <TextBox
                     type="email"
                     name="email"
                     value={email}
@@ -203,7 +206,7 @@ class SignUp extends React.Component {
                   />
                 </div>
                 <div className="column is-12">
-                  <Input
+                  <TextBox
                     type="password"
                     name="password"
                     value={password}
@@ -213,7 +216,7 @@ class SignUp extends React.Component {
                 </div>
                 {mode === "SignUp" ? (
                   <div className="column is-12">
-                    <Input
+                    <TextBox
                       type="password"
                       name="passwordConfirmation"
                       placeholder="Confirm Password"
@@ -224,23 +227,29 @@ class SignUp extends React.Component {
                   </div>
                 ) : null}
 
-                <div className="column is-12 is-clearfix">
+                <div className="column is-12 is-clearfix button-bar">
                   {mode === "LogIn" ? (
                     <div>
                       <button
                         type="button"
+                        disabled={requested}
                         className="button is-light is-pulled-left"
                         onClick={this.onLogInClick}
                       >
                         <strong>Log In</strong>
                       </button>
-                      <Link className="is-pulled-left" to="/signup">
+                      <Link
+                        className="is-pulled-left"
+                        to="/signup"
+                        disabled={requested}
+                      >
                         Or click here to create an account.
                       </Link>
                     </div>
                   ) : (
                     <button
                       type="button"
+                      disabled={requested}
                       className="button is-light is-pulled-left"
                       onClick={this.onSignUpClick}
                     >
@@ -254,7 +263,7 @@ class SignUp extends React.Component {
         </div>
 
         <Modal
-          show={showModal || !!authError}
+          show={showModal || !!requestError}
           title="Authentication Error"
           handleModalOkayClick={this.handleModalOkayClick}
         >
@@ -292,8 +301,8 @@ function mapStateToProps(state) {
       burgerMenu: state.burgerMenu,
       authData: getAuthData(state),
       formValues: getFormValues(state),
-      authError: getSignUpError(state),
-      authRequested: getAuthRequested(state),
+      requestError: getAuthError(state),
+      requested: getAuthRequested(state),
       location: getLocation(state)
     }
   };

@@ -21,38 +21,32 @@ module.exports = {
   saveUser: userData => axios.post(`${baseUrl}user`, userData),
 
   // Gets all user vehicles
-  getUserVehicles: () => axios.get(`${baseUrl}uservehicle`),
+  getUserVehicles: id => axios.get(`${baseUrl}user/${id}/vehicles`),
 
   // Gets the user vehicle with the given id
-  getUserVehicle: id => axios.get(`${baseUrl}uservehicle/${id}`),
+  getVehicle: id => axios.get(`${baseUrl}vehicle/${id}`),
+
+  // Gets the maintenance for the vehicle the given id
+  getVehicleMaintenance: id => axios.get(`${baseUrl}vehicle/${id}/maintenance`),
 
   // Deletes the user vehicle with the given id
-  deleteUserVehicle: id => axios.delete(`${baseUrl}uservehicle/${id}`),
+  deleteVehicle: id => axios.delete(`${baseUrl}vehicle/${id}`),
 
   // Saves a user vehicle to the database
-  saveUserVehicle: userVehicleData => axios.post(`${baseUrl}userVehicle`, userVehicleData),
+  saveVehicle: userVehicleData =>
+    axios.post(`${baseUrl}vehicle`, userVehicleData),
 
   // Gets all maintenance
-  getUserMaintenances: () => axios.get(`${baseUrl}maintenance`),
+  getAllMaintenance: () => axios.get(`${baseUrl}maintenance`),
 
   // Gets the maintenance with the given id
-  getUserMaintenance: id => axios.get(`${baseUrl}maintenance/${id}`),
+  getMaintenance: id => axios.get(`${baseUrl}maintenance/${id}`),
 
   // Deletes the maintenance with the given id
   deleteUserMaintenance: id => axios.delete(`${baseUrl}maintenance/${id}`),
 
   // Saves a user to the database
-  saveUserMaintenance: maintenanceData => axios.post(`${baseUrl}maintenance`, maintenanceData),
+  saveUserMaintenance: maintenanceData =>
+    axios.post(`${baseUrl}maintenance`, maintenanceData),
 
-  // Gets all manufacturer vehicles
-  getManVehicles: () => axios.get(`${baseUrl}manvehicle`),
-
-  // Gets the manufacturer vehicle with the given id
-  getManVehicle: id => axios.get(`${baseUrl}manvehicle/${id}`),
-
-  // Deletes the manufacturer vehicle with the given id
-  deleteManVehicle: id => axios.delete(`${baseUrl}manvehicle/${id}`),
-  
-  // Saves a manufacturer  vehicle to the database
-  saveManVehicle: manVehicleData => axios.post(`${baseUrl}manVehicle`, manVehicleData)
 };

@@ -45,6 +45,7 @@
     "global-require": "off",
     "one-var": "off",
     "one-var-declaration-per-line": "off",
-    "arrow-body-style": "off"
+    "arrow-body-style": "off",
+    "no-useless-escape": "off"
   }
 }

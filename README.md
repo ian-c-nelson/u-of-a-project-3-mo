@@ -23,7 +23,7 @@ A full stack application to schedule and track maintenance and costs of ownershi
 #### Front End
 - React - ([Docs](https://reactjs.org/docs/getting-started.html))
 - React Router - ([Docs](https://reacttraining.com/react-router/web/guides/quick-start))
-- React Select = ([Docs]{https://react-select.com/home})
+- React Select = ([Docs](https://react-select.com/home))
 - Connected React Router - ([Docs](https://github.com/supasate/connected-react-router))
 - History - ([Docs](https://github.com/ReactTraining/history))
 - SASS - ([Docs](https://sass-lang.com/))

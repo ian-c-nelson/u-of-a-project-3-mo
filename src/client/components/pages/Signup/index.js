@@ -1,8 +1,8 @@
 import React from "react";
 import { Auth } from "../../layouts";
 
-function SignUp() {
-  return <Auth mode="SignUp" />;
+function SignUp(props) {
+  return <Auth mode="SignUp" {...props} />;
 }
 
 export default SignUp;

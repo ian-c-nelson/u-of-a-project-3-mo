@@ -51,9 +51,6 @@ function DropDown(props) {
           options={filteredOptions}
           isSearchable={isSearchable}
           onChange={event => {
-            // const e = event;
-            // e.name = name;
-            console.log(event);
             onChange(event, name);
           }}
         />

@@ -11,83 +11,89 @@ import { LeftSidebar, RightSidebar } from "../layouts";
 import * as pages from "../pages";
 
 function Routes(props) {
-    const { history, state } = props;
-    const { authData } = state;
-    return (
-      <ConnectedRouter history={history}>
-        <div className="wrapper">
-          <div id="react-burger-container">
-            <Header authData={authData} />
-            <LeftSidebar
-              authData={authData}
-              pageWrapId="react-burger-page-wrap"
-              className="left-nav"
-              width={280}
-            />
-            <RightSidebar
-              authData={authData}
-              pageWrapId="react-burger-page-wrap"
-              className="right-nav"
-              width={375}
-              right
-            />
-            <div id="react-burger-page">
-              <Switch>
-                {/* Open Routes */}
-                <Route path="/login" exact component={pages.LogIn} />
-                <Route path="/signup" exact component={pages.SignUp} />
-                {/* Secured Routes */}
-                <PrivateRoute
-                  path="/home"
-                  exact
-                  component={pages.Home}
-                  authData={authData}
-                />
-                <PrivateRoute
-                  path="/sandbox"
-                  exact
-                  component={pages.SandBox}
-                  authData={authData}
-                />
-                <PrivateRoute
-                  path="/vehicles/add"
-                  exact
-                  component={pages.AddVehicle}
-                  authData={authData}
-                />
-                <PrivateRoute
-                  path="/vehicles/edit"
-                  exact
-                  component={pages.EditVehicle}
-                  authData={authData}
-                />
-                 <PrivateRoute
-                  path="/maintenance/add"
-                  exact
-                  component={pages.AddMaintenance}
-                  authData={authData}
-                />
-                 <PrivateRoute
-                  path="/maintenance/"
-                  component={pages.ViewMaintenance}
-                  authData={authData}
-                />
-                <PrivateRoute
-                  path="/"
-                  exact
-                  component={pages.Home}
-                  // component={pages.AddVehicle}
-                  authData={authData}
-                />
-                {/* 404 */}
-                <Route component={pages.NoMatch} />
-              </Switch>
-            </div>
-            <Footer />
+  const { history, state } = props;
+  const { authData } = state;
+  return (
+    <ConnectedRouter history={history}>
+      <div className="wrapper">
+        <div id="react-burger-container">
+          <Header authData={authData} />
+          <LeftSidebar
+            authData={authData}
+            pageWrapId="react-burger-page-wrap"
+            className="left-nav"
+            width={280}
+          />
+          <RightSidebar
+            authData={authData}
+            pageWrapId="react-burger-page-wrap"
+            className="right-nav"
+            width={375}
+            right
+          />
+          <div id="react-burger-page">
+            <Switch>
+              {/* Open Routes */}
+              <Route path="/login" exact component={pages.LogIn} />
+              <Route path="/signup" exact component={pages.SignUp} />
+              {/* Secured Routes */}
+              <PrivateRoute
+                path="/home"
+                component={pages.Home}
+                authData={authData}
+                exact
+              />
+              <PrivateRoute
+                path="/sandbox"
+                component={pages.SandBox}
+                authData={authData}
+                exact
+              />
+              <PrivateRoute
+                path="/vehicles/add"
+                component={pages.AddVehicle}
+                authData={authData}
+                exact
+              />
+              <PrivateRoute
+                path="/vehicles/edit/:id"
+                component={pages.EditVehicle}
+                authData={authData}
+              />
+              <PrivateRoute
+                path="/maintenance/add"
+                component={pages.AddMaintenance}
+                authData={authData}
+                exact
+              />
+              <PrivateRoute
+                path="/maintenance/"
+                component={pages.ViewMaintenance}
+                authData={authData}
+                exact
+              />
+              <PrivateRoute
+                path="/maintenance/edit/:id"
+                component={pages.ViewMaintenance}
+                authData={authData}
+              />
+
+              <PrivateRoute
+                path="/"
+                exact
+                component={pages.Home}
+                // component={pages.AddVehicle}
+                authData={authData}
+              />
+              {/* 404 */}
+              <Route component={pages.NoMatch} />
+            </Switch>
           </div>
+          <Footer />
         </div>
-      </ConnectedRouter>
-    );
+      </div>
+    </ConnectedRouter>
+  );
 }
 
 function mapStateToProps(state) {

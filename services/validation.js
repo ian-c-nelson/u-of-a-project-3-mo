@@ -10,7 +10,7 @@ const invalidVinNumber =
   "A valid VIN must be 17 characters, and can not include the letters I (i), O (o), or Q (q).";
 
 function stripNonNumeric(str) {
-  return str.replace(/[^0-9\.]+/g, "");
+  return str.toString().replace(/[^0-9\.]+/g, "");
 }
 
 function isPositiveInteger(str) {

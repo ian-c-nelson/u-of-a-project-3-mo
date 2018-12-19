@@ -8,13 +8,8 @@ export const clearFormValues = createAction("CLEAR_FORM_VALUES");
 // REDUCERS
 export default handleActions(
   {
-    [setFormValues](state, { payload }) {
-      const p = JSON.parse(JSON.stringify(state));
-      // match and override keys.
-      for (const key of Object.keys(payload)) {
-          p[key] = payload[key];
-      }
-      return p;
+    [setFormValues](_state, { payload }) {
+      return payload;
     },
     [clearFormValues]() {
       return null;

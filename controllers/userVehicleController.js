@@ -7,20 +7,30 @@ module.exports = {
       .sort({ date: -1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
+
+      console.log("find all");
   },
   findById(req, res) {
+
+    console.log("find by id");
+    console.log(req.params);
+
     db.UserVehicle.findById(req.params.id)
-      .then(dbModel => res.json(dbModel))
+      .then(dbModel => {
+        console.log(dbModel);
+        return res.json(dbModel)
+      })
       .catch(err => res.status(422).json(err));
   },
   findByUserId(req, res) {
+    console.log("find by user id");
+
     db.UserVehicle.find({ user: req.params.id })
       .sort({ date: -1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   create(req, res) {
-    console.log(req.body);
     db.UserVehicle.create(req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));

@@ -1,8 +1,4 @@
 import React from "react";
-<<<<<<< HEAD
-import Vehicle from "../../common/Vehicle";
-import API from "../../../../../apiControllers/internal";
-=======
 import uuidv4 from "uuid/v4";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -10,7 +6,6 @@ import { action as toggleMenu } from "redux-burger-menu";
 import { getLocation, push } from "../../../redux/actions/router";
 import { getAuthData } from "../../../redux/actions/auth";
 import { Vehicle } from "../../common";
->>>>>>> 9f37018eca7b4b60bd2282924606d569c9cdf829
 
 import {
   getVehicles,

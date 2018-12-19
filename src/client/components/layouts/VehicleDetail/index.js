@@ -322,11 +322,7 @@ class VehicleDetail extends React.Component {
                     type="button"
                     disabled={requested}
                     className="button is-light is-pulled-right"
-<<<<<<< HEAD
-                    onClick={this.handleFormSubmit}
-=======
                     onClick={this.onSaveClick}
->>>>>>> 9f37018eca7b4b60bd2282924606d569c9cdf829
                   >
                     <strong>Save Vehicle</strong>
                   </button>

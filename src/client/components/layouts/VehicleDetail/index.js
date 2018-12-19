@@ -224,7 +224,7 @@ class VehicleDetail extends React.Component {
     const userId = authData.user._id;
 
     const isValid = this.validateForm();
-    if (isValid) {
+    // if (isValid) {
       const vehicle = {
         vinNumber,
         year,
@@ -246,11 +246,11 @@ class VehicleDetail extends React.Component {
           actions.push("/");
         });
       }
-    } else {
-      const newFormValues = { ...state.formValues };
-      newFormValues.showModal = !isValid;
-      actions.setFormValues(newFormValues);
-    }
+    // } else {
+    //   const newFormValues = { ...state.formValues };
+    //   newFormValues.showModal = !isValid;
+    //   actions.setFormValues(newFormValues);
+    // }
   };
 
   render() {

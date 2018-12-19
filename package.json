@@ -50,7 +50,8 @@
     "redux-thunk": "^2.3.0",
     "sass-loader": "^7.1.0",
     "uuid": "^3.3.2",
-    "webpack": "^4.28.0"
+    "webpack": "^4.28.0",
+    "webpack-cli": "^3.1.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.0",
@@ -77,7 +78,6 @@
     "node-sass": "^4.10.0",
     "style-loader": "^0.23.0",
     "url-loader": "^1.0.1",
-    "webpack-cli": "^3.0.8",
     "webpack-dev-server": "^3.1.3"
   }
 }

@@ -40,7 +40,7 @@ A full stack application to schedule and track maintenance and costs of ownershi
 
 #### APIs
 - YouTube - ([Docs](https://developers.google.com/youtube/v3/docs/))
-- NHSTA - ([Docs] (https://vpic.nhtsa.dot.gov/api/))
+- NHSTA - ([Docs](https://vpic.nhtsa.dot.gov/api/))
 
 
 #### Sample VINs

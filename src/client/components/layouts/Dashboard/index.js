@@ -8,7 +8,8 @@ import { getAuthData } from "../../../redux/actions/auth";
 import { Vehicle } from "../../common";
 
 import {
-  getVehicles,
+  clearVehicleData,
+  getUserVehicles,
   getVehicleData,
   getVehicleError,
   getVehicleRequested
@@ -20,7 +21,12 @@ class Dashboard extends React.Component {
     const { authData } = state;
     actions.toggleMenu(false, "left");
     actions.toggleMenu(false, "right");
-    actions.getVehicles(authData.user);
+    actions.getUserVehicles(authData.user);
+  };
+
+  componentWillUnmount = () => {
+    const { actions } = this.props;
+    actions.clearVehicleData();
   };
 
   render() {
@@ -33,7 +39,7 @@ class Dashboard extends React.Component {
           ? vehicles.map(vehicle => (
               <div
                 className="column is-12-mobile is-5-tablet is-3-desktop"
-                key={vehicle.name}
+                key={uuidv4()}
               >
                 <Vehicle vehicle={vehicle} />
               </div>
@@ -62,7 +68,8 @@ function mapDispatchToProps(dispatch) {
     actions: bindActionCreators(
       {
         toggleMenu,
-        getVehicles,
+        clearVehicleData,
+        getUserVehicles,
         push
       },
       dispatch

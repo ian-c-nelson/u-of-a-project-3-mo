@@ -2,7 +2,7 @@ const router = require("express").Router();
 const passport = require("passport");
 const authRoutes = require("./auth");
 const userRoutes = require("./user");
-const userVehicleRoutes = require("./vehicle");
+const vehicleRoutes = require("./vehicles");
 const maintenanceRoutes = require("./addMaintenance");
 
 const requireAuth = passport.authenticate("jwt", { session: false });
@@ -15,8 +15,8 @@ router.use("/user", userRoutes);
 // router.use("/user", requireAuth, userRoutes);
 
 // User vehicle routes
-router.use("/vehicle", userVehicleRoutes);
-// router.use("/uservehicle", requireAuth, userVehicleRoutes);
+router.use("/vehicles", vehicleRoutes);
+// router.use("/uservehicle", requireAuth, vehicleRoutes);
 
 // Maintenance routes
 router.use("/maintenance", maintenanceRoutes);

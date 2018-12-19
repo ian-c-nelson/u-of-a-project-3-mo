@@ -13,12 +13,9 @@ export const clearAuthError = createAction("CLEAR_AUTH_ERROR");
 
 export const signUp = credentials => dispatch => {
   dispatch(authRequest());
-  API.signUp(credentials)
+  return API.signUp(credentials)
     .then(res => {
       dispatch(authResponse(res.data));
-    })
-    .then(()=> {
-      dispatch(push("/"));
     })
     .catch(err => {
       if (err.response) {
@@ -31,13 +28,10 @@ export const signUp = credentials => dispatch => {
 
 export const logIn = credentials => dispatch => {
   dispatch(authRequest());
-  API.logIn(credentials)
+  return API.logIn(credentials)
     .then(res => {
       dispatch(authResponse(res.data));
     })
-    .then(()=> {
-      dispatch(push("/"));
-    })    
     .catch(err => {
       if (err.response) {
         dispatch(authResponse(err.response.data.error));

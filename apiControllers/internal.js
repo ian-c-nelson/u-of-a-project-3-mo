@@ -24,19 +24,19 @@ module.exports = {
   getUserVehicles: id => axios.get(`${baseUrl}user/${id}/vehicles`),
 
   // Gets the user vehicle with the given id
-  getVehicle: id => axios.get(`${baseUrl}vehicle/${id}`),
+  getVehicle: id => axios.get(`${baseUrl}vehicles/${id}`),
 
   // Gets the maintenance for the vehicle the given id
-  getVehicleMaintenance: id => axios.get(`${baseUrl}vehicle/${id}/maintenance`),
+  getVehicleMaintenance: id => axios.get(`${baseUrl}vehicles/${id}/maintenance`),
 
   // Deletes the user vehicle with the given id
-  deleteVehicle: id => axios.delete(`${baseUrl}vehicle/${id}`),
+  deleteVehicle: id => axios.delete(`${baseUrl}vehicles/${id}`),
 
   // Saves a user vehicle to the database
-  saveVehicle: vehicle => {
-    console.log(vehicle);
-    return axios.post(`${baseUrl}vehicle`, vehicle);
-  },
+  addVehicle: vehicle => axios.post(`${baseUrl}vehicles`, vehicle),
+
+  // updates a vehicle
+  updateVehicle: vehicle => axios.put(`${baseUrl}vehicles/${vehicle._id}`, vehicle),
 
   // Gets all maintenance
   getAllMaintenance: () => axios.get(`${baseUrl}maintenance`),

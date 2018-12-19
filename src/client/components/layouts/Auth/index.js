@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import { action as toggleMenu } from "redux-burger-menu";
 import validation from "../../../../../services/validation";
 
-
 import { getLocation, push } from "../../../redux/actions/router";
 import {
   clearAuthError,
@@ -29,44 +28,44 @@ class SignUp extends React.Component {
     const { actions } = this.props;
     actions.toggleMenu(false, "left");
     actions.toggleMenu(false, "right");
-    actions.setFormValues({
-      email: "",
-      password: "",
-      passwordConfirmation: "",
-      showModal: false
-    });
+    actions.setFormValues({});
+  };
+
+  componentWillUnmount = () => {
+    const { actions } = this.props;
+    actions.setFormValues({});
   };
 
   validateForm = () => {
     let isValid = true;
-    const results = {};
 
     const { state, actions, mode } = this.props;
     const { email, password, passwordConfirmation } = state.formValues;
+    const newFormValues = { ...state.formValues };
 
-    results.emailValidation = this.validateField("email", email);
-    if (!results.emailValidation.isValid) {
+    newFormValues.emailValidation = this.validateField("email", email);
+    if (!newFormValues.emailValidation.isValid) {
       isValid = false;
     }
 
-    results.passwordValidation = this.validateField("password", password);
-    if (!results.passwordValidation.isValid) {
+    newFormValues.passwordValidation = this.validateField("password", password);
+    if (!newFormValues.passwordValidation.isValid) {
       isValid = false;
     }
 
     if (mode === "SignUp") {
-      if (results.passwordValidation.isValid) {
-        results.passwordConfirmationValidation = this.validateField(
+      if (newFormValues.passwordValidation.isValid) {
+        newFormValues.passwordConfirmationValidation = this.validateField(
           "passwordConfirmation",
           passwordConfirmation
         );
-        if (!results.passwordConfirmationValidation.isValid) {
+        if (!newFormValues.passwordConfirmationValidation.isValid) {
           isValid = false;
         }
       }
     }
 
-    actions.setFormValues(results);
+    actions.setFormValues(newFormValues);
 
     return isValid;
   };
@@ -109,48 +108,57 @@ class SignUp extends React.Component {
   };
 
   handleInputChange = event => {
-    const { actions } = this.props;
+    const { actions, state } = this.props;
+    const newFormValues = { ...state.formValues };
+
     const fieldValidationName = `${event.target.name}Validation`;
     const validationResults = this.validateField(
       event.target.name,
       event.target.value
     );
 
-    actions.setFormValues({
-      [event.target.name]: event.target.value,
-      [fieldValidationName]: validationResults
-    });
+    newFormValues[event.target.name] = event.target.value;
+    newFormValues[fieldValidationName] = validationResults;
+    actions.setFormValues(newFormValues);
   };
 
   handleModalOkayClick = () => {
-    const { actions } = this.props;
-    actions.setFormValues({
-      showModal: false
-    });
+    const { actions, state } = this.props;
+    const newFormValues = { ...state.formValues };
+    newFormValues.showModal = false;
+    actions.setFormValues(newFormValues);
     actions.clearAuthError();
   };
 
   onSignUpClick = () => {
-    const { state, actions } = this.props;
+    const { actions, state } = this.props;
     const { email, password, passwordConfirmation } = state.formValues;
 
     const isValid = this.validateForm();
     if (isValid) {
-      actions.signUp({ email, password, passwordConfirmation });
+      actions.signUp({ email, password, passwordConfirmation }).then(() => {
+        actions.push("/");
+      });
     } else {
-      actions.setFormValues({ showModal: !isValid });
+      const newFormValues = { ...state.formValues };
+      newFormValues.showModal = !isValid;
+      actions.setFormValues(newFormValues);
     }
   };
 
   onLogInClick = () => {
-    const { state, actions } = this.props;
+    const { actions, state } = this.props;
     const { email, password, passwordConfirmation } = state.formValues;
 
     const isValid = this.validateForm();
     if (isValid) {
-      actions.logIn({ email, password, passwordConfirmation });
+      actions.logIn({ email, password, passwordConfirmation }).then(() => {
+        actions.push("/");
+      });
     } else {
-      actions.setFormValues({ showModal: !isValid });
+      const newFormValues = { ...state.formValues };
+      newFormValues.showModal = !isValid;
+      actions.setFormValues(newFormValues);
     }
   };
 

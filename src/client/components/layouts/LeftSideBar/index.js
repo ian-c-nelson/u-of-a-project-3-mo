@@ -9,6 +9,7 @@ import {
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
+import { getAuthData, logOut } from "../../../redux/actions/auth";
 import { clearVideos, fetchVideos } from "../../../redux/actions/videos";
 
 function videoLinkOnClick(event, actions, query) {
@@ -20,7 +21,9 @@ function videoLinkOnClick(event, actions, query) {
 }
 
 function LeftSidebar(props) {
-  const { actions } = props;
+  const { actions, reduxState } = props;
+  const { authData } = reduxState;
+
   return (
     <Menu {...props}>
       <ul className="menu-list">
@@ -35,12 +38,9 @@ function LeftSidebar(props) {
       <ul className="menu-list">
         <li>
           <Link to="/vehicles/add">Add Vehicle</Link>
-
         </li>
         <li>
-          <Link to="/maintenance/add">
-            Add Maintenance
-          </Link>
+          <Link to="/maintenance/add">Add Maintenance</Link>
         </li>
         <li>
           <Link to="/vehicles/search">Search for Vehicles</Link>
@@ -102,12 +102,26 @@ function LeftSidebar(props) {
       </ul>
       <hr />
       <div className="buttons">
-        <Link className="button is-primary" to="/signup">
-          <strong>Sign up</strong>
-        </Link>
-        <Link className="button is-light" to="/login">
-          Log in
-        </Link>
+        {authData ? (
+          <button
+            type="button"
+            className="button is-primary"
+            onClick={() => {
+              actions.logOut();
+            }}
+          >
+            Log Out
+          </button>
+        ) : (
+          <div>
+            <Link className="button is-primary" to="/login">
+              Log In
+            </Link>
+            <Link className="button is-light" to="/signup">
+              <strong>Sign Up</strong>
+            </Link>
+          </div>
+        )}
       </div>
     </Menu>
   );
@@ -117,18 +131,28 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(
       {
-        toggleMenu,
         clearVideos,
-        fetchVideos
+        fetchVideos,
+        logOut,
+        toggleMenu,
       },
       dispatch
     )
   };
 }
 
+function mapStateToProps(state) {
+  return {
+    reduxState: {
+      burgerMenu: state.burgerMenu,
+      authData: getAuthData(state)
+    }
+  };
+}
+
 export default reduxBurgerMenu(
   connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
   )(LeftSidebar),
   "left"

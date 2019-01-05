@@ -2,10 +2,30 @@ import { combineReducers } from "redux";
 import { createAction, handleActions } from "redux-actions";
 import API from "../../../../apiControllers/youtube";
 
-// ACTION CREATORS
+// PRIVATE ACTION CREATORS
 const fetchVideosRequest = createAction("FETCH_VIDEOS_REQUEST");
 const fetchVideosResponse = createAction("FETCH_VIDEOS_RESPONSE");
+const fetchVideosError = createAction("FETCH_VIDEOS_ERROR");
+
+// EXPORTED ACTION CREATORS
 export const clearVideos = createAction("CLEAR_VIDEOS");
+export const clearFetchVideosError = createAction("CLEAR_FETCH_VIDEOS_ERROR");
+
+// PRIVATE FUNCTIONS
+function handleAsyncActionError(err, dispatch) {
+  let payload = {};
+  if (err.response) {
+    if (err.response.data.error) {
+      payload = err.response.data.error;
+    } else {
+      payload = err.response.data;
+    }
+  } else {
+    payload = err;
+  }
+
+  dispatch(fetchVideosError(payload));
+}
 
 export const fetchVideos = (
   make,
@@ -21,17 +41,47 @@ export const fetchVideos = (
       dispatch(fetchVideosResponse(response.data.items));
     })
     .catch(err => {
-      dispatch(fetchVideosResponse(err));
+      handleAsyncActionError(err, dispatch);
     });
 };
 
 // REDUCERS
+const error = handleActions(
+  {
+    [fetchVideosError](_state, { payload }) {
+      return payload;
+    },
+    [fetchVideosRequest]() {
+      return null;
+    },
+    [fetchVideosResponse]() {
+      return null;
+    },
+    [clearVideos]() {
+      return null;
+    },
+    [clearFetchVideosError]() {
+      return null;
+    }
+  },
+  null
+);
+
 const requested = handleActions(
   {
+    [fetchVideosError]() {
+      return false;
+    },
     [fetchVideosRequest]() {
       return true;
     },
     [fetchVideosResponse]() {
+      return false;
+    },
+    [clearVideos]() {
+      return false;
+    },
+    [clearFetchVideosError]() {
       return false;
     }
   },
@@ -40,39 +90,25 @@ const requested = handleActions(
 
 const value = handleActions(
   {
-    [fetchVideosResponse]: {
-      next(state, { payload }) {
-        return payload;
-      }
+    [fetchVideosError]() {
+      return null;
+    },
+    [fetchVideosRequest]() {
+      return null;
+    },
+    [fetchVideosResponse](_state, { payload }) {
+      return payload;
     },
     [clearVideos]() {
+      return null;
+    },
+    [clearFetchVideosError]() {
       return null;
     }
   },
   null
 );
 
-const error = handleActions(
-  {
-    [fetchVideosResponse]: {
-      next() {
-        return null;
-      },
-      throw(
-        state,
-        {
-          payload: { message }
-        }
-      ) {
-        return message;
-      }
-    },
-    [clearVideos]() {
-      return null;
-    }
-  },
-  null
-);
 
 const phraseReducers = combineReducers({
   error,

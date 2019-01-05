@@ -2,105 +2,124 @@ import { combineReducers } from "redux";
 import { createAction, handleActions } from "redux-actions";
 import API from "../../../../apiControllers/internal";
 
+
 // PRIVATE ACTION CREATORS
 const vehicleRequest = createAction("VEHICLE_REQUEST");
 const vehicleResponse = createAction("VEHICLE_RESPONSE");
+const vehicleError = createAction("VEHICLE_ERROR");
 
 // EXPORTED ACTION CREATORS
 export const clearVehicleData = createAction("CLEAR_VEHICLE_DATA");
+export const clearVehicleError = createAction("CLEAR_VEHICLE_ERROR");
+
+// PRIVATE FUNCTIONS
+function handleAsyncActionError(err, dispatch) {
+  let payload = {};
+  if (err.response) {
+    if (err.response.data.error) {
+      payload = err.response.data.error;
+    } else {
+      payload = err.response.data;
+    }
+  } else {
+    payload = err;
+  }
+
+  dispatch(vehicleError(payload));
+}
 
 export const addVehicle = vehicle => dispatch => {
-  console.log("addVehicle");
-
   dispatch(vehicleRequest());
   return API.addVehicle(vehicle)
     .then(res => {
       dispatch(vehicleResponse(res.data));
     })
     .catch(err => {
-      if (err.response) {
-        dispatch(vehicleResponse(err.response.data.error));
-      } else {
-        dispatch(vehicleResponse(err));
-      }
+      handleAsyncActionError(err, dispatch);
     });
 };
 
 export const updateVehicle = vehicle => dispatch => {
-  console.log("updateVehicle");
-
   dispatch(vehicleRequest());
   return API.updateVehicle(vehicle)
     .then(res => {
       dispatch(vehicleResponse(res.data));
     })
     .catch(err => {
-      if (err.response) {
-        dispatch(vehicleResponse(err.response.data.error));
-      } else {
-        dispatch(vehicleResponse(err));
-      }
+      handleAsyncActionError(err, dispatch);
     });
 };
 
 export const getVehicle = id => dispatch => {
-  console.log("getVehicle");
-
   dispatch(vehicleRequest());
   return API.getVehicle(id)
     .then(res => {
       dispatch(vehicleResponse(res.data));
     })
     .catch(err => {
-      if (err.response) {
-        dispatch(vehicleResponse(err.response.data.error));
-      } else {
-        dispatch(vehicleResponse(err));
-      }
+      handleAsyncActionError(err, dispatch);
     });
 };
 
 export const deleteVehicle = id => dispatch => {
-  console.log("deleteVehicle");
-
   dispatch(vehicleRequest());
   return API.deleteVehicle(id)
     .then(res => {
       dispatch(vehicleResponse(res.data));
     })
     .catch(err => {
-      if (err.response) {
-        dispatch(vehicleResponse(err.response.data.error));
-      } else {
-        dispatch(vehicleResponse(err));
-      }
+      handleAsyncActionError(err, dispatch);
     });
 };
 
 export const getUserVehicles = user => dispatch => {
-  console.log("getUserVehicles");
-
   dispatch(vehicleRequest());
   return API.getUserVehicles(user._id)
     .then(res => {
       dispatch(vehicleResponse(res.data));
     })
     .catch(err => {
-      if (err.response) {
-        dispatch(vehicleResponse(err.response.data.error));
-      } else {
-        dispatch(vehicleResponse(err));
-      }
+      handleAsyncActionError(err, dispatch);
     });
 };
 
 // REDUCERS
+const error = handleActions(
+  {
+    [vehicleError](_state, { payload }) {
+      return payload;
+    },
+    [vehicleRequest]() {
+      return null;
+    },
+    [vehicleResponse]() {
+      return null;
+    },
+    [clearVehicleError]() {
+      return null;
+    },
+    [clearVehicleError]() {
+      return null;
+    }
+  },
+  null
+);
+
 const requested = handleActions(
   {
+    [vehicleError]() {
+      return false;
+    },
     [vehicleRequest]() {
       return true;
     },
     [vehicleResponse]() {
+      return false;
+    },
+    [clearVehicleError]() {
+      return false;
+    },
+    [clearVehicleError]() {
       return false;
     }
   },
@@ -109,34 +128,19 @@ const requested = handleActions(
 
 const value = handleActions(
   {
-    [vehicleResponse]: {
-      next(_state, { payload }) {
-        return payload;
-      }
-    },
-    [clearVehicleData]() {
+    [vehicleError]() {
       return null;
-    }
-  },
-  null
-);
-
-const error = handleActions(
-  {
-    [vehicleResponse]: {
-      next(_state, { payload }) {
-        return null;
-      },
-      throw(
-        _state,
-        {
-          payload: { message }
-        }
-      ) {
-        return message;
-      }
     },
-    [clearVehicleData]() {
+    [vehicleRequest]() {
+      return null;
+    },
+    [vehicleResponse](_state, { payload }) {
+      return payload;
+    },
+    [clearVehicleError]() {
+      return null;
+    },
+    [clearVehicleError]() {
       return null;
     }
   },

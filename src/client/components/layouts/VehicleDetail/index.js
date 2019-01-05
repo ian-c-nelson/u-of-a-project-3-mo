@@ -5,14 +5,8 @@ import { connect } from "react-redux";
 import { action as toggleMenu } from "redux-burger-menu";
 import { models, makes } from "../../../../../config/dropDownData";
 import { getLocation, push } from "../../../redux/actions/router";
-import { DropDown, Modal, TextBox, Icon } from "../../common";
+import { DropDown, Modal, TextArea, TextBox, Icon } from "../../common";
 import validation from "../../../../../services/validation";
-
-import {
-  getFormValues,
-  setFormValues
-} from "../../../redux/actions/formValues";
-import { getAuthData } from "../../../redux/actions/auth";
 
 import {
   addVehicle,
@@ -23,8 +17,14 @@ import {
   getVehicleError,
   getVehicleRequested
 } from "../../../redux/actions/vehicles";
+import { getAuthData } from "../../../redux/actions/auth";
 
 class VehicleDetail extends React.Component {
+  constructor() {
+    super();
+    this.state = this.getInitialState();
+  }
+
   componentDidMount = () => {
     const { actions, match } = this.props;
 
@@ -33,97 +33,88 @@ class VehicleDetail extends React.Component {
 
     if (match.params.id) {
       actions.getVehicle(match.params.id);
-    } else {
-      actions.setFormValues({});
     }
   };
 
-  componentDidUpdate = () => {
-    const { actions, state, match, mode } = this.props;
-
-    if (
-      mode === "Edit" &&
-      !state.formValues.loaded &&
-      state.vehicleData &&
-      state.vehicleData._id === match.params.id
-    ) {
-      const {
-        vinNumber,
-        year,
-        make,
-        model,
-        name,
-        mileage,
-        color
-      } = state.vehicleData;
-      actions.setFormValues({
-        vinNumber,
-        year,
-        make,
-        model,
-        name,
-        mileage,
-        color,
+  getInitialState = () => {
+    return {
+      formValues: {
+        vinNumber: "",
+        year: "",
+        make: "",
+        model: "",
+        name: "",
+        mileage: "",
+        color: "",
+        errorMessages: [],
+        showModal: false,
         loaded: true
-      });
-    }
-  };
-
-  componentWillUnmount = () => {
-    const { actions } = this.props;
-    actions.setFormValues({});
+      },
+      formValidation: {
+        vinNumber: null,
+        year: null,
+        make: null,
+        model: null,
+        name: null,
+        mileage: null,
+        color: null
+      }
+    };
   };
 
   validateForm = () => {
     let isValid = true;
-    const { state, actions } = this.props;
-    const { vinNumber, year, make, model, name, mileage } = state.formValues;
-    const newFormValues = { ...state.formValues };
 
-    newFormValues.nameValidation = this.validateField("name", name);
-    if (!newFormValues.nameValidation.isValid) {
+    const { formValues, formValidation } = this.state;
+
+    formValues.errorMessages = [];
+
+    formValidation.name = this.validateField("name", formValues.name);
+    if (!formValidation.name.isValid) {
+      formValues.errorMessages.push(formValidation.name.message);
       isValid = false;
     }
 
-    newFormValues.vinNumberValidation = this.validateField(
+    formValidation.vinNumber = this.validateField(
       "vinNumber",
-      vinNumber
+      formValues.vinNumber
     );
-    if (!newFormValues.vinNumberValidation.isValid) {
+    if (!formValidation.vinNumber.isValid) {
+      formValues.errorMessages.push(formValidation.vinNumber.message);
       isValid = false;
     }
 
-    newFormValues.makeValidation = this.validateField("make", make);
-    if (!newFormValues.makeValidation.isValid) {
+    formValidation.make = this.validateField("make", formValues.make);
+    if (!formValidation.make.isValid) {
+      formValues.errorMessages.push(formValidation.make.message);
       isValid = false;
     }
 
-    newFormValues.modelValidation = this.validateField("model", model);
-    if (!newFormValues.modelValidation.isValid) {
+    formValidation.model = this.validateField("model", formValues.model);
+    if (!formValidation.model.isValid) {
+      formValues.errorMessages.push(formValidation.model.message);
       isValid = false;
     }
 
-    newFormValues.yearValidation = this.validateField("year", year);
-    if (!newFormValues.yearValidation.isValid) {
+    formValidation.year = this.validateField("year", formValues.year);
+    if (!formValidation.year.isValid) {
+      formValues.errorMessages.push(formValidation.year.message);
       isValid = false;
     }
 
-    newFormValues.mileageValidation = this.validateField("mileage", mileage);
-    if (!newFormValues.mileageValidation.isValid) {
+    formValidation.mileage = this.validateField("mileage", formValues.mileage);
+    if (!formValidation.mileage.isValid) {
+      formValues.errorMessages.push(formValidation.mileage.message);
       isValid = false;
     }
 
-    actions.setFormValues(newFormValues);
+    this.setState({ formValidation });
 
     return isValid;
   };
 
   validateField = (fieldName, value) => {
-    const { state, actions } = this.props;
-    const newFormValues = { ...state.formValues };
-    let results = validation.validationObject;
-
-    newFormValues.errorMessages = newFormValues.errorMessages || [];
+    let results = { ...validation.validationObject };
 
     switch (fieldName) {
       case "name":
@@ -168,108 +159,84 @@ class VehicleDetail extends React.Component {
         break;
 
       default:
-        // Nothing to do
         break;
-    }
-
-    if (!results.isValid) {
-      newFormValues.errorMessages.push(results.message);
-      actions.setFormValues(newFormValues);
     }
 
     return results;
   };
 
   handleInputChange = event => {
-    const { actions, state } = this.props;
-    const newFormValues = { ...state.formValues };
-
-    const fieldValidationName = `${event.target.name}Validation`;
+    const { formValues, formValidation } = this.state;
     const validationResults = this.validateField(
       event.target.name,
       event.target.value
     );
 
-    newFormValues[event.target.name] = event.target.value;
-    newFormValues[fieldValidationName] = validationResults;
-    actions.setFormValues(newFormValues);
+    formValues[event.target.name] = event.target.value;
+    formValidation[event.target.name] = validationResults;
+    this.setState({ formValues, formValidation });
   };
 
   handleDropDownChange = (selectedOption, name) => {
-    const { actions, state } = this.props;
-    const newFormValues = { ...state.formValues };
+    const { formValues, formValidation } = this.state;
     const { value } = selectedOption;
-
-    const fieldValidationName = `${name}Validation`;
     const validationResults = this.validateField(name, value);
 
-    newFormValues[name] = value;
-    newFormValues[fieldValidationName] = validationResults;
-    actions.setFormValues(newFormValues);
+    formValues[name] = value;
+    formValidation[name] = validationResults;
+    this.setState({ formValues, formValidation });
   };
 
   handleModalOkayClick = () => {
-    const { actions, state } = this.props;
-    const newFormValues = { ...state.formValues };
-    newFormValues.errorMessages = [];
-    newFormValues.showModal = false;
-    actions.setFormValues(newFormValues);
+    const { actions } = this.props;
+    const { formValues } = this.state;
+    formValues.showModal = false;
+    this.setState({ formValues });
     actions.clearVehicleData();
   };
 
   onSaveClick = () => {
-    const { actions, state, mode, match } = this.props;
-    const { formValues, authData } = state;
-    const { year, make, model, color, name, mileage, vinNumber } = formValues;
-    const userId = authData.user._id;
-
+    const { actions, mode, match, reduxState } = this.props;
+    const { formValues } = this.state;
+    const { authData } = reduxState;
     const isValid = this.validateForm();
-    // if (isValid) {
+    if (isValid) {
       const vehicle = {
-        vinNumber,
-        year,
-        make,
-        model,
-        color,
-        name,
-        mileage: validation.stripNonNumeric(mileage),
-        user: userId
+        vinNumber: formValues.vinNumber,
+        year: formValues.year,
+        make: formValues.make,
+        model: formValues.model,
+        color: formValues.color,
+        name: formValues.name,
+        mileage: validation.stripNonNumeric(formValues.mileage),
+        user: authData.user._id
       };
 
-      if(mode === "Edit") {
-        vehicle._id = match.params.id
+      if (mode === "Edit") {
+        vehicle._id = match.params.id;
         actions.updateVehicle(vehicle).then(() => {
+          this.setState(this.getInitialState());
           actions.push("/");
         });
       } else {
         actions.addVehicle(vehicle).then(() => {
+          this.setState(this.getInitialState());
           actions.push("/");
         });
       }
-    // } else {
-    //   const newFormValues = { ...state.formValues };
-    //   newFormValues.showModal = !isValid;
-    //   actions.setFormValues(newFormValues);
-    // }
+    } else {
+      formValues.showModal = !isValid;
+      this.setState({ formValues });
+    }
   };
 
   render() {
-    const { mode, state } = this.props;
-    const { requested, requestError, formValues } = state;
-    const {
-      vinNumber,
-      year,
-      make,
-      model,
-      color,
-      name,
-      mileage,
-      errorMessages,
-      showModal
-    } = formValues;
+    const { mode, reduxState } = this.props;
+    const { formValues, formValidation } = this.state;
+    const { requested, requestError } = reduxState;
 
     if (requestError) {
-      errorMessages.push(requestError);
+      formValues.errorMessages.push(requestError);
     }
 
     return (
@@ -285,7 +252,7 @@ class VehicleDetail extends React.Component {
                   <TextBox
                     name="name"
                     type="text"
-                    value={name}
+                    value={formValues.name}
                     placeholder="Vehicle Name"
                     icon={["far", "pencil-alt"]}
                     onChange={this.handleInputChange}
@@ -296,7 +263,7 @@ class VehicleDetail extends React.Component {
                   <TextBox
                     name="vinNumber"
                     type="text"
-                    value={vinNumber}
+                    value={formValues.vinNumber}
                     icon={["fas", "hashtag"]}
                     placeholder="VIN Number"
                     onChange={this.handleInputChange}
@@ -305,7 +272,7 @@ class VehicleDetail extends React.Component {
                 <div className="column is-12">
                   <DropDown
                     name="make"
-                    value={make}
+                    value={formValues.make}
                     options={makes}
                     placeholder="Vehicle Make"
                     onChange={this.handleDropDownChange}
@@ -315,9 +282,9 @@ class VehicleDetail extends React.Component {
                 <div className="column is-12">
                   <DropDown
                     name="model"
-                    value={model}
+                    value={formValues.model}
                     options={models}
-                    filter={make}
+                    filter={formValues.make}
                     placeholder="Vehicle Model"
                     onChange={this.handleDropDownChange}
                     showValidation
@@ -327,7 +294,7 @@ class VehicleDetail extends React.Component {
                   <TextBox
                     type="text"
                     name="year"
-                    value={year}
+                    value={formValues.year}
                     icon={["fas", "calendar-alt"]}
                     placeholder="Vehicle Year"
                     validate={this.validateRequired}
@@ -338,7 +305,7 @@ class VehicleDetail extends React.Component {
                   <TextBox
                     type="text"
                     name="color"
-                    value={color}
+                    value={formValues.color}
                     placeholder="Vehicle Color"
                     icon={["fas", "paint-brush"]}
                     onChange={this.handleInputChange}
@@ -348,10 +315,20 @@ class VehicleDetail extends React.Component {
                   <TextBox
                     type="text"
                     name="mileage"
-                    value={mileage}
+                    value={formValues.mileage}
                     placeholder="Vehicle Mileage"
                     icon={["fas", "tachometer-alt"]}
                     onChange={this.handleInputChange}
+                  />
+                </div>
+                <div className="column is-12">
+                  <TextArea
+                    name="notes"
+                    value={formValues.notes}
+                    placeholder="Notes"
+                    icon={["fas", "sticky-note"]}
+                    onChange={this.handleInputChange}
+                    rows="4"
                   />
                 </div>
 
@@ -370,13 +347,13 @@ class VehicleDetail extends React.Component {
           </div>
         </div>
         <Modal
-          show={showModal || !!requestError}
+          show={formValues.showModal || !!requestError}
           title="Authentication Error"
           handleModalOkayClick={this.handleModalOkayClick}
         >
           <ul>
-            {errorMessages ? (
-              [...new Set(errorMessages)].map(msg =>
+            {formValues.errorMessages ? (
+              [...new Set(formValues.errorMessages)].map(msg =>
                 msg ? (
                   <li key={uuidv4()} className="error-message">
                     <div className="columns">
@@ -404,14 +381,13 @@ class VehicleDetail extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    state: {
+    reduxState: {
+      authData: getAuthData(state),
       burgerMenu: state.burgerMenu,
       location: getLocation(state),
-      authData: getAuthData(state),
-      formValues: getFormValues(state),
-      vehicleData: getVehicleData(state),
+      requested: getVehicleRequested(state),
       requestError: getVehicleError(state),
-      requested: getVehicleRequested(state)
+      vehicleData: getVehicleData(state)
     }
   };
 }
@@ -420,13 +396,12 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(
       {
-        clearVehicleData,
         addVehicle,
+        clearVehicleData,
         getVehicle,
-        updateVehicle,
         push,
-        setFormValues,
-        toggleMenu
+        toggleMenu,
+        updateVehicle
       },
       dispatch
     )

@@ -5,20 +5,6 @@ import { connect } from "react-redux";
 import uuidv4 from "uuid/v4";
 
 import {
-  incrementCounter,
-  decrementCounter,
-  getCounter
-} from "../../../redux/actions/counter";
-
-import {
-  getPhrase,
-  getPhraseError,
-  getPhraseRequested,
-  clearPhrase,
-  fetchPhrase
-} from "../../../redux/actions/fetchPhrase";
-
-import {
   getVideos,
   getVideosError,
   getVideosRequested,
@@ -42,26 +28,6 @@ class SandBox extends React.Component {
     const { actions, state } = this.props;
     const isOpen = !state.burgerMenu.right.isOpen;
     actions.toggleMenu(isOpen, "right");
-  };
-
-  incrementIt = () => {
-    const { actions } = this.props;
-    actions.incrementCounter();
-  };
-
-  decrementIt = () => {
-    const { actions, state } = this.props;
-    actions.decrementCounter();
-  };
-
-  fetchIt = () => {
-    const { actions, state } = this.props;
-    actions.fetchPhrase();
-  };
-
-  clearIt = () => {
-    const { actions } = this.props;
-    actions.clearPhrase();
   };
 
   fetchVideos = () => {
@@ -94,53 +60,6 @@ class SandBox extends React.Component {
         >
           <Icon icon={["fab", "youtube"]} fixedWidth />
         </button>
-        <br />
-        <button
-          type="button"
-          className="button is-primary icon menu"
-          onClick={this.decrementIt}
-        >
-          <Icon icon={["fas", "minus"]} fixedWidth />
-        </button>
-        <button
-          type="button"
-          className="button is-primary icon menu"
-          onClick={this.incrementIt}
-        >
-          <Icon icon={["fas", "plus"]} fixedWidth />
-        </button>
-        <br />
-        <span>
-          <strong>Counter: </strong> {state.counter}
-        </span>
-        <br />
-        <button
-          type="button"
-          disabled={state.phraseRequested}
-          className="button is-primary icon menu"
-          onClick={this.fetchIt}
-        >
-          <Icon icon={["fas", "plus"]} fixedWidth />
-        </button>
-        <button
-          type="button"
-          disabled={state.phraseRequested}
-          className="button is-primary icon menu"
-          onClick={this.clearIt}
-        >
-          <Icon icon={["fas", "minus"]} fixedWidth />
-        </button>
-        <br />
-        <div>
-          <b>REQUESTED</b>: {state.phraseRequested ? "TRUE" : "FALSE"}
-        </div>
-        <div>
-          <b>PHRASE</b>: {state.phrase !== null ? state.phrase : "NO PHRASE"}
-        </div>
-        <div>
-          <b>ERROR</b>:{" "}
-          {state.phraseError !== null ? state.phraseError : "NO ERROR"}
-        </div>
         <br />
         <button
           type="button"
@@ -191,10 +110,6 @@ function mapStateToProps(state) {
   return {
     state: {
       burgerMenu: state.burgerMenu,
-      counter: getCounter(state),
-      phrase: getPhrase(state),
-      phraseError: getPhraseError(state),
-      phraseRequested: getPhraseRequested(state),
       videos: getVideos(state),
       videosError: getVideosError(state),
       videosRequested: getVideosRequested(state)
@@ -207,10 +122,6 @@ function mapDispatchToProps(dispatch) {
     actions: bindActionCreators(
       {
         toggleMenu,
-        incrementCounter,
-        decrementCounter,
-        clearPhrase,
-        fetchPhrase,
         fetchVideos
       },
       dispatch

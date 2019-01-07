@@ -1,15 +1,31 @@
 import { combineReducers } from "redux";
 import { createAction, handleActions } from "redux-actions";
-import { push } from "connected-react-router";
 import API from "../../../../apiControllers/internal";
 
 // PRIVATE ACTION CREATORS
 const authRequest = createAction("AUTH_REQUEST");
 const authResponse = createAction("AUTH_RESPONSE");
+const authError = createAction("AUTH_ERROR");
 
 // EXPORTED ACTION CREATORS
 export const logOut = createAction("LOG_OUT_USER");
 export const clearAuthError = createAction("CLEAR_AUTH_ERROR");
+
+// PRIVATE FUNCTIONS
+function handleAsyncActionError(err, dispatch) {
+  let payload = {};
+  if (err.response) {
+    if (err.response.data.error) {
+      payload = err.response.data.error;
+    } else {
+      payload = err.response.data;
+    }
+  } else {
+    payload = err;
+  }
+
+  dispatch(authError(payload));
+}
 
 export const signUp = credentials => dispatch => {
   dispatch(authRequest());
@@ -18,11 +34,7 @@ export const signUp = credentials => dispatch => {
       dispatch(authResponse(res.data));
     })
     .catch(err => {
-      if (err.response) {
-        dispatch(authResponse(err.response.data.error));
-      } else {
-        dispatch(authResponse(err));
-      }
+      handleAsyncActionError(err, dispatch);
     });
 };
 
@@ -33,33 +45,21 @@ export const logIn = credentials => dispatch => {
       dispatch(authResponse(res.data));
     })
     .catch(err => {
-      if (err.response) {
-        dispatch(authResponse(err.response.data.error));
-      } else {
-        dispatch(authResponse(err.Error));
-      }
+      handleAsyncActionError(err, dispatch);
     });
 };
 
 // REDUCERS
-const requested = handleActions(
+const error = handleActions(
   {
+    [authError](_state, { payload }) {
+      return payload;
+    },
     [authRequest]() {
-      return true;
+      return null;
     },
     [authResponse]() {
-      return false;
-    }
-  },
-  false
-);
-
-const value = handleActions(
-  {
-    [authResponse]: {
-      next(_state, { payload }) {
-        return payload;
-      }
+      return null;
     },
     [logOut]() {
       return null;
@@ -71,20 +71,37 @@ const value = handleActions(
   null
 );
 
-const error = handleActions(
+const requested = handleActions(
   {
-    [authResponse]: {
-      next(_state, { payload }) {
-        return null;
-      },
-      throw(
-        _state,
-        {
-          payload: { message }
-        }
-      ) {
-        return message;
-      }
+    [authError]() {
+      return false;
+    },
+    [authRequest]() {
+      return true;
+    },
+    [authResponse]() {
+      return false;
+    },
+    [logOut]() {
+      return false;
+    },
+    [clearAuthError]() {
+      return false;
+    }
+  },
+  false
+);
+
+const value = handleActions(
+  {
+    [authError]() {
+      return null;
+    },
+    [authRequest]() {
+      return null;
+    },
+    [authResponse](_state, { payload }) {
+      return payload;
     },
     [logOut]() {
       return null;
